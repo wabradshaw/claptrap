@@ -1,0 +1,11 @@
+.gradle
+/build/
+/gradle/
+.gradlew
+.gradlew.bat
+.idea
+*.iws
+*.iml
+*.ipr
+/src/main/resources/application.properties
+out/
