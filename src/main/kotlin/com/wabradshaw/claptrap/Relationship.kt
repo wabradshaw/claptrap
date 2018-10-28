@@ -1,7 +1,7 @@
 package com.wabradshaw.claptrap
 
 /**
- * A relationship links an original word, and a different substitution word.
+ * A relationship links an original word, and a different semantic substitution word.
  */
 enum class Relationship {
 
