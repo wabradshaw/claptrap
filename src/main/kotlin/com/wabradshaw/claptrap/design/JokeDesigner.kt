@@ -1,4 +1,6 @@
-package com.wabradshaw.claptrap
+package com.wabradshaw.claptrap.design
+
+import com.wabradshaw.claptrap.structure.JokeSpec
 
 /**
  * The JokeDesigner is used to design the specification for jokes. It's method generate JokeSpecs
@@ -14,7 +16,7 @@ class JokeDesigner(){
      *
      * @param nucleus The word that should be the focus for the joke. It will appear in the body.
      */
-    fun designJokeFromNucleus(nucleus: String): JokeSpec{
+    fun designJokeFromNucleus(nucleus: String): JokeSpec {
         return TODO()
     }
 }

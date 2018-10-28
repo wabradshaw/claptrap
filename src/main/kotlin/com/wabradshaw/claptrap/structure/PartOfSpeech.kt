@@ -1,4 +1,4 @@
-package com.wabradshaw.claptrap
+package com.wabradshaw.claptrap.structure
 
 /**
  * An enum for the different parts of speech (pos) handled by the system. A pos is a tag

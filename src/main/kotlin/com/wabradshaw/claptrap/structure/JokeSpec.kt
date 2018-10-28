@@ -1,4 +1,4 @@
-package com.wabradshaw.claptrap
+package com.wabradshaw.claptrap.structure
 
 data class JokeSpec (val nucleus : Word,
                      val primarySetup : SemanticSubstitution,

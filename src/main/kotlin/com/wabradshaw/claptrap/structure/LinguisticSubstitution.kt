@@ -1,4 +1,4 @@
-package com.wabradshaw.claptrap
+package com.wabradshaw.claptrap.structure
 
 /**
  * A linguistic substitution is a word that can be used to replace a particular original word with another word that

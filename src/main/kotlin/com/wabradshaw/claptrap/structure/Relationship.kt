@@ -1,4 +1,4 @@
-package com.wabradshaw.claptrap
+package com.wabradshaw.claptrap.structure
 
 /**
  * A relationship links an original word, and a different semantic substitution word.

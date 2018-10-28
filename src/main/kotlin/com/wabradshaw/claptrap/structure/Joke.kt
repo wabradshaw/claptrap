@@ -1,4 +1,4 @@
-package com.wabradshaw.claptrap
+package com.wabradshaw.claptrap.structure
 
 /**
  * A Joke is a bundle containing a generated joke, and the key components that led to this joke's generation.

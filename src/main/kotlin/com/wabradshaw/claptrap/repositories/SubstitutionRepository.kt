@@ -1,8 +1,8 @@
 package com.wabradshaw.claptrap.repositories
 
-import com.wabradshaw.claptrap.Relationship
-import com.wabradshaw.claptrap.Word
-import com.wabradshaw.claptrap.substitution.Substitution
+import com.wabradshaw.claptrap.structure.Relationship
+import com.wabradshaw.claptrap.structure.Word
+import com.wabradshaw.claptrap.structure.SemanticSubstitution
 
 /**
  * A SubstitutionRepository is an interface for connectors to different dictionaries that contain relationships
@@ -19,6 +19,6 @@ interface SubstitutionRepository {
      * @param validRelationships A list of all of the Relationships that constitute valid substitutions.
      * @return A list of the possible Substitutions for the original word.
      */
-    fun getSubstitutions(word: Word, validRelationships: List<Relationship>): List<Substitution>
+    fun getSubstitutions(word: Word, validRelationships: List<Relationship>): List<SemanticSubstitution>
 
 }

@@ -1,4 +1,4 @@
-package com.wabradshaw.claptrap.substitution
+package com.wabradshaw.claptrap.design
 
 import java.lang.Math.min
 

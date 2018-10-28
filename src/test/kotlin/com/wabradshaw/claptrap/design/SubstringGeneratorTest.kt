@@ -1,5 +1,6 @@
-package com.wabradshaw.claptrap.substitution
+package com.wabradshaw.claptrap.design
 
+import com.wabradshaw.claptrap.design.SubstringGenerator
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance

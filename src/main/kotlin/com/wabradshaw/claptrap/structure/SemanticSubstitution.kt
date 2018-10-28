@@ -1,8 +1,4 @@
-package com.wabradshaw.claptrap
-
-import com.wabradshaw.claptrap.PartOfSpeech
-import com.wabradshaw.claptrap.Relationship
-import com.wabradshaw.claptrap.Word
+package com.wabradshaw.claptrap.structure
 
 /**
  * A semantic substitution is a word that can be used to replace a particular original word with another word that is
