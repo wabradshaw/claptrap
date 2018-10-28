@@ -5,7 +5,7 @@ package com.wabradshaw.claptrap
  * could be linguistically confused for the original word. This linguistic link is defined by a given similarity.
  * E.g. "cart" could be a substitute for "heart" as they rhyme.
  *
- * Linguistic substitutions are used when creating the body of a joke.
+ * Linguistic substitutions are used when creating the punchline of a joke.
  *
  * @property substitution The word that can be used as a linguistic substitute for the original word.
  * @property original     The word to be replaced.
