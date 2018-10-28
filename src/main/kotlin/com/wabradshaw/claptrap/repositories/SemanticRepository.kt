@@ -5,10 +5,10 @@ import com.wabradshaw.claptrap.structure.Word
 import com.wabradshaw.claptrap.structure.SemanticSubstitution
 
 /**
- * A SubstitutionRepository is an interface for connectors to different dictionaries that contain relationships
+ * A SemanticRepository is an interface for connectors to different dictionaries that contain relationships
  * between words. That is, words which can be substituted for an original according to a particular relationship.
  */
-interface SubstitutionRepository {
+interface SemanticRepository {
 
     /**
      * Gets a list of all of the words in the dictionary that can be substituted for the supplied original word,
@@ -17,7 +17,7 @@ interface SubstitutionRepository {
      *
      * @param word The original word to be substituted.
      * @param validRelationships A list of all of the Relationships that constitute valid substitutions.
-     * @return A list of the possible Substitutions for the original word.
+     * @return A list of the possible SemanticSubstitutions for the original word.
      */
     fun getSubstitutions(word: Word, validRelationships: List<Relationship>): List<SemanticSubstitution>
 

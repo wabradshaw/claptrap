@@ -3,7 +3,7 @@ package com.wabradshaw.claptrap.repositories
 import com.wabradshaw.claptrap.structure.Word
 
 /**
- * A SubstitutionRepository is an interface for connectors to different dictionaries that data on individual words.
+ * A DictionaryRepository is an interface for connectors to different dictionaries that data on individual words.
  */
 interface DictionaryRepository {
 
