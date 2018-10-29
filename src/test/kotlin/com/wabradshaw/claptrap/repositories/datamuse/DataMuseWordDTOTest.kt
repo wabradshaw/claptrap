@@ -101,7 +101,7 @@ class DataMuseWordDTOTest {
 
         assertEquals(PartOfSpeech.NOUN, result.partOfSpeech)
     }
-    
+
     /**
      * Tests that toWord will use the first part of speech if multiple are provided, as that is the most common use.
      */
