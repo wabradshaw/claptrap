@@ -3,6 +3,7 @@ version '1.0.0-SNAPSHOT'
 
 buildscript {
     ext.kotlin_version = '1.2.21'
+    ext.jackson_version = '2.9.+'
     ext.junit_version = '5.2.0'
     ext.mockito_version = '2.21.0'
 
@@ -22,6 +23,7 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    compile "com.fasterxml.jackson.module:jackson-module-kotlin:$jackson_version"
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junit_version"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit_version"
     testCompile "org.mockito:mockito-core:$mockito_version"
