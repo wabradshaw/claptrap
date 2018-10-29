@@ -13,5 +13,5 @@ interface DictionaryRepository {
      * @param word The spelling of the word to lookup.
      * @return The details of the word, or null if the word doesn't exist in the database.
      */
-    fun getWord(word: String ): Word?
+    fun getWord(string: String ): Word?
 }
