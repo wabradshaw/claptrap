@@ -1,5 +1,6 @@
 package com.wabradshaw.claptrap.repositories.datamuse
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.wabradshaw.claptrap.structure.PartOfSpeech
 import com.wabradshaw.claptrap.structure.Word
@@ -8,6 +9,7 @@ import com.wabradshaw.claptrap.structure.Word
  * JSON transfer object to convert DataMuse responses into Word objects.
  */
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
+@JsonIgnoreProperties(value = "numSyllables")
 class DataMuseWordDTO(val word:String, val score:Int, val tags: List<String>){
 
     private val pos = when (tags.get(1)){
