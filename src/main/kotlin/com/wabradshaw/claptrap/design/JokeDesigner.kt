@@ -1,6 +1,8 @@
 package com.wabradshaw.claptrap.design
 
+import com.wabradshaw.claptrap.NoJokeException
 import com.wabradshaw.claptrap.repositories.DictionaryRepository
+import com.wabradshaw.claptrap.repositories.LinguisticRepository
 import com.wabradshaw.claptrap.repositories.SemanticRepository
 import com.wabradshaw.claptrap.structure.*
 
@@ -10,8 +12,13 @@ import com.wabradshaw.claptrap.structure.*
  */
 class JokeDesigner(val dictionaryRepo: DictionaryRepository,
                    val semanticRepo: SemanticRepository,
+                   val linguisticRepo: LinguisticRepository,
                    val validPrimaryRelationships: List<Relationship> = listOf(Relationship.INCLUDES, Relationship.SYNONYM),
-                   val randomiseSemanticSubstitutions: Boolean = true){
+                   val validSimilarities: List<LinguisticSimilarity> = listOf(LinguisticSimilarity.RHYME),
+                   val substringGenerator: SubstringGenerator = SubstringGenerator(),
+                   val randomiseSubstringChoice: Boolean = true,
+                   val randomiseSemanticSubstitutions: Boolean = true,
+                   val randomiseLinguisticSubstitutions: Boolean = true){
 
     /**
      * Generates the joke specification for a joke where the user has supplied the principle word in the
@@ -27,21 +34,54 @@ class JokeDesigner(val dictionaryRepo: DictionaryRepository,
 
         val primarySetup: SemanticSubstitution? = when (nucleusWord) {
             null -> null
-            else -> choosePrimarySetup(nucleusWord)
+            else -> chooseSetup(nucleusWord, listOf(nucleusWord))
         }
 
-        return TODO()
+        val substrings = substringGenerator.getSubstrings(nucleus).toMutableList()
+        if (randomiseSubstringChoice) substrings.shuffle()
+
+        for(substring in substrings) {
+            val candidateSubstring = dictionaryRepo.getWord(substring)
+            if(candidateSubstring != null && substringMatchesPhonetically(nucleusWord?.pronunciation, candidateSubstring.pronunciation)){
+                val linguisticSubs = linguisticRepo
+                        .getSubstitutions(candidateSubstring, validSimilarities)
+                        .filterNot{(c) -> usedWord(c, listOf(nucleusWord, primarySetup?.substitution)) }
+                        .toMutableList()
+
+                if (randomiseLinguisticSubstitutions) linguisticSubs.shuffle()
+
+                for(linguisticSub in linguisticSubs){
+                    val secondarySetup = chooseSetup(linguisticSub.substitution, listOf(nucleusWord, primarySetup?.substitution, candidateSubstring, linguisticSub.substitution))
+
+                    if(secondarySetup != null){
+                        return JokeSpec(nucleus, nucleusWord, primarySetup, secondarySetup, linguisticSub)
+                    }
+                }
+            }
+        }
+        throw NoJokeException("No joke could be found for the word '$nucleus'.")
     }
 
     /**
-     * Chooses the word that primes the reader for the main word in the punchline. If there are no known semantic
+     * Chooses the word that primes the reader for the punchline. If there are no known semantic
      * substitutions, this will return null.
      */
-    private fun choosePrimarySetup(nucleusWord: Word): SemanticSubstitution? {
-        var options = semanticRepo.getSubstitutions(nucleusWord, validPrimaryRelationships)
+    private fun chooseSetup(nucleusWord: Word, usedWords: List<Word?>): SemanticSubstitution? {
+        var options =
+                semanticRepo.getSubstitutions(nucleusWord, validPrimaryRelationships)
+                        .filterNot{(c) -> usedWord(c, usedWords) }
+
         return when (randomiseSemanticSubstitutions){
             true -> options.shuffled().getOrNull(0)
             false -> options.getOrNull(0)
         }
     }
+
+
+    private fun substringMatchesPhonetically(nucleus : String?, candidate: String): Boolean{
+        return nucleus == null || nucleus.startsWith(candidate) || nucleus.endsWith(candidate)
+    }
+
+    private fun usedWord(candidate: Word, usedWords: List<Word?>) =
+            candidate.spelling in usedWords.map { word -> word?.spelling }
 }
