@@ -10,15 +10,17 @@ import com.wabradshaw.claptrap.structure.*
  * The JokeDesigner is used to design the specification for jokes. It's method generate JokeSpecs
  * that can be turned into actual written jokes.
  */
-class JokeDesigner(val dictionaryRepo: DictionaryRepository,
-                   val semanticRepo: SemanticRepository,
-                   val linguisticRepo: LinguisticRepository,
-                   val validPrimaryRelationships: List<Relationship> = listOf(Relationship.INCLUDES, Relationship.SYNONYM),
-                   val validSimilarities: List<LinguisticSimilarity> = listOf(LinguisticSimilarity.RHYME),
-                   val substringGenerator: SubstringGenerator = SubstringGenerator(),
-                   val randomiseSubstringChoice: Boolean = true,
-                   val randomiseSemanticSubstitutions: Boolean = true,
-                   val randomiseLinguisticSubstitutions: Boolean = true){
+class JokeDesigner(private val dictionaryRepo: DictionaryRepository,
+                   private val semanticRepo: SemanticRepository,
+                   private val linguisticRepo: LinguisticRepository,
+                   private val validPrimaryRelationships: List<Relationship> = listOf(Relationship.INCLUDES),
+                   private val validSecondaryRelationships: List<Relationship> = listOf(Relationship.HAS_A),
+                   private val validSimilarities: List<LinguisticSimilarity> = listOf(LinguisticSimilarity.HOMOPHONE, LinguisticSimilarity.CONSONANT_MATCH),
+                   private val substringGenerator: SubstringGenerator = SubstringGenerator(),
+                   private val randomiseSubstringChoice: Boolean = true,
+                   private val randomiseSemanticSubstitutions: Boolean = true,
+                   private val randomiseLinguisticSubstitutions: Boolean = true,
+                   private val requiredFrequency: Double = 0.5){
 
     /**
      * Generates the joke specification for a joke where the user has supplied the principle word in the
@@ -34,7 +36,7 @@ class JokeDesigner(val dictionaryRepo: DictionaryRepository,
 
         val primarySetup: SemanticSubstitution? = when (nucleusWord) {
             null -> null
-            else -> chooseSetup(nucleusWord, listOf(nucleusWord))
+            else -> chooseSetup(nucleusWord, listOf(nucleusWord), validPrimaryRelationships)
         }
 
         val substrings = substringGenerator.getSubstrings(nucleus).toMutableList()
@@ -44,14 +46,17 @@ class JokeDesigner(val dictionaryRepo: DictionaryRepository,
             val candidateSubstring = dictionaryRepo.getWord(substring)
             if(candidateSubstring != null && substringMatchesPhonetically(nucleusWord?.pronunciation, candidateSubstring.pronunciation)){
                 val linguisticSubs = linguisticRepo
-                        .getSubstitutions(candidateSubstring, validSimilarities)
+                        .getLinguisticSubs(candidateSubstring, validSimilarities)
                         .filterNot{(c) -> usedWord(c, listOf(nucleusWord, primarySetup?.substitution)) }
+                        .filter{(c) -> commonWord(c)}
                         .toMutableList()
 
                 if (randomiseLinguisticSubstitutions) linguisticSubs.shuffle()
 
                 for(linguisticSub in linguisticSubs){
-                    val secondarySetup = chooseSetup(linguisticSub.substitution, listOf(nucleusWord, primarySetup?.substitution, candidateSubstring, linguisticSub.substitution))
+                    val usedWords = listOf(nucleusWord, primarySetup?.substitution, candidateSubstring, linguisticSub.substitution)
+                    val secondarySetup = chooseSetup(linguisticSub.substitution, usedWords, validSecondaryRelationships)
+
 
                     if(secondarySetup != null){
                         return JokeSpec(nucleus, nucleusWord, primarySetup, secondarySetup, linguisticSub)
@@ -66,10 +71,11 @@ class JokeDesigner(val dictionaryRepo: DictionaryRepository,
      * Chooses the word that primes the reader for the punchline. If there are no known semantic
      * substitutions, this will return null.
      */
-    private fun chooseSetup(nucleusWord: Word, usedWords: List<Word?>): SemanticSubstitution? {
-        var options =
-                semanticRepo.getSubstitutions(nucleusWord, validPrimaryRelationships)
+    private fun chooseSetup(nucleusWord: Word, usedWords: List<Word?>, validRelationships: List<Relationship>): SemanticSubstitution? {
+        val options =
+                semanticRepo.getSemanticSubs(nucleusWord, validRelationships)
                         .filterNot{(c) -> usedWord(c, usedWords) }
+                        .filter{(c) -> commonWord(c)}
 
         return when (randomiseSemanticSubstitutions){
             true -> options.shuffled().getOrNull(0)
@@ -79,8 +85,10 @@ class JokeDesigner(val dictionaryRepo: DictionaryRepository,
 
 
     private fun substringMatchesPhonetically(nucleus : String?, candidate: String): Boolean{
-        return nucleus == null || nucleus.startsWith(candidate) || nucleus.endsWith(candidate)
+        return true || nucleus == null || nucleus.startsWith(candidate) || nucleus.endsWith(candidate)
     }
+
+    private fun commonWord(candidate: Word) = candidate.popularity > requiredFrequency
 
     private fun usedWord(candidate: Word, usedWords: List<Word?>) =
             candidate.spelling in usedWords.map { word -> word?.spelling }

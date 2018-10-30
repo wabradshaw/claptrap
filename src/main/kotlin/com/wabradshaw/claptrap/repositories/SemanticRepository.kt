@@ -19,6 +19,6 @@ interface SemanticRepository {
      * @param validRelationships A list of all of the Relationships that constitute valid substitutions.
      * @return A list of the possible SemanticSubstitutions for the original word.
      */
-    fun getSubstitutions(word: Word, validRelationships: List<Relationship>): List<SemanticSubstitution>
+    fun getSemanticSubs(word: Word, validRelationships: List<Relationship>): List<SemanticSubstitution>
 
 }

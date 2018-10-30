@@ -1,8 +1,8 @@
 package com.wabradshaw.claptrap.repositories.datamuse
 
-import com.wabradshaw.claptrap.repositories.datamuse.DataMuseRepository
 import com.wabradshaw.claptrap.structure.LinguisticSimilarity
 import com.wabradshaw.claptrap.structure.PartOfSpeech
+import com.wabradshaw.claptrap.structure.Relationship
 import com.wabradshaw.claptrap.structure.Word
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
@@ -21,7 +21,14 @@ class DataMuseRepositoryTest {
     @Test
     fun testGetSubstitutions_known(){
         var word = Word("horse", "", PartOfSpeech.NOUN, 10.0)
-        var result = repo.getSubstitutions(word, listOf(LinguisticSimilarity.RHYME))
+        var result = repo.getLinguisticSubs(word, listOf(LinguisticSimilarity.RHYME))
+        println(result);
+    }
+
+    @Test
+    fun testGetRelationships_known(){
+        var word = Word("horse", "", PartOfSpeech.NOUN, 10.0)
+        var result = repo.getSemanticSubs(word, listOf(Relationship.IS_A))
         println(result);
     }
 }

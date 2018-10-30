@@ -18,6 +18,6 @@ interface LinguisticRepository {
      * @param validSimilarities A list of all of the Similarities that constitute valid substitutions.
      * @return A list of the possible LinguisiticSubstitutions for the original word.
      */
-    fun getSubstitutions(word: Word, validSimilarities: List<LinguisticSimilarity>): List<LinguisticSubstitution>
+    fun getLinguisticSubs(word: Word, validSimilarities: List<LinguisticSimilarity>): List<LinguisticSubstitution>
 
 }
