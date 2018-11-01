@@ -17,7 +17,7 @@ class JokeGenerator {
             true -> spec.nucleus.replaceFirst(replaced, substitution + "-")
             false -> spec.nucleus.substring(0, spec.nucleus.length - replaced.length) + "-" + substitution
         }
-        return Joke("What do you call a ${primarySetup} with a ${secondarySetup}?",
+        return Joke("What do you call a ${primarySetup} with ${secondarySetup}?",
                     "A $joke!",
                     spec)
     }
