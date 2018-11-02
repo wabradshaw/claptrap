@@ -19,7 +19,7 @@ class WordMappingDTOTest {
     fun testToWord_spelling(){
         val dto = WordMappingDTO("cat", "_at", "Noun", false, emptyList())
         val result = dto.toWord()
-        assertEquals("cat", result.spelling);
+        assertEquals("cat", result.spelling)
     }
 
     /**
@@ -29,7 +29,7 @@ class WordMappingDTOTest {
     fun testToWord_pronunciation(){
         val dto = WordMappingDTO("cat", "_at", "Noun", false, emptyList())
         val result = dto.toWord()
-        assertEquals("cat", result.pronunciation);
+        assertEquals("cat", result.pronunciation)
     }
 
     /**
@@ -39,7 +39,7 @@ class WordMappingDTOTest {
     fun testToWord_frequency(){
         val dto = WordMappingDTO("cat", "_at", "Noun", false, emptyList())
         val result = dto.toWord()
-        assertEquals(100.0, result.frequency);
+        assertEquals(100.0, result.frequency)
     }
 
     /**
@@ -49,7 +49,7 @@ class WordMappingDTOTest {
     fun testToWord_pos_noun(){
         val dto = WordMappingDTO("cat", "_at", "Noun", false, emptyList())
         val result = dto.toWord()
-        assertEquals(PartOfSpeech.NOUN, result.partOfSpeech);
+        assertEquals(PartOfSpeech.NOUN, result.partOfSpeech)
     }
 
     /**
@@ -59,7 +59,7 @@ class WordMappingDTOTest {
     fun testToWord_pos_verb(){
         val dto = WordMappingDTO("sat", "_at", "Verb", false, emptyList())
         val result = dto.toWord()
-        assertEquals(PartOfSpeech.VERB, result.partOfSpeech);
+        assertEquals(PartOfSpeech.VERB, result.partOfSpeech)
     }
 
     /**
@@ -69,7 +69,7 @@ class WordMappingDTOTest {
     fun testToWord_pos_adj(){
         val dto = WordMappingDTO("fat", "_at", "Adj", false, emptyList())
         val result = dto.toWord()
-        assertEquals(PartOfSpeech.ADJECTIVE, result.partOfSpeech);
+        assertEquals(PartOfSpeech.ADJECTIVE, result.partOfSpeech)
     }
 
     /**
@@ -79,6 +79,6 @@ class WordMappingDTOTest {
     fun testToWord_pos_unknown(){
         val dto = WordMappingDTO("qat", "_at", "???", false, emptyList())
         val result = dto.toWord()
-        assertEquals(PartOfSpeech.UNKNOWN, result.partOfSpeech);
+        assertEquals(PartOfSpeech.UNKNOWN, result.partOfSpeech)
     }
 }
