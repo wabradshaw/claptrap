@@ -95,7 +95,7 @@ class JsonRepositoryTest {
     @Test
     fun testGetSemanticSubs_unknown(){
         val repo = JsonRepository(this.javaClass.getResourceAsStream("/dictionaries/catOnly.json"))
-        val result = repo.getSemanticSubs(unknown);
+        val result = repo.getSemanticSubs(unknown)
         assertEquals(emptyList<LinguisticSubstitution>(), result)
     }
 
@@ -106,7 +106,7 @@ class JsonRepositoryTest {
     fun testGetSemanticSubs_has_exist(){
         val repo = JsonRepository(jsonSource = this.javaClass.getResourceAsStream("/dictionaries/catOnly.json"),
                                   validRelationships = listOf(Relationship.HAS_A))
-        val result = repo.getSemanticSubs(cat);
+        val result = repo.getSemanticSubs(cat)
         assertEquals(2, result.size)
         assertEquals(SemanticSubstitution(tail, cat, Relationship.HAS_A), result[0])
         assertEquals(SemanticSubstitution(whiskers, cat, Relationship.HAS_A), result[1])
@@ -119,7 +119,7 @@ class JsonRepositoryTest {
     fun testGetSemanticSubs_has_none(){
         val repo = JsonRepository(this.javaClass.getResourceAsStream("/dictionaries/quark.json"),
                                   validRelationships = listOf(Relationship.HAS_A))
-        val result = repo.getSemanticSubs(quark);
+        val result = repo.getSemanticSubs(quark)
         assertEquals(emptyList<LinguisticSubstitution>(), result)
     }
 
