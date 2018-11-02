@@ -17,7 +17,7 @@ class WordMappingDTOTest {
      */
     @Test
     fun testToWord_spelling(){
-        val dto = WordMappingDTO("cat", "_at", "Noun", false, emptyList())
+        val dto = WordMappingDTO("cat", "_at", "Noun", false)
         val result = dto.toWord()
         assertEquals("cat", result.spelling)
     }
@@ -27,7 +27,7 @@ class WordMappingDTOTest {
      */
     @Test
     fun testToWord_pronunciation(){
-        val dto = WordMappingDTO("cat", "_at", "Noun", false, emptyList())
+        val dto = WordMappingDTO("cat", "_at", "Noun", false)
         val result = dto.toWord()
         assertEquals("cat", result.pronunciation)
     }
@@ -37,7 +37,7 @@ class WordMappingDTOTest {
      */
     @Test
     fun testToWord_frequency(){
-        val dto = WordMappingDTO("cat", "_at", "Noun", false, emptyList())
+        val dto = WordMappingDTO("cat", "_at", "Noun", false)
         val result = dto.toWord()
         assertEquals(100.0, result.frequency)
     }
@@ -47,7 +47,7 @@ class WordMappingDTOTest {
      */
     @Test
     fun testToWord_pos_noun(){
-        val dto = WordMappingDTO("cat", "_at", "Noun", false, emptyList())
+        val dto = WordMappingDTO("cat", "_at", "Noun", false)
         val result = dto.toWord()
         assertEquals(PartOfSpeech.NOUN, result.partOfSpeech)
     }
@@ -57,7 +57,7 @@ class WordMappingDTOTest {
      */
     @Test
     fun testToWord_pos_verb(){
-        val dto = WordMappingDTO("sat", "_at", "Verb", false, emptyList())
+        val dto = WordMappingDTO("sat", "_at", "Verb", false)
         val result = dto.toWord()
         assertEquals(PartOfSpeech.VERB, result.partOfSpeech)
     }
@@ -67,7 +67,7 @@ class WordMappingDTOTest {
      */
     @Test
     fun testToWord_pos_adj(){
-        val dto = WordMappingDTO("fat", "_at", "Adj", false, emptyList())
+        val dto = WordMappingDTO("fat", "_at", "Adj", false)
         val result = dto.toWord()
         assertEquals(PartOfSpeech.ADJECTIVE, result.partOfSpeech)
     }
@@ -77,7 +77,7 @@ class WordMappingDTOTest {
      */
     @Test
     fun testToWord_pos_unknown(){
-        val dto = WordMappingDTO("qat", "_at", "???", false, emptyList())
+        val dto = WordMappingDTO("qat", "_at", "???", false)
         val result = dto.toWord()
         assertEquals(PartOfSpeech.UNKNOWN, result.partOfSpeech)
     }
