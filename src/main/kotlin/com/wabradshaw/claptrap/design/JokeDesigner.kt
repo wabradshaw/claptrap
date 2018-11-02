@@ -4,7 +4,9 @@ import com.wabradshaw.claptrap.NoJokeException
 import com.wabradshaw.claptrap.repositories.DictionaryRepository
 import com.wabradshaw.claptrap.repositories.LinguisticRepository
 import com.wabradshaw.claptrap.repositories.SemanticRepository
-import com.wabradshaw.claptrap.structure.*
+import com.wabradshaw.claptrap.structure.JokeSpec
+import com.wabradshaw.claptrap.structure.SemanticSubstitution
+import com.wabradshaw.claptrap.structure.Word
 
 /**
  * The JokeDesigner is used to design the specification for jokes. It's method generate JokeSpecs
@@ -42,7 +44,7 @@ class JokeDesigner(private val dictionaryRepo: DictionaryRepository,
 
         for(substring in substrings) {
             val candidateSubstring = dictionaryRepo.getWord(substring)
-            if(candidateSubstring != null && substringMatchesPhonetically(nucleusWord?.pronunciation, candidateSubstring.pronunciation)){
+            if(candidateSubstring != null){
                 val linguisticSubs = linguisticRepo
                         .getLinguisticSubs(candidateSubstring)
                         .filterNot{(c) -> usedWord(c, listOf(nucleusWord, primarySetup?.substitution)) }
@@ -78,11 +80,6 @@ class JokeDesigner(private val dictionaryRepo: DictionaryRepository,
             true -> options.shuffled().getOrNull(0)
             false -> options.getOrNull(0)
         }
-    }
-
-
-    private fun substringMatchesPhonetically(nucleus : String?, candidate: String): Boolean{
-        return true || nucleus == null || nucleus.startsWith(candidate) || nucleus.endsWith(candidate)
     }
 
     private fun commonWord(candidate: Word) = candidate.frequency > requiredFrequency
