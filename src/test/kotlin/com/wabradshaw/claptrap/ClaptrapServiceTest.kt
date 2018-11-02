@@ -15,7 +15,7 @@ class ClapTrapServiceTest {
         val customRepo = JsonRepository(this.javaClass.getResourceAsStream("/customDictionary.json"))
         val jokeDesigner = JokeDesigner(customRepo, customRepo, customRepo, customRepo)
 
-        var result = ClaptrapService(jokeDesigner).tellJoke("nightmare")
+        var result = ClaptrapService(jokeDesigner).tellJoke("catapult")
 
         println(result.spec)
         println()

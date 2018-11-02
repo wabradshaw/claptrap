@@ -64,6 +64,7 @@ class DataMuseRepository(private val validSimilarities: List<LinguisticSimilarit
             Relationship.HAS_A -> "com"
             Relationship.PART_OF -> "par"
             Relationship.IS_NOT -> "ant"
+            else -> throw NotImplementedError()
         }
         val url = URL("https://api.datamuse.com/words?rel_$simCode=${clean(word.spelling)}&md=frp")
         println(url);

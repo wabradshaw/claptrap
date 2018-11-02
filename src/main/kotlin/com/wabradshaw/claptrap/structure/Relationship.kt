@@ -33,5 +33,20 @@ enum class Relationship {
     /**
      * The original word is the opposite of the substitute. Only used for adj/adv. E.g. hot IS_NOT cold.
      */
-    IS_NOT;
+    IS_NOT,
+
+    /**
+     * The original word resides inside the substitute. E.g. dog IN kennel.
+     */
+    IN,
+
+    /**
+     * The original word resides on top of the substitute. E.g. hair ON head.
+     */
+    ON,
+
+    /**
+     * The original word comes from the substitute. E.g. purr FROM cat.
+     */
+    FROM;
 }
