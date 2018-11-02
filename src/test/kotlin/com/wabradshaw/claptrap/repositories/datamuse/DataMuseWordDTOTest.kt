@@ -99,7 +99,7 @@ class DataMuseWordDTOTest {
                 listOf("query","pron:DH AE1 T ","f:10691.065736"))
         val result = dto.toWord()
 
-        assertEquals(PartOfSpeech.NOUN, result.partOfSpeech)
+        assertEquals(PartOfSpeech.UNKNOWN, result.partOfSpeech)
     }
 
     /**

@@ -35,7 +35,7 @@ class CustomRepository(private val jsonSource: InputStream,
 
     private fun getRelationship(detailedWord: WordMappingDTO, relationship: Relationship): Iterable<SemanticSubstitution> {
         return when(relationship){
-            Relationship.HAS_A -> detailedWord.has.map{SemanticSubstitution(Word(it, it, PartOfSpeech.NOUN, 100.0), detailedWord.toWord(), relationship)}
+            Relationship.HAS_A -> detailedWord.has.map{SemanticSubstitution(Word(it, it, PartOfSpeech.UNKNOWN, 100.0), detailedWord.toWord(), relationship)}
             else -> emptyList()
         }
     }

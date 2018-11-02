@@ -16,7 +16,7 @@ class DataMuseWordDTO(val word:String, val score:Int, val tags: List<String>){
         "n" -> PartOfSpeech.NOUN
         "v" -> PartOfSpeech.VERB
         "adj" -> PartOfSpeech.ADJECTIVE
-        else -> PartOfSpeech.NOUN
+        else -> PartOfSpeech.UNKNOWN
     }
     private val pronunciation: String = tags.filter{x -> x.startsWith("pron:")}.get(0).split(":").get(1)
     private val frequency: Double = tags.filter{x -> x.startsWith("f:")}.get(0).split(":").get(1).toDouble()

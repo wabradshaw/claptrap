@@ -7,5 +7,6 @@ package com.wabradshaw.claptrap.structure
 enum class PartOfSpeech {
     NOUN,
     VERB,
-    ADJECTIVE;
+    ADJECTIVE,
+    UNKNOWN;
 }

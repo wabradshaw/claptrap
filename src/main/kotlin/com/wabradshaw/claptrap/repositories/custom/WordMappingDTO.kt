@@ -9,7 +9,7 @@ class WordMappingDTO(val spelling: String, val group: String, val pos: String, v
         "Noun" -> PartOfSpeech.NOUN
         "Verb" -> PartOfSpeech.VERB
         "Adj" -> PartOfSpeech.ADJECTIVE
-        else -> PartOfSpeech.NOUN
+        else -> PartOfSpeech.UNKNOWN
     }
 
     fun toWord(): Word {
