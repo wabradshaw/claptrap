@@ -15,6 +15,7 @@ class JsonRepositoryTest {
     private val bat = Word("bat", "bat", PartOfSpeech.NOUN, 100.0)
     private val hat = Word("hat", "hat", PartOfSpeech.NOUN, 100.0)
     private val rat = Word("rat", "rat", PartOfSpeech.NOUN, 100.0)
+    private val twat = Word("twat", "twat", PartOfSpeech.NOUN, 100.0)
 
     private val unknown = Word("zzz", "zzz", PartOfSpeech.UNKNOWN, 100.0)
     private val quark = Word("quark", "quark", PartOfSpeech.NOUN, 100.0)
@@ -121,4 +122,52 @@ class JsonRepositoryTest {
         val result = repo.getSemanticSubs(quark);
         assertEquals(emptyList<LinguisticSubstitution>(), result)
     }
+
+    /**
+     * Tests that an adult word can be returned by getWords if showAdult is true.
+     */
+    @Test
+    fun testShowAdult_true_getWords(){
+        val repo = JsonRepository(jsonSource = this.javaClass.getResourceAsStream("/dictionaries/catBatOwlTwat.json"),
+                                  showAdult = true)
+        val result = repo.getWord("twat")
+        assertEquals(twat, result)
+    }
+
+    /**
+     * Tests that an adult word won't be returned by getWords if showAdult is false.
+     */
+    @Test
+    fun testShowAdult_false_getWords(){
+        val repo = JsonRepository(jsonSource = this.javaClass.getResourceAsStream("/dictionaries/catBatOwlTwat.json"),
+                showAdult = false)
+        val result = repo.getWord("twat")
+        assertEquals(null, result)
+    }
+
+    /**
+     * Tests that an adult word can be returned by getLinguisticSubs if showAdult is true.
+     */
+    @Test
+    fun testShowAdult_true_getLinguisticSubs(){
+        val repo = JsonRepository(jsonSource = this.javaClass.getResourceAsStream("/dictionaries/catBatOwlTwat.json"),
+                showAdult = true)
+        val result = repo.getLinguisticSubs(cat)
+        assertEquals(2, result.size)
+        assertEquals(LinguisticSubstitution(bat, cat, LinguisticSimilarity.RHYME), result[0])
+        assertEquals(LinguisticSubstitution(twat, cat, LinguisticSimilarity.RHYME), result[1])
+    }
+
+    /**
+     * Tests that an adult word won't be returned by getLinguisticSubs if showAdult is false.
+     */
+    @Test
+    fun testShowAdult_false_getLinguisticSubs(){
+        val repo = JsonRepository(jsonSource = this.javaClass.getResourceAsStream("/dictionaries/catBatOwlTwat.json"),
+                showAdult = false)
+        val result = repo.getLinguisticSubs(cat)
+        assertEquals(1, result.size)
+        assertEquals(LinguisticSubstitution(bat, cat, LinguisticSimilarity.RHYME), result[0])
+    }
+
 }
