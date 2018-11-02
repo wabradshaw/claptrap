@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class DataMuseRepositoryTest {
+class ClapTrapServiceTest {
 
     @Test
     fun tellJoke(){
@@ -15,7 +15,7 @@ class DataMuseRepositoryTest {
         val customRepo = JsonRepository(this.javaClass.getResourceAsStream("/customDictionary.json"))
         val jokeDesigner = JokeDesigner(customRepo, customRepo, customRepo, customRepo)
 
-        var result = ClaptrapService(jokeDesigner).tellJoke("catapult")
+        var result = ClaptrapService(jokeDesigner).tellJoke("nightmare")
 
         println(result.spec)
         println()
