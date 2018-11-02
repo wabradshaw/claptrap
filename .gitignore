@@ -9,3 +9,4 @@
 *.ipr
 /src/main/resources/application.properties
 out/
+~$*
