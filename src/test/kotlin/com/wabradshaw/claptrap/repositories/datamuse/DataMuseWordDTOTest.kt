@@ -47,7 +47,7 @@ class DataMuseWordDTOTest {
                 listOf("query","n","pron:EH1 L AH0 F AH0 N T ","f:10.408478"))
         val result = dto.toWord()
 
-        assertEquals(10.408478, result.popularity)
+        assertEquals(10.408478, result.frequency)
     }
 
     /**

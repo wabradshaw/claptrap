@@ -39,7 +39,7 @@ class WordMappingDTOTest {
     fun testToWord_frequency(){
         val dto = WordMappingDTO("cat", "_at", "Noun", false, emptyList())
         val result = dto.toWord()
-        assertEquals(100.0, result.popularity);
+        assertEquals(100.0, result.frequency);
     }
 
     /**

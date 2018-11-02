@@ -88,7 +88,7 @@ class JokeDesigner(private val dictionaryRepo: DictionaryRepository,
         return true || nucleus == null || nucleus.startsWith(candidate) || nucleus.endsWith(candidate)
     }
 
-    private fun commonWord(candidate: Word) = candidate.popularity > requiredFrequency
+    private fun commonWord(candidate: Word) = candidate.frequency > requiredFrequency
 
     private fun usedWord(candidate: Word, usedWords: List<Word?>) =
             candidate.spelling in usedWords.map { word -> word?.spelling }
