@@ -9,7 +9,11 @@ import com.wabradshaw.claptrap.structure.*
 import java.net.URL
 import java.net.URLEncoder
 
-class DataMuseRepository : DictionaryRepository, LinguisticRepository, SemanticRepository {
+class DataMuseRepository(private val validSimilarities: List<LinguisticSimilarity>
+                         = listOf(LinguisticSimilarity.CONSONANT_MATCH, LinguisticSimilarity.HOMOPHONE),
+                        private val validRelationships: List<Relationship>
+                         = listOf(Relationship.SYNONYM, Relationship.IS_A, Relationship.HAS_A))
+    : DictionaryRepository, LinguisticRepository, SemanticRepository {
 
     val mapper = jacksonObjectMapper()
 
@@ -29,11 +33,11 @@ class DataMuseRepository : DictionaryRepository, LinguisticRepository, SemanticR
         return URLEncoder.encode(string, "utf-8")
     }
 
-    override fun getLinguisticSubs(word: Word, validSimilarities: List<LinguisticSimilarity>): List<LinguisticSubstitution> {
+    override fun getLinguisticSubs(word: Word): List<LinguisticSubstitution> {
         return validSimilarities.map{similarity -> getSimilarity(word, similarity)}.flatten()
     }
 
-    override fun getSemanticSubs(word: Word, validRelationships: List<Relationship>): List<SemanticSubstitution> {
+    override fun getSemanticSubs(word: Word): List<SemanticSubstitution> {
         return validRelationships.map{relationship -> getRelationship(word, relationship)}.flatten()
     }
 

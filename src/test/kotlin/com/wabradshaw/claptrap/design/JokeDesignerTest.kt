@@ -8,7 +8,7 @@ import org.junit.jupiter.api.TestInstance
 class DataMuseRepositoryTest {
 
     val repo = DataMuseRepository()
-    val designer = JokeDesigner(repo, repo, repo);
+    val designer = JokeDesigner(repo, repo, repo, repo);
 
     @Test
     fun tellJoke(){

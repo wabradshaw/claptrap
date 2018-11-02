@@ -11,13 +11,12 @@ interface LinguisticRepository {
 
     /**
      * Gets a list of all of the words in the dictionary that can be substituted for the supplied original word,
-     * provided they share one of the supplied linguistic similarities. If no such words exist in the dictionary, then
-     * an empty list is returned.
+     * provided they are similar linguistically. If no such words exist in the dictionary, then an empty list
+     * is returned.
      *
      * @param word The original word to be substituted.
-     * @param validSimilarities A list of all of the Similarities that constitute valid substitutions.
-     * @return A list of the possible LinguisiticSubstitutions for the original word.
+     * @return A list of the possible LinguisticSubstitutions for the original word.
      */
-    fun getLinguisticSubs(word: Word, validSimilarities: List<LinguisticSimilarity>): List<LinguisticSubstitution>
+    fun getLinguisticSubs(word: Word): List<LinguisticSubstitution>
 
 }

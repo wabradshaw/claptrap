@@ -2,6 +2,7 @@ package com.wabradshaw.claptrap.repositories.custom
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import com.sun.org.apache.regexp.internal.RE
 import com.wabradshaw.claptrap.repositories.DictionaryRepository
 import com.wabradshaw.claptrap.repositories.LinguisticRepository
 import com.wabradshaw.claptrap.repositories.SemanticRepository
@@ -9,7 +10,10 @@ import com.wabradshaw.claptrap.structure.*
 import java.io.InputStream
 
 class CustomRepository(private val jsonSource: InputStream,
-                       private val showAdult: Boolean = true): DictionaryRepository, SemanticRepository, LinguisticRepository {
+                       private val showAdult: Boolean = true,
+                       private val validRelationships: List<Relationship>
+                       = listOf(Relationship.HAS_A))
+    : DictionaryRepository, SemanticRepository, LinguisticRepository {
 
     private val allWords = jacksonObjectMapper().readValue<List<WordMappingDTO>>(jsonSource).filter{showAdult || !it.adult}
     private val wordMap = allWords.associateBy {it.spelling}
@@ -19,16 +23,13 @@ class CustomRepository(private val jsonSource: InputStream,
         return wordMap[string]?.toWord()
     }
 
-    override fun getLinguisticSubs(word: Word, validSimilarities: List<LinguisticSimilarity>): List<LinguisticSubstitution> {
-        if(!validSimilarities.contains(LinguisticSimilarity.RHYME)){
-            throw NotImplementedError("The Custom Repository only works for rhymes.")
-        }
+    override fun getLinguisticSubs(word: Word): List<LinguisticSubstitution> {
         val allSubs = groupMap.getOrDefault(wordMap[word.spelling]?.group, emptyList())
         return allSubs.filter{it.spelling != word.spelling}
                       .map{ LinguisticSubstitution(it.toWord(), word, LinguisticSimilarity.RHYME) }
     }
 
-    override fun getSemanticSubs(word: Word, validRelationships: List<Relationship>): List<SemanticSubstitution> {
+    override fun getSemanticSubs(word: Word): List<SemanticSubstitution> {
         val detailedWord = wordMap[word.spelling] ?: throw IllegalArgumentException(word.spelling + " does not exist in the dictionary.")
         return validRelationships.flatMap{relationship -> getRelationship(detailedWord, relationship)}
     }

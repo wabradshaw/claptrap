@@ -13,9 +13,9 @@ class DataMuseRepositoryTest {
     fun tellJoke(){
         val dataMuseRepo = DataMuseRepository()
         val customRepo = CustomRepository(this.javaClass.getResourceAsStream("/customDictionary.json"))
-        val jokeDesigner = JokeDesigner(customRepo, customRepo, customRepo)
+        val jokeDesigner = JokeDesigner(customRepo, customRepo, customRepo, customRepo)
 
-        var result = ClaptrapService(jokeDesigner).tellJoke("favourite")
+        var result = ClaptrapService(jokeDesigner).tellJoke("catapult")
 
         println(result.spec)
         println()

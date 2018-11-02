@@ -11,11 +11,9 @@ import com.wabradshaw.claptrap.structure.*
  * that can be turned into actual written jokes.
  */
 class JokeDesigner(private val dictionaryRepo: DictionaryRepository,
-                   private val semanticRepo: SemanticRepository,
+                   private val primarySemanticRepo: SemanticRepository,
+                   private val secondarySemanticRepo: SemanticRepository,
                    private val linguisticRepo: LinguisticRepository,
-                   private val validPrimaryRelationships: List<Relationship> = listOf(Relationship.INCLUDES),
-                   private val validSecondaryRelationships: List<Relationship> = listOf(Relationship.HAS_A),
-                   private val validSimilarities: List<LinguisticSimilarity> = listOf(LinguisticSimilarity.RHYME, LinguisticSimilarity.CONSONANT_MATCH),
                    private val substringGenerator: SubstringGenerator = SubstringGenerator(),
                    private val randomiseSubstringChoice: Boolean = true,
                    private val randomiseSemanticSubstitutions: Boolean = true,
@@ -36,7 +34,7 @@ class JokeDesigner(private val dictionaryRepo: DictionaryRepository,
 
         val primarySetup: SemanticSubstitution? = when (nucleusWord) {
             null -> null
-            else -> chooseSetup(nucleusWord, listOf(nucleusWord), validPrimaryRelationships)
+            else -> chooseSetup(nucleusWord, listOf(nucleusWord), primarySemanticRepo)
         }
 
         val substrings = substringGenerator.getSubstrings(nucleus).toMutableList()
@@ -46,7 +44,7 @@ class JokeDesigner(private val dictionaryRepo: DictionaryRepository,
             val candidateSubstring = dictionaryRepo.getWord(substring)
             if(candidateSubstring != null && substringMatchesPhonetically(nucleusWord?.pronunciation, candidateSubstring.pronunciation)){
                 val linguisticSubs = linguisticRepo
-                        .getLinguisticSubs(candidateSubstring, validSimilarities)
+                        .getLinguisticSubs(candidateSubstring)
                         .filterNot{(c) -> usedWord(c, listOf(nucleusWord, primarySetup?.substitution)) }
                         .filter{(c) -> commonWord(c)}
                         .toMutableList()
@@ -55,8 +53,7 @@ class JokeDesigner(private val dictionaryRepo: DictionaryRepository,
 
                 for(linguisticSub in linguisticSubs){
                     val usedWords = listOf(nucleusWord, primarySetup?.substitution, candidateSubstring, linguisticSub.substitution)
-                    val secondarySetup = chooseSetup(linguisticSub.substitution, usedWords, validSecondaryRelationships)
-
+                    val secondarySetup = chooseSetup(linguisticSub.substitution, usedWords, secondarySemanticRepo)
 
                     if(secondarySetup != null){
                         return JokeSpec(nucleus, nucleusWord, primarySetup, secondarySetup, linguisticSub)
@@ -71,9 +68,9 @@ class JokeDesigner(private val dictionaryRepo: DictionaryRepository,
      * Chooses the word that primes the reader for the punchline. If there are no known semantic
      * substitutions, this will return null.
      */
-    private fun chooseSetup(nucleusWord: Word, usedWords: List<Word?>, validRelationships: List<Relationship>): SemanticSubstitution? {
+    private fun chooseSetup(nucleusWord: Word, usedWords: List<Word?>, repo: SemanticRepository): SemanticSubstitution? {
         val options =
-                semanticRepo.getSemanticSubs(nucleusWord, validRelationships)
+                repo.getSemanticSubs(nucleusWord)
                         .filterNot{(c) -> usedWord(c, usedWords) }
                         .filter{(c) -> commonWord(c)}
 

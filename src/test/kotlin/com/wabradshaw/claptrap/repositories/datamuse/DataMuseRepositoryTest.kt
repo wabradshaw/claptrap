@@ -21,14 +21,14 @@ class DataMuseRepositoryTest {
     @Test
     fun testGetSubstitutions_known(){
         var word = Word("horse", "", PartOfSpeech.NOUN, 10.0)
-        var result = repo.getLinguisticSubs(word, listOf(LinguisticSimilarity.RHYME))
+        var result = repo.getLinguisticSubs(word)
         println(result);
     }
 
     @Test
     fun testGetRelationships_known(){
         var word = Word("horse", "", PartOfSpeech.NOUN, 10.0)
-        var result = repo.getSemanticSubs(word, listOf(Relationship.IS_A))
+        var result = repo.getSemanticSubs(word)
         println(result);
     }
 }
