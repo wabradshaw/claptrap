@@ -52,8 +52,11 @@ class JsonRepository(jsonSource: InputStream = object{}.javaClass.getResourceAsS
     }
 
     override fun getSemanticSubs(word: Word): List<SemanticSubstitution> {
-        val detailedWord = wordMap[word.spelling] ?: throw IllegalArgumentException(word.spelling + " does not exist in the dictionary.")
-        return validRelationships.flatMap{relationship -> getRelationship(detailedWord, relationship)}
+        val detailedWord = wordMap[word.spelling]
+        return when(detailedWord == null){
+            true -> emptyList()
+            false -> validRelationships.flatMap{relationship -> getRelationship(detailedWord!!, relationship)}
+        }
     }
 
     /**

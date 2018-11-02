@@ -1,9 +1,6 @@
 package com.wabradshaw.claptrap.repositories.custom
 
-import com.wabradshaw.claptrap.structure.LinguisticSimilarity
-import com.wabradshaw.claptrap.structure.LinguisticSubstitution
-import com.wabradshaw.claptrap.structure.PartOfSpeech
-import com.wabradshaw.claptrap.structure.Word
+import com.wabradshaw.claptrap.structure.*
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
@@ -18,7 +15,13 @@ class JsonRepositoryTest {
     private val bat = Word("bat", "bat", PartOfSpeech.NOUN, 100.0)
     private val hat = Word("hat", "hat", PartOfSpeech.NOUN, 100.0)
     private val rat = Word("rat", "rat", PartOfSpeech.NOUN, 100.0)
-    private val unknwon = Word("zzz", "zzz", PartOfSpeech.UNKNOWN, 100.0)
+
+    private val unknown = Word("zzz", "zzz", PartOfSpeech.UNKNOWN, 100.0)
+    private val quark = Word("quark", "quark", PartOfSpeech.NOUN, 100.0)
+
+    private val tail = Word("a tail", "a tail", PartOfSpeech.UNKNOWN, 100.0)
+    private val whiskers = Word("whiskers", "whiskers", PartOfSpeech.UNKNOWN, 100.0)
+
     /**
      * Tests that getWord can return a word that is in't the dictionary.
      */
@@ -45,7 +48,7 @@ class JsonRepositoryTest {
     @Test
     fun testGetLinguisticSubs_unknown(){
         val repo = JsonRepository(this.javaClass.getResourceAsStream("/dictionaries/catOnly.json"))
-        val result = repo.getLinguisticSubs(unknwon)
+        val result = repo.getLinguisticSubs(unknown)
         assertEquals(emptyList<LinguisticSubstitution>(), result)
     }
 
@@ -74,7 +77,8 @@ class JsonRepositoryTest {
     }
 
     /**
-     * Tests the getLinguisticSubs method when the word has one other word in its linguistic group
+     * Tests the getLinguisticSubs method when the word has one other word in its linguistic group, and there are words
+     * not in the same group.
      */
     @Test
     fun testGetLinguisticSubs_ignoreOtherGroups(){
@@ -82,5 +86,39 @@ class JsonRepositoryTest {
         val result = repo.getLinguisticSubs(cat)
         assertEquals(1, result.size)
         assertEquals(LinguisticSubstitution(bat, cat, LinguisticSimilarity.RHYME), result[0])
+    }
+
+    /**
+     * Tests the getSemanticSubs method on a word that isn't in the dictionary.
+     */
+    @Test
+    fun testGetSemanticSubs_unknown(){
+        val repo = JsonRepository(this.javaClass.getResourceAsStream("/dictionaries/catOnly.json"))
+        val result = repo.getSemanticSubs(unknown);
+        assertEquals(emptyList<LinguisticSubstitution>(), result)
+    }
+
+    /**
+     * Tests the getSemanticSubs method on a word that contains has substitutions.
+     */
+    @Test
+    fun testGetSemanticSubs_has_exist(){
+        val repo = JsonRepository(jsonSource = this.javaClass.getResourceAsStream("/dictionaries/catOnly.json"),
+                                  validRelationships = listOf(Relationship.HAS_A))
+        val result = repo.getSemanticSubs(cat);
+        assertEquals(2, result.size)
+        assertEquals(SemanticSubstitution(tail, cat, Relationship.HAS_A), result[0])
+        assertEquals(SemanticSubstitution(whiskers, cat, Relationship.HAS_A), result[1])
+    }
+
+    /**
+     * Tests the getSemanticSubs method on a word that doesn't contain any has substitutions.
+     */
+    @Test
+    fun testGetSemanticSubs_has_none(){
+        val repo = JsonRepository(this.javaClass.getResourceAsStream("/dictionaries/quark.json"),
+                                  validRelationships = listOf(Relationship.HAS_A))
+        val result = repo.getSemanticSubs(quark);
+        assertEquals(emptyList<LinguisticSubstitution>(), result)
     }
 }
