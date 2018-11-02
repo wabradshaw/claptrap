@@ -1,0 +1,4 @@
+[{"spelling": "cat", "group": "_at", "pos": "Noun", "adult": false, "has": ["a tail","whiskers"]},
+ {"spelling": "bat", "group": "_at", "pos": "Noun", "adult": false, "has": ["wings","excellent hearing"]},
+ {"spelling": "hat", "group": "_at", "pos": "Noun", "adult": false, "has": ["a brim"]},
+ {"spelling": "rat", "group": "_at", "pos": "Noun", "adult": false, "has": ["a tail","whiskers"]}]
