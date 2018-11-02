@@ -9,7 +9,7 @@ import com.wabradshaw.claptrap.structure.*
 import java.io.InputStream
 
 /**
- * A CustomRepository is a dictionary that uses a custom json dictionary to store relationships between words. As this
+ * A JsonRepository is a dictionary that uses a custom json dictionary to store relationships between words. As this
  * is a manually created dictionary, it is only suitable for substring matches, not for accepting any word the user can
  * think of.
  *
@@ -31,9 +31,9 @@ import java.io.InputStream
  * @param validRelationships A list of the semantic relationships that can be used in jokes. Defaults to all of those
  *                           included in the default json.
  */
-class CustomRepository(jsonSource: InputStream = object{}.javaClass.getResourceAsStream("/customDictionary.json"),
-                       private val showAdult: Boolean = true,
-                       private val validRelationships: List<Relationship>
+class JsonRepository(jsonSource: InputStream = object{}.javaClass.getResourceAsStream("/customDictionary.json"),
+                     private val showAdult: Boolean = true,
+                     private val validRelationships: List<Relationship>
                        = listOf(Relationship.HAS_A))
     : DictionaryRepository, SemanticRepository, LinguisticRepository {
 
