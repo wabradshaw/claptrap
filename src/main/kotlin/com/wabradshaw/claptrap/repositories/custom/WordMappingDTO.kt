@@ -11,7 +11,11 @@ class WordMappingDTO(val spelling: String,
                      val has: List<String> = emptyList(),
                      @JsonProperty("in") val inside: List<String> = emptyList(),
                      val on: List<String> = emptyList(),
-                     val from: List<String> = emptyList()) {
+                     val from: List<String> = emptyList(),
+                     @JsonProperty("is") val synonym: List<String> = emptyList(),
+                     val typeOf: List<String> = emptyList(),
+                     val supertypeOf: List<String> = emptyList(),
+                     val nearlyIs: List<String> = emptyList()) {
 
     private val partOfSpeech = when (pos){
         "Noun" -> PartOfSpeech.NOUN

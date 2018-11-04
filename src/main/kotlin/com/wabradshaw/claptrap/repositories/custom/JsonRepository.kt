@@ -34,7 +34,8 @@ import java.io.InputStream
 class JsonRepository(jsonSource: InputStream = object{}.javaClass.getResourceAsStream("/customDictionary.json"),
                      private val showAdult: Boolean = true,
                      private val validRelationships: List<Relationship>
-                       = listOf(Relationship.HAS_A, Relationship.IN, Relationship.ON, Relationship.FROM))
+                       = listOf(Relationship.HAS_A, Relationship.IN, Relationship.ON, Relationship.FROM,
+                             Relationship.SYNONYM, Relationship.IS_A, Relationship.INCLUDES))
     : DictionaryRepository, SemanticRepository, LinguisticRepository {
 
     private val allWords = jacksonObjectMapper().readValue<List<WordMappingDTO>>(jsonSource).filter{showAdult || !it.adult}
@@ -68,6 +69,9 @@ class JsonRepository(jsonSource: InputStream = object{}.javaClass.getResourceAsS
             Relationship.IN -> detailedWord.inside.map{SemanticSubstitution(Word(it, it, PartOfSpeech.UNKNOWN, 100.0), detailedWord.toWord(), relationship)}
             Relationship.ON -> detailedWord.on.map{SemanticSubstitution(Word(it, it, PartOfSpeech.UNKNOWN, 100.0), detailedWord.toWord(), relationship)}
             Relationship.FROM -> detailedWord.from.map{SemanticSubstitution(Word(it, it, PartOfSpeech.UNKNOWN, 100.0), detailedWord.toWord(), relationship)}
+            Relationship.SYNONYM -> detailedWord.synonym.map{SemanticSubstitution(Word(it, it, PartOfSpeech.UNKNOWN, 100.0), detailedWord.toWord(), relationship)}
+            Relationship.IS_A -> detailedWord.typeOf.map{SemanticSubstitution(Word(it, it, PartOfSpeech.UNKNOWN, 100.0), detailedWord.toWord(), relationship)}
+            Relationship.INCLUDES -> detailedWord.supertypeOf.map{SemanticSubstitution(Word(it, it, PartOfSpeech.UNKNOWN, 100.0), detailedWord.toWord(), relationship)}
             else -> emptyList()
         }
     }

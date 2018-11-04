@@ -25,7 +25,9 @@ class JsonRepositoryTest {
     private val cave = Word("a cave", "a cave", PartOfSpeech.UNKNOWN, 100.0)
     private val head = Word("a head", "a head", PartOfSpeech.UNKNOWN, 100.0)
     private val cattery = Word("a cattery", "a cattery", PartOfSpeech.UNKNOWN, 100.0)
-
+    private val feline = Word("a feline", "a feline", PartOfSpeech.UNKNOWN, 100.0)
+    private val mammal = Word("a mammal", "a mammal", PartOfSpeech.UNKNOWN, 100.0)
+    private val lion = Word("a lion", "a lion", PartOfSpeech.UNKNOWN, 100.0)
 
 
     /**
@@ -175,7 +177,7 @@ class JsonRepositoryTest {
     }
 
     /**
-     * Tests the getSemanticSubs method on a word that contains has substitutions.
+     * Tests the getSemanticSubs method on a word that contains from substitutions.
      */
     @Test
     fun testGetSemanticSubs_from_exist(){
@@ -193,6 +195,75 @@ class JsonRepositoryTest {
     fun testGetSemanticSubs_from_none(){
         val repo = JsonRepository(this.javaClass.getResourceAsStream("/dictionaries/quark.json"),
                 validRelationships = listOf(Relationship.FROM))
+        val result = repo.getSemanticSubs(quark)
+        assertEquals(emptyList<LinguisticSubstitution>(), result)
+    }
+
+    /**
+     * Tests the getSemanticSubs method on a word that contains synonym substitutions.
+     */
+    @Test
+    fun testGetSemanticSubs_synonym_exist(){
+        val repo = JsonRepository(jsonSource = this.javaClass.getResourceAsStream("/dictionaries/catOnly.json"),
+                validRelationships = listOf(Relationship.SYNONYM))
+        val result = repo.getSemanticSubs(cat)
+        assertEquals(1, result.size)
+        assertEquals(SemanticSubstitution(feline, cat, Relationship.SYNONYM), result[0])
+    }
+
+    /**
+     * Tests the getSemanticSubs method on a word that doesn't contain any synonym substitutions.
+     */
+    @Test
+    fun testGetSemanticSubs_synonym_none(){
+        val repo = JsonRepository(this.javaClass.getResourceAsStream("/dictionaries/quark.json"),
+                validRelationships = listOf(Relationship.SYNONYM))
+        val result = repo.getSemanticSubs(quark)
+        assertEquals(emptyList<LinguisticSubstitution>(), result)
+    }
+
+    /**
+     * Tests the getSemanticSubs method on a word that contains type substitutions.
+     */
+    @Test
+    fun testGetSemanticSubs_type_exist(){
+        val repo = JsonRepository(jsonSource = this.javaClass.getResourceAsStream("/dictionaries/catOnly.json"),
+                validRelationships = listOf(Relationship.IS_A))
+        val result = repo.getSemanticSubs(cat)
+        assertEquals(1, result.size)
+        assertEquals(SemanticSubstitution(mammal, cat, Relationship.IS_A), result[0])
+    }
+
+    /**
+     * Tests the getSemanticSubs method on a word that doesn't contain any type substitutions.
+     */
+    @Test
+    fun testGetSemanticSubs_type_none(){
+        val repo = JsonRepository(this.javaClass.getResourceAsStream("/dictionaries/quark.json"),
+                validRelationships = listOf(Relationship.IS_A))
+        val result = repo.getSemanticSubs(quark)
+        assertEquals(emptyList<LinguisticSubstitution>(), result)
+    }
+
+    /**
+     * Tests the getSemanticSubs method on a word that contains supertype substitutions.
+     */
+    @Test
+    fun testGetSemanticSubs_supertype_exist(){
+        val repo = JsonRepository(jsonSource = this.javaClass.getResourceAsStream("/dictionaries/catOnly.json"),
+                validRelationships = listOf(Relationship.INCLUDES))
+        val result = repo.getSemanticSubs(cat)
+        assertEquals(1, result.size)
+        assertEquals(SemanticSubstitution(lion, cat, Relationship.INCLUDES), result[0])
+    }
+
+    /**
+     * Tests the getSemanticSubs method on a word that doesn't contain any supertype substitutions.
+     */
+    @Test
+    fun testGetSemanticSubs_supertype_none(){
+        val repo = JsonRepository(this.javaClass.getResourceAsStream("/dictionaries/quark.json"),
+                validRelationships = listOf(Relationship.INCLUDES))
         val result = repo.getSemanticSubs(quark)
         assertEquals(emptyList<LinguisticSubstitution>(), result)
     }
