@@ -17,7 +17,7 @@ class JokeDesigner(private val dictionaryRepo: DictionaryRepository,
                    private val secondarySemanticRepo: SemanticRepository,
                    private val linguisticRepo: LinguisticRepository,
                    private val substringGenerator: SubstringGenerator = SubstringGenerator(),
-                   private val randomiseSubstringChoice: Boolean = true,
+                   private val randomiseSubstringChoice: Boolean = false,
                    private val randomiseSemanticSubstitutions: Boolean = true,
                    private val randomiseLinguisticSubstitutions: Boolean = true,
                    private val requiredFrequency: Double = 0.5){
