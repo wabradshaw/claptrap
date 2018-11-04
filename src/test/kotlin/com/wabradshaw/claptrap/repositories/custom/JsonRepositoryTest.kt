@@ -22,6 +22,11 @@ class JsonRepositoryTest {
 
     private val tail = Word("a tail", "a tail", PartOfSpeech.UNKNOWN, 100.0)
     private val whiskers = Word("whiskers", "whiskers", PartOfSpeech.UNKNOWN, 100.0)
+    private val cave = Word("a cave", "a cave", PartOfSpeech.UNKNOWN, 100.0)
+    private val head = Word("a head", "a head", PartOfSpeech.UNKNOWN, 100.0)
+    private val cattery = Word("a cattery", "a cattery", PartOfSpeech.UNKNOWN, 100.0)
+
+
 
     /**
      * Tests that getWord can return a word that is in't the dictionary.
@@ -119,6 +124,75 @@ class JsonRepositoryTest {
     fun testGetSemanticSubs_has_none(){
         val repo = JsonRepository(this.javaClass.getResourceAsStream("/dictionaries/quark.json"),
                                   validRelationships = listOf(Relationship.HAS_A))
+        val result = repo.getSemanticSubs(quark)
+        assertEquals(emptyList<LinguisticSubstitution>(), result)
+    }
+
+    /**
+     * Tests the getSemanticSubs method on a word that contains in substitutions.
+     */
+    @Test
+    fun testGetSemanticSubs_in_exist(){
+        val repo = JsonRepository(jsonSource = this.javaClass.getResourceAsStream("/dictionaries/in.json"),
+                validRelationships = listOf(Relationship.IN))
+        val result = repo.getSemanticSubs(bat)
+        assertEquals(1, result.size)
+        assertEquals(SemanticSubstitution(cave, bat, Relationship.IN), result[0])
+    }
+
+    /**
+     * Tests the getSemanticSubs method on a word that doesn't contain any in substitutions.
+     */
+    @Test
+    fun testGetSemanticSubs_in_none(){
+        val repo = JsonRepository(this.javaClass.getResourceAsStream("/dictionaries/quark.json"),
+                validRelationships = listOf(Relationship.IN))
+        val result = repo.getSemanticSubs(quark)
+        assertEquals(emptyList<LinguisticSubstitution>(), result)
+    }
+
+    /**
+     * Tests the getSemanticSubs method on a word that contains on substitutions.
+     */
+    @Test
+    fun testGetSemanticSubs_on_exist(){
+        val repo = JsonRepository(jsonSource = this.javaClass.getResourceAsStream("/dictionaries/on.json"),
+                validRelationships = listOf(Relationship.ON))
+        val result = repo.getSemanticSubs(hat)
+        assertEquals(1, result.size)
+        assertEquals(SemanticSubstitution(head, hat, Relationship.ON), result[0])
+    }
+
+    /**
+     * Tests the getSemanticSubs method on a word that doesn't contain any on substitutions.
+     */
+    @Test
+    fun testGetSemanticSubs_on_none(){
+        val repo = JsonRepository(this.javaClass.getResourceAsStream("/dictionaries/quark.json"),
+                validRelationships = listOf(Relationship.ON))
+        val result = repo.getSemanticSubs(quark)
+        assertEquals(emptyList<LinguisticSubstitution>(), result)
+    }
+
+    /**
+     * Tests the getSemanticSubs method on a word that contains has substitutions.
+     */
+    @Test
+    fun testGetSemanticSubs_from_exist(){
+        val repo = JsonRepository(jsonSource = this.javaClass.getResourceAsStream("/dictionaries/from.json"),
+                validRelationships = listOf(Relationship.FROM))
+        val result = repo.getSemanticSubs(cat)
+        assertEquals(1, result.size)
+        assertEquals(SemanticSubstitution(cattery, cat, Relationship.FROM), result[0])
+    }
+
+    /**
+     * Tests the getSemanticSubs method on a word that doesn't contain any from substitutions.
+     */
+    @Test
+    fun testGetSemanticSubs_from_none(){
+        val repo = JsonRepository(this.javaClass.getResourceAsStream("/dictionaries/quark.json"),
+                validRelationships = listOf(Relationship.FROM))
         val result = repo.getSemanticSubs(quark)
         assertEquals(emptyList<LinguisticSubstitution>(), result)
     }
