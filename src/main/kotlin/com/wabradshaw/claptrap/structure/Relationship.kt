@@ -11,6 +11,11 @@ enum class Relationship {
     SYNONYM,
 
     /**
+     * The two words mean approximately the same thing. E.g. tree == bush.
+     */
+    NEAR_SYNONYM,
+
+    /**
      * The original word is a more specific type of the substitution. E.g. cabbage IS_A vegetable.
      */
     IS_A,

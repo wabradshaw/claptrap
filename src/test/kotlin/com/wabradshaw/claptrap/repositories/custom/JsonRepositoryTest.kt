@@ -28,6 +28,7 @@ class JsonRepositoryTest {
     private val feline = Word("a feline", "a feline", PartOfSpeech.UNKNOWN, 100.0)
     private val mammal = Word("a mammal", "a mammal", PartOfSpeech.UNKNOWN, 100.0)
     private val lion = Word("a lion", "a lion", PartOfSpeech.UNKNOWN, 100.0)
+    private val fox = Word("a fox", "a fox", PartOfSpeech.UNKNOWN, 100.0)
 
 
     /**
@@ -264,6 +265,29 @@ class JsonRepositoryTest {
     fun testGetSemanticSubs_supertype_none(){
         val repo = JsonRepository(this.javaClass.getResourceAsStream("/dictionaries/quark.json"),
                 validRelationships = listOf(Relationship.INCLUDES))
+        val result = repo.getSemanticSubs(quark)
+        assertEquals(emptyList<LinguisticSubstitution>(), result)
+    }
+
+    /**
+     * Tests the getSemanticSubs method on a word that contains nearly is substitutions.
+     */
+    @Test
+    fun testGetSemanticSubs_nearly_exist(){
+        val repo = JsonRepository(jsonSource = this.javaClass.getResourceAsStream("/dictionaries/catOnly.json"),
+                validRelationships = listOf(Relationship.NEAR_SYNONYM))
+        val result = repo.getSemanticSubs(cat)
+        assertEquals(1, result.size)
+        assertEquals(SemanticSubstitution(fox, cat, Relationship.NEAR_SYNONYM), result[0])
+    }
+
+    /**
+     * Tests the getSemanticSubs method on a word that doesn't contain any nearly is substitutions.
+     */
+    @Test
+    fun testGetSemanticSubs_nearly_none(){
+        val repo = JsonRepository(this.javaClass.getResourceAsStream("/dictionaries/quark.json"),
+                validRelationships = listOf(Relationship.NEAR_SYNONYM))
         val result = repo.getSemanticSubs(quark)
         assertEquals(emptyList<LinguisticSubstitution>(), result)
     }

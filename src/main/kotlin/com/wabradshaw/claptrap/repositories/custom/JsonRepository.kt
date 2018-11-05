@@ -7,6 +7,7 @@ import com.wabradshaw.claptrap.repositories.LinguisticRepository
 import com.wabradshaw.claptrap.repositories.SemanticRepository
 import com.wabradshaw.claptrap.structure.*
 import java.io.InputStream
+import kotlin.coroutines.experimental.suspendCoroutine
 
 /**
  * A JsonRepository is a dictionary that uses a custom json dictionary to store relationships between words. As this
@@ -35,7 +36,7 @@ class JsonRepository(jsonSource: InputStream = object{}.javaClass.getResourceAsS
                      private val showAdult: Boolean = true,
                      private val validRelationships: List<Relationship>
                        = listOf(Relationship.HAS_A, Relationship.IN, Relationship.ON, Relationship.FROM,
-                             Relationship.SYNONYM, Relationship.IS_A, Relationship.INCLUDES))
+                             Relationship.SYNONYM, Relationship.IS_A, Relationship.INCLUDES, Relationship.NEAR_SYNONYM))
     : DictionaryRepository, SemanticRepository, LinguisticRepository {
 
     private val allWords = jacksonObjectMapper().readValue<List<WordMappingDTO>>(jsonSource).filter{showAdult || !it.adult}
@@ -64,16 +65,18 @@ class JsonRepository(jsonSource: InputStream = object{}.javaClass.getResourceAsS
      * Gets all of the substitutions for the given relationship.
      */
     private fun getRelationship(detailedWord: WordMappingDTO, relationship: Relationship): Iterable<SemanticSubstitution> {
-        return when(relationship){
-            Relationship.HAS_A -> detailedWord.has.map{SemanticSubstitution(Word(it, it, PartOfSpeech.UNKNOWN, 100.0), detailedWord.toWord(), relationship)}
-            Relationship.IN -> detailedWord.inside.map{SemanticSubstitution(Word(it, it, PartOfSpeech.UNKNOWN, 100.0), detailedWord.toWord(), relationship)}
-            Relationship.ON -> detailedWord.on.map{SemanticSubstitution(Word(it, it, PartOfSpeech.UNKNOWN, 100.0), detailedWord.toWord(), relationship)}
-            Relationship.FROM -> detailedWord.from.map{SemanticSubstitution(Word(it, it, PartOfSpeech.UNKNOWN, 100.0), detailedWord.toWord(), relationship)}
-            Relationship.SYNONYM -> detailedWord.synonym.map{SemanticSubstitution(Word(it, it, PartOfSpeech.UNKNOWN, 100.0), detailedWord.toWord(), relationship)}
-            Relationship.IS_A -> detailedWord.typeOf.map{SemanticSubstitution(Word(it, it, PartOfSpeech.UNKNOWN, 100.0), detailedWord.toWord(), relationship)}
-            Relationship.INCLUDES -> detailedWord.supertypeOf.map{SemanticSubstitution(Word(it, it, PartOfSpeech.UNKNOWN, 100.0), detailedWord.toWord(), relationship)}
+       val substitutions = when(relationship){
+            Relationship.HAS_A -> detailedWord.has
+            Relationship.IN -> detailedWord.inside
+            Relationship.ON -> detailedWord.on
+            Relationship.FROM -> detailedWord.from
+            Relationship.SYNONYM -> detailedWord.synonym
+            Relationship.IS_A -> detailedWord.typeOf
+            Relationship.INCLUDES -> detailedWord.supertypeOf
+            Relationship.NEAR_SYNONYM -> detailedWord.nearlyIs
             else -> emptyList()
         }
-    }
 
+        return substitutions.map{SemanticSubstitution(Word(it, it, PartOfSpeech.UNKNOWN, 100.0), detailedWord.toWord(), relationship)}
+    }
 }

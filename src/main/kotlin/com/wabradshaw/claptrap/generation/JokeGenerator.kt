@@ -24,6 +24,7 @@ class JokeGenerator {
             Relationship.IN -> "in"
             Relationship.ON -> "on"
             Relationship.FROM -> "from"
+            Relationship.NEAR_SYNONYM -> "a bit like"
             else -> "mixed with"
         }
         return Joke("What do you call a ${primarySetup} ${conjunction} ${secondarySetup}?",
