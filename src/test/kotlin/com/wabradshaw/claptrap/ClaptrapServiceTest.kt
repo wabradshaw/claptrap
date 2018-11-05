@@ -15,11 +15,28 @@ class ClapTrapServiceTest {
         val customRepo = JsonRepository(this.javaClass.getResourceAsStream("/customDictionary.json"))
         val jokeDesigner = JokeDesigner(customRepo, customRepo, customRepo, customRepo)
 
-        var result = ClaptrapService(jokeDesigner).tellJoke("catapult")
+        var result = ClaptrapService(jokeDesigner).tellJoke("pirate")
 
         println(result.spec)
         println()
         println(result.setup)
         println(result.punchline)
+    }
+
+    @Test
+    fun tellJokes(){
+        val dataMuseRepo = DataMuseRepository()
+        val customRepo = JsonRepository(this.javaClass.getResourceAsStream("/customDictionary.json"))
+        val jokeDesigner = JokeDesigner(customRepo, customRepo, customRepo, customRepo)
+
+        val topics = listOf("catapult", "pirate", "captain", "slowboat", "winter", "summer", "spring", "damage", "hammersmith")
+
+        for(topic in topics) {
+            var result = ClaptrapService(jokeDesigner).tellJoke(topic)
+
+            println()
+            println(result.setup)
+            println(result.punchline)
+        }
     }
 }
