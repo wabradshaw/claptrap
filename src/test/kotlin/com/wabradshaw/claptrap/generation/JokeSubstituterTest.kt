@@ -77,4 +77,49 @@ class JokeSubstituterTest {
         val result = JokeSubstituter().createJokeWord(testSpec("zzzabcabczzz","abc", "def"))
         assertEquals("zzz-def-abczzz", result)
     }
+
+    /**
+     * Tests that a substitution next to an existing hyphen won't lead to double hyphens.
+     */
+    @Test
+    fun voidTestAlreadyHyphenatedBySubstitution(){
+        val result = JokeSubstituter().createJokeWord(testSpec("half-mad","mad", "fad"))
+        assertEquals("half-fad", result)
+    }
+
+    /**
+     * Tests that a substitution with an existing hyphen away from the substitute won't remove that hyphen.
+     */
+    @Test
+    fun voidTestAlreadyHyphenatedAwayFromSubstitution(){
+        val result = JokeSubstituter().createJokeWord(testSpec("cat-in-the-hat","cat", "shat"))
+        assertEquals("shat-in-the-hat", result)
+    }
+
+    /**
+     * Tests that a substitution after a space won't lead to an orphaned hyphen.
+     */
+    @Test
+    fun voidTestSpaceBeforeSubstitution(){
+        val result = JokeSubstituter().createJokeWord(testSpec("top hat","hat", "fat"))
+        assertEquals("top fat", result)
+    }
+
+    /**
+     * Tests that a substitution before a space won't lead to an orphaned hyphen.
+     */
+    @Test
+    fun voidTestSpaceAfterSubstitution(){
+        val result = JokeSubstituter().createJokeWord(testSpec("top hat","top", "cop"))
+        assertEquals("cop hat", result)
+    }
+
+    /**
+     * Tests that a substitution away from a space will look correct.
+     */
+    @Test
+    fun voidTestSpaceAwayFromSubstitution(){
+        val result = JokeSubstituter().createJokeWord(testSpec("washing machine","wash", "posh"))
+        assertEquals("posh-ing machine", result)
+    }
 }

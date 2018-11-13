@@ -25,10 +25,15 @@ class JokeSubstituter {
         val replaced = spec.linguisticSub.original.spelling
         val substitution = spec.linguisticSub.substitution.spelling
 
-        return when {
+        val jokeWord = when {
             nucleus.startsWith(replaced) -> nucleus.replaceFirst(replaced, substitution + "-")
             nucleus.endsWith(replaced) -> nucleus.substring(0, spec.nucleus.length - replaced.length) + "-" + substitution
             else -> nucleus.replaceFirst(replaced, "-$substitution-")
         }
+
+        // Remove potential artifacts
+        return jokeWord.replace("--","-")
+                       .replace(" -"," ")
+                       .replace("- "," ")
     }
 }
