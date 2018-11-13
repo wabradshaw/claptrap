@@ -7,7 +7,6 @@ import com.wabradshaw.claptrap.repositories.LinguisticRepository
 import com.wabradshaw.claptrap.repositories.SemanticRepository
 import com.wabradshaw.claptrap.structure.*
 import java.io.InputStream
-import kotlin.coroutines.experimental.suspendCoroutine
 
 /**
  * A JsonRepository is a dictionary that uses a custom json dictionary to store relationships between words. As this
