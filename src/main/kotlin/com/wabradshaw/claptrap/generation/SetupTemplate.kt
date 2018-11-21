@@ -19,7 +19,7 @@ const val NO_DETERMINER = "_noDet"
  *                          for the semantic substitutions.
  * @param determinerManager The determiner manager to use to add or remove determiners. Defaults to the typical one.
  */
-class SetupTemplate(val id: Int,
+class SetupTemplate(val id: String,
                     private val constraints: List<SetupConstraint>,
                     private val script: String,
                     private val determinerManager: DeterminerManager = DeterminerManager()) {
