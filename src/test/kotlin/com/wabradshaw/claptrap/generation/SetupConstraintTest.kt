@@ -241,4 +241,74 @@ class SetupConstraintTest {
                 linguisticSubstitution)
         assertFalse(constraint.applies(spec))
     }
+
+    /**
+     * Tests the primary relationship constraint for IS_A when looking for IS_A
+     */
+    @Test
+    fun testPrimaryRelationship_matches(){
+        val constraint = SetupConstraint(SetupConstraintType.PRIMARY_RELATIONSHIP, "IS_A")
+        val spec = JokeSpec("tiger",
+                null,
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                linguisticSubstitution)
+        assertTrue(constraint.applies(spec))
+    }
+
+    /**
+     * Tests the primary relationship constraint for ON when looking for IS_A
+     */
+    @Test
+    fun testPrimaryRelationship_clashes(){
+        val constraint = SetupConstraint(SetupConstraintType.PRIMARY_RELATIONSHIP, "IS_A")
+        val spec = JokeSpec("tiger",
+                null,
+                SemanticSubstitution(noun, noun, Relationship.ON),
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                linguisticSubstitution)
+        assertFalse(constraint.applies(spec))
+    }
+
+    /**
+     * Tests the primary relationship constraint when looking for IS_A, but missing a primary setup
+     */
+    @Test
+    fun testPrimaryRelationship_missing(){
+        val constraint = SetupConstraint(SetupConstraintType.PRIMARY_RELATIONSHIP, "IS_A")
+        val spec = JokeSpec("tiger",
+                null,
+                null,
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                linguisticSubstitution)
+        assertFalse(constraint.applies(spec))
+    }
+
+    /**
+     * Tests the secondary relationship constraint for IS_A when looking for IS_A
+     */
+    @Test
+    fun testSecondaryRelationship_matches(){
+        val constraint = SetupConstraint(SetupConstraintType.SECONDARY_RELATIONSHIP, "IS_A")
+        val spec = JokeSpec("tiger",
+                null,
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                linguisticSubstitution)
+        assertTrue(constraint.applies(spec))
+    }
+
+    /**
+     * Tests the secondary relationship constraint for ON when looking for IS_A
+     */
+    @Test
+    fun testSecondaryRelationship_clashes(){
+        val constraint = SetupConstraint(SetupConstraintType.SECONDARY_RELATIONSHIP, "IS_A")
+        val spec = JokeSpec("tiger",
+                null,
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                SemanticSubstitution(noun, noun, Relationship.ON),
+                linguisticSubstitution)
+        assertFalse(constraint.applies(spec))
+    }
 }
