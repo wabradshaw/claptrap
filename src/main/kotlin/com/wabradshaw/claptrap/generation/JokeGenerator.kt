@@ -1,12 +1,12 @@
 package com.wabradshaw.claptrap.generation
 
+import com.wabradshaw.claptrap.NoJokeException
+import com.wabradshaw.claptrap.generation.json.SetupTemplateLoader
 import com.wabradshaw.claptrap.structure.Joke
 import com.wabradshaw.claptrap.structure.JokeSpec
-import com.wabradshaw.claptrap.structure.Relationship
 
-class JokeGenerator {
-
-    private val substituter = JokeSubstituter()
+class JokeGenerator(private val setupTemplates: List<SetupTemplate> = SetupTemplateLoader().load(),
+                    private val substituter:JokeSubstituter = JokeSubstituter()) {
 
     fun generateJoke(spec: JokeSpec): Joke {
 
@@ -15,16 +15,17 @@ class JokeGenerator {
 
         val joke = substituter.createJokeWord(spec)
 
-        val conjunction = when (spec.secondarySetup.relationship) {
-            Relationship.HAS_A -> "with"
-            Relationship.IN -> "in"
-            Relationship.ON -> "on"
-            Relationship.FROM -> "from"
-            Relationship.NEAR_SYNONYM -> "a bit like"
-            else -> "mixed with"
+        val validTemplates = setupTemplates.filter{it.isValid(spec)}
+
+        if(validTemplates.isEmpty()){
+            throw NoJokeException("Could not work out how to write a joke setup for $primarySetup/$secondarySetup.")
         }
-        return Joke("What do you call a $primarySetup $conjunction $secondarySetup?",
+
+        val setup = validTemplates.shuffled()[0]
+
+        return Joke(setup.apply(primarySetup, secondarySetup),
                     "A $joke!",
-                    spec)
+                    spec,
+                    setup.id)
     }
 }
