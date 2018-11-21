@@ -29,7 +29,7 @@ class SetupTemplateTest {
      */
     @Test
     fun testIsValid_noConstraints(){
-        val template = SetupTemplate(1, emptyList(),"Irrelevant.")
+        val template = SetupTemplate("1", emptyList(),"Irrelevant.")
         assertTrue(template.isValid(spec))
     }
 
@@ -38,7 +38,7 @@ class SetupTemplateTest {
      */
     @Test
     fun testIsValid_oneConstraint_valid(){
-        val template = SetupTemplate(1,
+        val template = SetupTemplate("1",
                                      listOf(SetupConstraint(SetupConstraintType.SECONDARY_POS, "NOUN")),
                                      "Irrelevant.")
         assertTrue(template.isValid(spec))
@@ -49,7 +49,7 @@ class SetupTemplateTest {
      */
     @Test
     fun testIsValid_oneConstraint_invalid(){
-        val template = SetupTemplate(1,
+        val template = SetupTemplate("1",
                 listOf(SetupConstraint(SetupConstraintType.SECONDARY_POS, "VERB")),
                 "Irrelevant.")
         assertFalse(template.isValid(spec))
@@ -60,7 +60,7 @@ class SetupTemplateTest {
      */
     @Test
     fun testIsValid_multipleConstraints_valid(){
-        val template = SetupTemplate(1,
+        val template = SetupTemplate("1",
                 listOf(SetupConstraint(SetupConstraintType.SECONDARY_POS, "NOUN"),
                        SetupConstraint(SetupConstraintType.NUCLEUS_KNOWN, "false"),
                        SetupConstraint(SetupConstraintType.SECONDARY_RELATIONSHIP, "HAS_A")),
@@ -73,7 +73,7 @@ class SetupTemplateTest {
      */
     @Test
     fun testIsValid_multipleConstraints_invalid(){
-        val template = SetupTemplate(1,
+        val template = SetupTemplate("1",
                 listOf(SetupConstraint(SetupConstraintType.SECONDARY_POS, "NOUN"),
                         SetupConstraint(SetupConstraintType.NUCLEUS_KNOWN, "true"),
                         SetupConstraint(SetupConstraintType.SECONDARY_RELATIONSHIP, "HAS_A")),
@@ -86,7 +86,7 @@ class SetupTemplateTest {
      */
     @Test
     fun testApply_noPlaceholders(){
-        val template = SetupTemplate(1, emptyList(),"This won't be changed.")
+        val template = SetupTemplate("1", emptyList(),"This won't be changed.")
         assertEquals("This won't be changed.", template.apply("who", "cares"))
     }
 
@@ -95,7 +95,7 @@ class SetupTemplateTest {
      */
     @Test
     fun testApply_typicalJoke(){
-        val template = SetupTemplate(1, emptyList(),"What type of $PRIMARY_PLACEHOLDER$NO_DETERMINER has $SECONDARY_PLACEHOLDER?")
+        val template = SetupTemplate("1", emptyList(),"What type of $PRIMARY_PLACEHOLDER$NO_DETERMINER has $SECONDARY_PLACEHOLDER?")
         assertEquals("What type of catapult has a brim?", template.apply("a catapult", "a brim"))
     }
 
@@ -104,7 +104,7 @@ class SetupTemplateTest {
      */
     @Test
     fun testApply_primaryReplaced(){
-        val template = SetupTemplate(1, emptyList(),"a b c $PRIMARY_PLACEHOLDER c")
+        val template = SetupTemplate("1", emptyList(),"a b c $PRIMARY_PLACEHOLDER c")
         assertEquals("a b c a b c", template.apply("a b", "cares"))
     }
 
@@ -113,7 +113,7 @@ class SetupTemplateTest {
      */
     @Test
     fun testApply_secondaryReplaced(){
-        val template = SetupTemplate(1, emptyList(),"a b c $SECONDARY_PLACEHOLDER c")
+        val template = SetupTemplate("1", emptyList(),"a b c $SECONDARY_PLACEHOLDER c")
         assertEquals("a b c a b c", template.apply("unused", "a b"))
     }
 
@@ -122,7 +122,7 @@ class SetupTemplateTest {
      */
     @Test
     fun testApply_primaryReplacedNoDet(){
-        val template = SetupTemplate(1, emptyList(),"a b c a $PRIMARY_PLACEHOLDER$NO_DETERMINER c")
+        val template = SetupTemplate("1", emptyList(),"a b c a $PRIMARY_PLACEHOLDER$NO_DETERMINER c")
         assertEquals("a b c a b c", template.apply("a b", "cares"))
     }
 
@@ -131,7 +131,7 @@ class SetupTemplateTest {
      */
     @Test
     fun testApply_secondaryReplacedNoDet(){
-        val template = SetupTemplate(1, emptyList(),"a b c a $SECONDARY_PLACEHOLDER$NO_DETERMINER c")
+        val template = SetupTemplate("1", emptyList(),"a b c a $SECONDARY_PLACEHOLDER$NO_DETERMINER c")
         assertEquals("a b c a b c", template.apply("unused", "a b"))
     }
 }
