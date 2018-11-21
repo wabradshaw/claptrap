@@ -1,0 +1,10 @@
+[
+{"id": "has01", "script": "What do you call a $1 with $2?", "constraints": [{"type":"SECONDARY_RELATIONSHIP", "arg":"HAS_A"}]},
+{"id": "in01", "script": "What do you call a $1 in $2?", "constraints": [{"type":"SECONDARY_RELATIONSHIP", "arg":"IN"}]},
+{"id": "on01", "script": "What do you call a $1 on $2?", "constraints": [{"type":"SECONDARY_RELATIONSHIP", "arg":"ON"}]},
+{"id": "from01", "script": "What do you call a $1 from $2?", "constraints": [{"type":"SECONDARY_RELATIONSHIP", "arg":"FROM"}]},
+{"id": "near01", "script": "What do you call a $1 a bit like $2?", "constraints": [{"type":"SECONDARY_RELATIONSHIP", "arg":"NEAR_SYNONYM"}]},
+{"id": "syn01", "script": "What do you call a $1 mixed with $2?", "constraints": [{"type":"SECONDARY_RELATIONSHIP", "arg":"SYNONYM"}]},
+{"id": "isa01", "script": "What do you call a $1 mixed with $2?", "constraints": [{"type":"SECONDARY_RELATIONSHIP", "arg":"IS_A"}]},
+{"id": "part01", "script": "What do you call a $1 mixed with $2?", "constraints": [{"type":"SECONDARY_RELATIONSHIP", "arg":"PART_OF"}]}
+]
