@@ -129,4 +129,116 @@ class SetupConstraintTest {
                 linguisticSubstitution)
         assertFalse(constraint.applies(spec))
     }
+
+    /**
+     * Tests the primary pos constraint for a noun when looking for a noun
+     */
+    @Test
+    fun testPrimaryPos_matches(){
+        val constraint = SetupConstraint(SetupConstraintType.PRIMARY_POS, "NOUN")
+        val spec = JokeSpec("tiger",
+                null,
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                linguisticSubstitution)
+        assertTrue(constraint.applies(spec))
+    }
+
+    /**
+     * Tests the primary pos constraint for a verb when looking for a noun
+     */
+    @Test
+    fun testPrimaryPos_clashes(){
+        val constraint = SetupConstraint(SetupConstraintType.PRIMARY_POS, "NOUN")
+        val spec = JokeSpec("tiger",
+                null,
+                SemanticSubstitution(verb, noun, Relationship.IS_A),
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                linguisticSubstitution)
+        assertFalse(constraint.applies(spec))
+    }
+
+    /**
+     * Tests the primary pos constraint when looking for a noun, but missing a primary setup
+     */
+    @Test
+    fun testPrimaryPos_missing(){
+        val constraint = SetupConstraint(SetupConstraintType.PRIMARY_POS, "NOUN")
+        val spec = JokeSpec("tiger",
+                null,
+                null,
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                linguisticSubstitution)
+        assertFalse(constraint.applies(spec))
+    }
+
+    /**
+     * Tests the secondary pos constraint for a noun when looking for a noun
+     */
+    @Test
+    fun testSecondaryPos_matches(){
+        val constraint = SetupConstraint(SetupConstraintType.SECONDARY_POS, "NOUN")
+        val spec = JokeSpec("tiger",
+                null,
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                linguisticSubstitution)
+        assertTrue(constraint.applies(spec))
+    }
+
+    /**
+     * Tests the secondary pos constraint for a verb when looking for a noun
+     */
+    @Test
+    fun testSecondaryPos_clashes(){
+        val constraint = SetupConstraint(SetupConstraintType.SECONDARY_POS, "NOUN")
+        val spec = JokeSpec("tiger",
+                null,
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                SemanticSubstitution(verb, noun, Relationship.IS_A),
+                linguisticSubstitution)
+        assertFalse(constraint.applies(spec))
+    }
+    
+    /**
+     * Tests the nucleus pos constraint for a noun when looking for a noun
+     */
+    @Test
+    fun testNucleusPos_matches(){
+        val constraint = SetupConstraint(SetupConstraintType.NUCLEUS_POS, "NOUN")
+        val spec = JokeSpec("tiger",
+                noun,
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                linguisticSubstitution)
+        assertTrue(constraint.applies(spec))
+    }
+
+    /**
+     * Tests the nucleus pos constraint for a verb when looking for a noun
+     */
+    @Test
+    fun testNucleusPos_clashes(){
+        val constraint = SetupConstraint(SetupConstraintType.NUCLEUS_POS, "NOUN")
+        val spec = JokeSpec("tiger",
+                verb,
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                linguisticSubstitution)
+        assertFalse(constraint.applies(spec))
+    }
+
+    /**
+     * Tests the nucleus pos constraint when looking for a noun, but missing a nucleus setup
+     */
+    @Test
+    fun testNucleusPos_missing(){
+        val constraint = SetupConstraint(SetupConstraintType.NUCLEUS_POS, "NOUN")
+        val spec = JokeSpec("tiger",
+                null,
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                linguisticSubstitution)
+        assertFalse(constraint.applies(spec))
+    }
 }
