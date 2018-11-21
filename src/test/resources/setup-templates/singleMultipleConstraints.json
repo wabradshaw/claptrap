@@ -1,0 +1,20 @@
+[
+  {
+    "id": "has01",
+    "script": "What do you call a $1 with $2?",
+    "constraints": [
+      {
+        "type": "SECONDARY_RELATIONSHIP",
+        "arg": "HAS_A"
+      },
+      {
+        "type": "SECONDARY_POS",
+        "arg": "NOUN"
+      },
+      {
+        "type": "PRIMARY_KNOWN",
+        "arg": "false"
+      }
+    ]
+  }
+]

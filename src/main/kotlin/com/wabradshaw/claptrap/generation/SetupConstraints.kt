@@ -37,7 +37,7 @@ enum class SetupConstraintType(val function: (spec: JokeSpec, arg: String) -> Bo
 /**
  * A SetupConstraint defines a constraint that must be true for a SetupTemplate to be used.
  */
-class SetupConstraint(private val constraint: SetupConstraintType, private val arg: String){
+class SetupConstraint(val constraint: SetupConstraintType, val arg: String){
 
     /**
      * Checks whether or not this particular constraint applies to the given joke.

@@ -1,0 +1,5 @@
+[
+{"id": "has01", "script": "What do you call a $1 with $2?", "constraints": [{"type":"SECONDARY_RELATIONSHIP", "arg":"HAS_A"}]},
+{"id": "in01", "script": "What do you call a $1 in $2?", "constraints": [{"type":"SECONDARY_RELATIONSHIP", "arg":"IN"}]},
+{"id": "on01", "script": "What do you call a $1 on $2?", "constraints": [{"type":"SECONDARY_RELATIONSHIP", "arg":"ON"}]}
+]
