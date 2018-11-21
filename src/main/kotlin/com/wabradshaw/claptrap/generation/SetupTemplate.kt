@@ -20,15 +20,18 @@ const val NO_DETERMINER = "_noDet"
  * @param determinerManager The determiner manager to use to add or remove determiners. Defaults to the typical one.
  */
 class SetupTemplate(val id: Int,
+                    private val constraints: List<SetupConstraint>,
                     private val setupScript: String,
                     private val determinerManager: DeterminerManager = DeterminerManager()) {
 
     /**
      * Checks whether or not the setup template can be used with the current joke spec. This means that all of the
      * template's conditions will be checked to see if they are valid.
+     *
+     * @param spec The JokeSpec to validate against this template
      */
     fun isValid(spec: JokeSpec):Boolean{
-        return true
+        return constraints.all{it.applies(spec)}
     }
 
     /**
