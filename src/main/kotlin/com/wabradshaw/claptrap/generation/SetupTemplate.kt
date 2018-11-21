@@ -7,8 +7,8 @@ const val SECONDARY_PLACEHOLDER = "$2"
 const val NO_DETERMINER = "_noDet"
 
 /**
- * A setup template is a template that can be used to generate the setup for a joke. Each setup has certain restrictions
- * about when it can be used.
+ * A setup template is a template that can be used to generate the setup for a joke. The template is valid if each
+ * and every constraint can apply to the supplied joke spec.
  *
  * The output is determined by the setupScript, which is a string containing slots for the joke placeholders. These are
  * indicated using the PRIMARY_PLACEHOLDER and SECONDARY_PLACEHOLDER values. To use the version of either without a
