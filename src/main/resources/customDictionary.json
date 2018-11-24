@@ -1,3 +1,4 @@
+[
 {"spelling": "her", "group": "_er", "pos": "Noun", "adult": false, "has": ["a gender"], "in": [], "on": [], "from": ["Venus"], "is": ["a woman"], "typeOf": [], "supertypeOf": ["a girl"], "nearlyIs": [], "property": ["a feminine","a female"]},
 {"spelling": "fir", "group": "_er", "pos": "Noun", "adult": false, "has": ["leaves","pinecones","bark"], "in": ["a forest","a wood","the woods"], "on": [], "from": [], "is": [], "typeOf": ["a tree","an evergreen","a pine"], "supertypeOf": [], "nearlyIs": [], "property": ["an evergreen"]},
 {"spelling": "purr", "group": "_er", "pos": "Noun", "adult": false, "has": [], "in": [], "on": [], "from": ["a cat","a kitten"], "is": ["a meow"], "typeOf": [], "supertypeOf": [], "nearlyIs": [], "property": []},
@@ -279,7 +280,7 @@
 {"spelling": "pot", "group": "_ot", "pos": "Noun", "adult": true, "has": ["a lid","a handle"], "in": ["a kitchen","a bong","a joint"], "on": [], "from": [], "is": ["weed","marijuana"], "typeOf": ["a drug"], "supertypeOf": ["a joint"], "nearlyIs": ["a pan"], "property": []},
 {"spelling": "plot", "group": "_ot", "pos": "Noun", "adult": false, "has": ["conspirators"], "in": [], "on": [], "from": [], "is": [], "typeOf": ["a plan"], "supertypeOf": ["a scheme"], "nearlyIs": [], "property": []},
 {"spelling": "snot", "group": "_ot", "pos": "Noun", "adult": false, "has": [], "in": ["a nostril","a tissue","a nose"], "on": [], "from": ["a nose","a nostril"], "is": [], "typeOf": ["an emission"], "supertypeOf": [], "nearlyIs": [], "property": []},
-{"spelling": "spot", "group": "_ot", "pos": "Noun", "adult": false, "has": ["pus"], "in": [], "on": ["a teenager","your face","your chin"], "from": [], "is": [], "typeOf": [,"a blemish"], "supertypeOf": ["a pimple","a zit"], "nearlyIs": ["a wart","a mole"], "property": ["a round"]},
+{"spelling": "spot", "group": "_ot", "pos": "Noun", "adult": false, "has": ["pus"], "in": [], "on": ["a teenager","your face","your chin"], "from": [], "is": [], "typeOf": ["a blemish"], "supertypeOf": ["a pimple","a zit"], "nearlyIs": ["a wart","a mole"], "property": ["a round"]},
 {"spelling": "dot", "group": "_ot", "pos": "Noun", "adult": false, "has": [], "in": [], "on": [], "from": [], "is": ["a spot"], "typeOf": ["a mark"], "supertypeOf": [], "nearlyIs": [], "property": ["a round"]},
 {"spelling": "lot", "group": "_ot", "pos": "Noun", "adult": false, "has": [], "in": [], "on": [], "from": [], "is": ["a load","masses"], "typeOf": [], "supertypeOf": [], "nearlyIs": [], "property": ["an abundant"]},
 {"spelling": "cot", "group": "_ot", "pos": "Noun", "adult": false, "has": ["a pillow","a blanker"], "in": ["a bedroom","a jail cell","a prison cell"], "on": [], "from": [], "is": [], "typeOf": ["a bed"], "supertypeOf": [], "nearlyIs": [], "property": []},
@@ -335,4 +336,5 @@
 {"spelling": "fop", "group": "_op", "pos": "Noun", "adult": false, "has": ["elaborate clothes"], "in": [], "on": [], "from": [], "is": ["a dandy"], "typeOf": ["a poser"], "supertypeOf": [], "nearlyIs": ["a toff"], "property": ["a posh","a well-dressed"]},
 {"spelling": "hop", "group": "_op", "pos": "Noun", "adult": false, "has": [], "in": [], "on": [], "from": ["a rabbit","a kangaroo"], "is": [], "typeOf": ["a jump","a movement","a bounce"], "supertypeOf": [], "nearlyIs": [], "property": []},
 {"spelling": "cop", "group": "_op", "pos": "Noun", "adult": false, "has": ["a uniform","a badge","handcuffs"], "in": ["the police force"], "on": [], "from": [], "is": ["a police officer"], "typeOf": [], "supertypeOf": ["a trooper"], "nearlyIs": [], "property": []},
-{"spelling": "mop", "group": "_op", "pos": "Noun", "adult": false, "has": ["a handle"], "in": ["a cleaning trolley"], "on": [], "from": [], "is": [], "typeOf": [], "supertypeOf": ["a tool","a cleaning product"], "nearlyIs": ["a broom"], "property": []},
+{"spelling": "mop", "group": "_op", "pos": "Noun", "adult": false, "has": ["a handle"], "in": ["a cleaning trolley"], "on": [], "from": [], "is": [], "typeOf": [], "supertypeOf": ["a tool","a cleaning product"], "nearlyIs": ["a broom"], "property": []}
+]

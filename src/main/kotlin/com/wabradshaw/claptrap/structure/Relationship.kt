@@ -53,5 +53,10 @@ enum class Relationship {
     /**
      * The original word comes from the substitute. E.g. purr FROM cat.
      */
-    FROM;
+    FROM,
+
+    /**
+     * The substitution is a descriptive adjective that can be used to reference the original. E.g. scaly PROPERTY fish.
+     */
+    PROPERTY;
 }

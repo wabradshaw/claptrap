@@ -35,7 +35,8 @@ class JsonRepository(jsonSource: InputStream = object{}.javaClass.getResourceAsS
                      private val showAdult: Boolean = true,
                      private val validRelationships: List<Relationship>
                        = listOf(Relationship.HAS_A, Relationship.IN, Relationship.ON, Relationship.FROM,
-                             Relationship.SYNONYM, Relationship.IS_A, Relationship.INCLUDES, Relationship.NEAR_SYNONYM))
+                             Relationship.SYNONYM, Relationship.IS_A, Relationship.INCLUDES, Relationship.NEAR_SYNONYM,
+                             Relationship.PROPERTY))
     : DictionaryRepository, SemanticRepository, LinguisticRepository {
 
     private val allWords = jacksonObjectMapper().readValue<List<WordMappingDTO>>(jsonSource).filter{showAdult || !it.adult}
@@ -73,6 +74,7 @@ class JsonRepository(jsonSource: InputStream = object{}.javaClass.getResourceAsS
             Relationship.IS_A -> detailedWord.typeOf
             Relationship.INCLUDES -> detailedWord.supertypeOf
             Relationship.NEAR_SYNONYM -> detailedWord.nearlyIs
+           Relationship.PROPERTY -> detailedWord.property
             else -> emptyList()
         }
 

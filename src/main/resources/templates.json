@@ -13,5 +13,7 @@
 {"id": "isa01", "script": "What do you call a $1 mixed with $2?", "constraints": [{"type":"SECONDARY_RELATIONSHIP", "arg":"IS_A"}]},
 {"id": "isa02", "script": "What do you get if you cross a $1 with $2?", "constraints": [{"type":"SECONDARY_RELATIONSHIP", "arg":"IS_A"}]},
 {"id": "part01", "script": "What do you call a $1 mixed with $2?", "constraints": [{"type":"SECONDARY_RELATIONSHIP", "arg":"INCLUDES"}]},
-{"id": "part02", "script": "What do you get if you cross a $1 with $2?", "constraints": [{"type":"SECONDARY_RELATIONSHIP", "arg":"INCLUDES"}]}
+{"id": "part02", "script": "What do you get if you cross a $1 with $2?", "constraints": [{"type":"SECONDARY_RELATIONSHIP", "arg":"INCLUDES"}]},
+{"id": "prop01", "script": "What do you call $2 $1_noDet?", "constraints": [{"type":"SECONDARY_RELATIONSHIP", "arg":"PROPERTY"}]},
+{"id": "prop02", "script": "What do you call a $1 that is $2_noDet?", "constraints": [{"type":"SECONDARY_RELATIONSHIP", "arg":"PROPERTY"}]}
 ]

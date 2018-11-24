@@ -15,7 +15,8 @@ class WordMappingDTO(val spelling: String,
                      @JsonProperty("is") val synonym: List<String> = emptyList(),
                      val typeOf: List<String> = emptyList(),
                      val supertypeOf: List<String> = emptyList(),
-                     val nearlyIs: List<String> = emptyList()) {
+                     val nearlyIs: List<String> = emptyList(),
+                     val property: List<String> = emptyList()) {
 
     private val partOfSpeech = when (pos){
         "Noun" -> PartOfSpeech.NOUN

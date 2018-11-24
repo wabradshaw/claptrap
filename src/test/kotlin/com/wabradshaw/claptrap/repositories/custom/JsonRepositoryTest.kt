@@ -292,6 +292,30 @@ class JsonRepositoryTest {
         assertEquals(emptyList<LinguisticSubstitution>(), result)
     }
 
+
+    /**
+     * Tests the getSemanticSubs method on a word that contains property substitutions.
+     */
+    @Test
+    fun testGetSemanticSubs_property_exist(){
+        val repo = JsonRepository(jsonSource = this.javaClass.getResourceAsStream("/dictionaries/catOnly.json"),
+                validRelationships = listOf(Relationship.PROPERTY))
+        val result = repo.getSemanticSubs(cat)
+        assertEquals(1, result.size)
+        assertEquals(SemanticSubstitution(feline, cat, Relationship.PROPERTY), result[0])
+    }
+
+    /**
+     * Tests the getSemanticSubs method on a word that doesn't contain any property substitutions.
+     */
+    @Test
+    fun testGetSemanticSubs_property_none(){
+        val repo = JsonRepository(this.javaClass.getResourceAsStream("/dictionaries/quark.json"),
+                validRelationships = listOf(Relationship.PROPERTY))
+        val result = repo.getSemanticSubs(quark)
+        assertEquals(emptyList<LinguisticSubstitution>(), result)
+    }
+
     /**
      * Tests that an adult word can be returned by getWords if showAdult is true.
      */
