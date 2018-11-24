@@ -74,7 +74,7 @@ class JsonRepository(jsonSource: InputStream = object{}.javaClass.getResourceAsS
             Relationship.IS_A -> detailedWord.typeOf
             Relationship.INCLUDES -> detailedWord.supertypeOf
             Relationship.NEAR_SYNONYM -> detailedWord.nearlyIs
-           Relationship.PROPERTY -> detailedWord.property
+            Relationship.PROPERTY -> detailedWord.property
             else -> emptyList()
         }
 
