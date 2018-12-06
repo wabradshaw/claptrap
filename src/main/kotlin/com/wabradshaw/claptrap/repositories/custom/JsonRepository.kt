@@ -36,7 +36,8 @@ class JsonRepository(jsonSource: InputStream = object{}.javaClass.getResourceAsS
                      private val validRelationships: List<Relationship>
                        = listOf(Relationship.HAS_A, Relationship.IN, Relationship.ON, Relationship.FROM,
                              Relationship.SYNONYM, Relationship.IS_A, Relationship.INCLUDES, Relationship.NEAR_SYNONYM,
-                             Relationship.PROPERTY))
+                             Relationship.PROPERTY, Relationship.ACTION, Relationship.ACTION_CONTINUOUS,
+                             Relationship.RECIPIENT_ACTION, Relationship.RECIPIENT_ACTION_PAST))
     : DictionaryRepository, SemanticRepository, LinguisticRepository {
 
     private val allWords = jacksonObjectMapper().readValue<List<WordMappingDTO>>(jsonSource).filter{showAdult || !it.adult}
@@ -75,9 +76,28 @@ class JsonRepository(jsonSource: InputStream = object{}.javaClass.getResourceAsS
             Relationship.INCLUDES -> detailedWord.supertypeOf
             Relationship.NEAR_SYNONYM -> detailedWord.nearlyIs
             Relationship.PROPERTY -> detailedWord.property
+            Relationship.ACTION -> detailedWord.acts
+            Relationship.ACTION_CONTINUOUS -> detailedWord.actsCont
+            Relationship.RECIPIENT_ACTION -> detailedWord.recipient
+            Relationship.RECIPIENT_ACTION_PAST -> detailedWord.recipientPast
             else -> emptyList()
         }
 
         return substitutions.map{SemanticSubstitution(Word(it, it, PartOfSpeech.UNKNOWN, 100.0), detailedWord.toWord(), relationship)}
     }
+//
+//    private fun getPartOfSpeech(detailedWord: WordMappingDTO, relationship: Relationship): PartOfSpeech {
+//        return when (relationship) {
+//            Relationship.HAS_A -> PartOfSpeech.NOUN
+//            Relationship.IN -> PartOfSpeech.NOUN
+//            Relationship.ON -> PartOfSpeech.NOUN
+//            Relationship.FROM -> PartOfSpeech.NOUN
+//            Relationship.SYNONYM -> detailedWord.partOfSpeech
+//            Relationship.IS_A -> detailedWord.partOfSpeech
+//            Relationship.INCLUDES -> detailedWord.partOfSpeech
+//            Relationship.NEAR_SYNONYM -> detailedWord.partOfSpeech
+//            Relationship.PROPERTY -> PartOfSpeech.ADJECTIVE
+//            else -> PartOfSpeech.UNKNOWN
+//        }
+//    }
 }

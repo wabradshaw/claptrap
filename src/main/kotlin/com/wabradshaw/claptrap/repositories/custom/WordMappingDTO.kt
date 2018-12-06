@@ -16,9 +16,13 @@ class WordMappingDTO(val spelling: String,
                      val typeOf: List<String> = emptyList(),
                      val supertypeOf: List<String> = emptyList(),
                      val nearlyIs: List<String> = emptyList(),
-                     val property: List<String> = emptyList()) {
+                     val property: List<String> = emptyList(),
+                     val acts: List<String> = emptyList(),
+                     val actsCont: List<String> = emptyList(),
+                     val recipient: List<String> = emptyList(),
+                     val recipientPast: List<String> = emptyList()) {
 
-    private val partOfSpeech = when (pos){
+    val partOfSpeech = when (pos){
         "Noun" -> PartOfSpeech.NOUN
         "Verb" -> PartOfSpeech.VERB
         "Adj" -> PartOfSpeech.ADJECTIVE

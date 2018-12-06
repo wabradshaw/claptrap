@@ -29,6 +29,10 @@ class JsonRepositoryTest {
     private val mammal = Word("a mammal", "a mammal", PartOfSpeech.UNKNOWN, 100.0)
     private val lion = Word("a lion", "a lion", PartOfSpeech.UNKNOWN, 100.0)
     private val fox = Word("a fox", "a fox", PartOfSpeech.UNKNOWN, 100.0)
+    private val meows = Word("meows", "meows", PartOfSpeech.UNKNOWN, 100.0)
+    private val meowing = Word("a meowing", "a meowing", PartOfSpeech.UNKNOWN, 100.0)
+    private val feed = Word("feed", "feed", PartOfSpeech.UNKNOWN, 100.0)
+    private val fed = Word("a fed", "a fed", PartOfSpeech.UNKNOWN, 100.0)
 
 
     /**
@@ -312,6 +316,98 @@ class JsonRepositoryTest {
     fun testGetSemanticSubs_property_none(){
         val repo = JsonRepository(this.javaClass.getResourceAsStream("/dictionaries/quark.json"),
                 validRelationships = listOf(Relationship.PROPERTY))
+        val result = repo.getSemanticSubs(quark)
+        assertEquals(emptyList<LinguisticSubstitution>(), result)
+    }
+
+    /**
+     * Tests the getSemanticSubs method on a word that contains acts substitutions.
+     */
+    @Test
+    fun testGetSemanticSubs_acts_exist(){
+        val repo = JsonRepository(jsonSource = this.javaClass.getResourceAsStream("/dictionaries/catOnly.json"),
+                validRelationships = listOf(Relationship.ACTION))
+        val result = repo.getSemanticSubs(cat)
+        assertEquals(1, result.size)
+        assertEquals(SemanticSubstitution(meows, cat, Relationship.ACTION), result[0])
+    }
+
+    /**
+     * Tests the getSemanticSubs method on a word that doesn't contain any acts substitutions.
+     */
+    @Test
+    fun testGetSemanticSubs_acts_none(){
+        val repo = JsonRepository(this.javaClass.getResourceAsStream("/dictionaries/quark.json"),
+                validRelationships = listOf(Relationship.ACTION))
+        val result = repo.getSemanticSubs(quark)
+        assertEquals(emptyList<LinguisticSubstitution>(), result)
+    }
+
+    /**
+     * Tests the getSemanticSubs method on a word that contains acts_continuous substitutions.
+     */
+    @Test
+    fun testGetSemanticSubs_acts_continuous_exist(){
+        val repo = JsonRepository(jsonSource = this.javaClass.getResourceAsStream("/dictionaries/catOnly.json"),
+                validRelationships = listOf(Relationship.ACTION_CONTINUOUS))
+        val result = repo.getSemanticSubs(cat)
+        assertEquals(1, result.size)
+        assertEquals(SemanticSubstitution(meowing, cat, Relationship.ACTION_CONTINUOUS), result[0])
+    }
+
+    /**
+     * Tests the getSemanticSubs method on a word that doesn't contain any acts_continuous substitutions.
+     */
+    @Test
+    fun testGetSemanticSubs_acts_continuous_none(){
+        val repo = JsonRepository(this.javaClass.getResourceAsStream("/dictionaries/quark.json"),
+                validRelationships = listOf(Relationship.ACTION_CONTINUOUS))
+        val result = repo.getSemanticSubs(quark)
+        assertEquals(emptyList<LinguisticSubstitution>(), result)
+    }
+
+    /**
+     * Tests the getSemanticSubs method on a word that contains recipient substitutions.
+     */
+    @Test
+    fun testGetSemanticSubs_recipient_exist(){
+        val repo = JsonRepository(jsonSource = this.javaClass.getResourceAsStream("/dictionaries/catOnly.json"),
+                validRelationships = listOf(Relationship.RECIPIENT_ACTION))
+        val result = repo.getSemanticSubs(cat)
+        assertEquals(1, result.size)
+        assertEquals(SemanticSubstitution(feed, cat, Relationship.RECIPIENT_ACTION), result[0])
+    }
+
+    /**
+     * Tests the getSemanticSubs method on a word that doesn't contain any recipient substitutions.
+     */
+    @Test
+    fun testGetSemanticSubs_recipient_none(){
+        val repo = JsonRepository(this.javaClass.getResourceAsStream("/dictionaries/quark.json"),
+                validRelationships = listOf(Relationship.RECIPIENT_ACTION))
+        val result = repo.getSemanticSubs(quark)
+        assertEquals(emptyList<LinguisticSubstitution>(), result)
+    }
+
+    /**
+     * Tests the getSemanticSubs method on a word that contains recipient_past substitutions.
+     */
+    @Test
+    fun testGetSemanticSubs_recipient_past_exist(){
+        val repo = JsonRepository(jsonSource = this.javaClass.getResourceAsStream("/dictionaries/catOnly.json"),
+                validRelationships = listOf(Relationship.RECIPIENT_ACTION_PAST))
+        val result = repo.getSemanticSubs(cat)
+        assertEquals(1, result.size)
+        assertEquals(SemanticSubstitution(fed, cat, Relationship.RECIPIENT_ACTION_PAST), result[0])
+    }
+
+    /**
+     * Tests the getSemanticSubs method on a word that doesn't contain any recipient_past substitutions.
+     */
+    @Test
+    fun testGetSemanticSubs_recipient_past_none(){
+        val repo = JsonRepository(this.javaClass.getResourceAsStream("/dictionaries/quark.json"),
+                validRelationships = listOf(Relationship.RECIPIENT_ACTION_PAST))
         val result = repo.getSemanticSubs(quark)
         assertEquals(emptyList<LinguisticSubstitution>(), result)
     }

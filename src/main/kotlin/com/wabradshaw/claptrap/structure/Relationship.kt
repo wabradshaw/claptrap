@@ -58,5 +58,33 @@ enum class Relationship {
     /**
      * The substitution is a descriptive adjective that can be used to reference the original. E.g. scaly PROPERTY fish.
      */
-    PROPERTY;
+    PROPERTY,
+
+    /**
+     * The substitute is a verb that the original can perform. This action should be in present 3rd singular form.
+     * E.g. runs ACTION jogger.
+     */
+    ACTION,
+
+    /**
+     * The substitute is a verb that the original can frequently perform. This action should be in continuous form.
+     * E.g. running ACTION_CONTINUOUS jogger.
+     */
+    ACTION_CONTINUOUS,
+
+    /**
+     * The substitute is a verb that can be performed on the original. This action should be in bare infinitive form.
+     * E.g. write RECIPIENT_ACTION letter.
+     */
+    RECIPIENT_ACTION,
+
+    /**
+     * The substitute is a verb that could have been performed on the original. This action should be in past tense.
+     * E.g. written RECIPIENT_ACTION_PAST letter.
+     *
+     * Note that actions which would have changed the nature of the original (rendering it unable to be described using
+     * the original word) should not be used. For example, the substitute toasted would not be appropriate for the
+     * original word bread.
+     */
+    RECIPIENT_ACTION_PAST;
 }

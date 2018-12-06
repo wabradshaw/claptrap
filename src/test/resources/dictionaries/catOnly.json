@@ -1,1 +1,1 @@
-[{"spelling": "cat", "group": "_at", "pos": "Noun", "adult": false, "has": ["a tail","whiskers"], "is": ["a feline"], "typeOf": ["a mammal"], "supertypeOf": ["a lion"], "nearlyIs": ["a fox"], "property": ["a feline"]}]
+[{"spelling": "cat", "group": "_at", "pos": "Noun", "adult": false, "has": ["a tail","whiskers"], "is": ["a feline"], "typeOf": ["a mammal"], "supertypeOf": ["a lion"], "nearlyIs": ["a fox"], "property": ["a feline"], "acts": ["meows"], "actsCont": ["a meowing"], "recipient": ["feed"], "recipientPast": ["a fed"]}]
