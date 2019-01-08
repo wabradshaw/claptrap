@@ -10,12 +10,36 @@ import org.junit.jupiter.api.TestInstance
 class ClapTrapServiceTest {
 
     @Test
-    fun tellJoke(){
-        val dataMuseRepo = DataMuseRepository()
-        val customRepo = JsonRepository(this.javaClass.getResourceAsStream("/customDictionary.json"))
-        val jokeDesigner = JokeDesigner(customRepo, customRepo, customRepo, customRepo)
+    fun tellRandomJoke(){
+        val mainRepository = JsonRepository()
+        val nucleusRepository = JsonRepository(object{}.javaClass.getResourceAsStream("/nucleusDictionary.json"))
 
-        var result = ClaptrapService(jokeDesigner).tellJoke("pirate")
+        val jokeDesigner = JokeDesigner(dictionaryRepo = mainRepository,
+                primarySemanticRepo = nucleusRepository,
+                secondarySemanticRepo = mainRepository,
+                linguisticRepo = mainRepository,
+                nucleusRepository = nucleusRepository)
+
+        var result = ClaptrapService(jokeDesigner).tellJoke()
+
+        println(result.spec)
+        println()
+        println(result.setup)
+        println(result.punchline)
+    }
+
+    @Test
+    fun tellSpecificJoke(){
+        val mainRepository = JsonRepository()
+        val nucleusRepository = JsonRepository(object{}.javaClass.getResourceAsStream("/nucleusDictionary.json"))
+
+        val jokeDesigner = JokeDesigner(dictionaryRepo = mainRepository,
+                primarySemanticRepo = nucleusRepository,
+                secondarySemanticRepo = mainRepository,
+                linguisticRepo = mainRepository,
+                nucleusRepository = nucleusRepository)
+
+        var result = ClaptrapService(jokeDesigner).tellJoke("catapult")
 
         println(result.spec)
         println()
@@ -25,9 +49,14 @@ class ClapTrapServiceTest {
 
     @Test
     fun tellJokes(){
-        val dataMuseRepo = DataMuseRepository()
-        val customRepo = JsonRepository(this.javaClass.getResourceAsStream("/customDictionary.json"))
-        val jokeDesigner = JokeDesigner(customRepo, customRepo, customRepo, customRepo)
+        val mainRepository = JsonRepository()
+        val nucleusRepository = JsonRepository(object{}.javaClass.getResourceAsStream("/nucleusDictionary.json"))
+
+        val jokeDesigner = JokeDesigner(dictionaryRepo = mainRepository,
+                                        primarySemanticRepo = nucleusRepository,
+                                        secondarySemanticRepo = mainRepository,
+                                        linguisticRepo = mainRepository,
+                                        nucleusRepository = nucleusRepository)
 
         val topics = listOf("catapult", "pirate", "captain", "slowboat", "winter", "summer", "spring", "damage", "hammersmith")
 

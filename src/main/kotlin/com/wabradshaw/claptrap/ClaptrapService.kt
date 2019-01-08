@@ -16,4 +16,9 @@ class ClaptrapService(private val jokeDesigner: JokeDesigner,
         var spec = jokeDesigner.designJokeFromNucleus(topic)
         return jokeGenerator.generateJoke(spec);
     }
+
+    fun tellJoke(): Joke {
+        var spec = jokeDesigner.designRandomJoke()
+        return jokeGenerator.generateJoke(spec);
+    }
 }

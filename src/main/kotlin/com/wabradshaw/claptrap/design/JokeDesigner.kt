@@ -3,6 +3,7 @@ package com.wabradshaw.claptrap.design
 import com.wabradshaw.claptrap.NoJokeException
 import com.wabradshaw.claptrap.repositories.DictionaryRepository
 import com.wabradshaw.claptrap.repositories.LinguisticRepository
+import com.wabradshaw.claptrap.repositories.NucleusRepository
 import com.wabradshaw.claptrap.repositories.SemanticRepository
 import com.wabradshaw.claptrap.structure.JokeSpec
 import com.wabradshaw.claptrap.structure.SemanticSubstitution
@@ -16,6 +17,7 @@ class JokeDesigner(private val dictionaryRepo: DictionaryRepository,
                    private val primarySemanticRepo: SemanticRepository,
                    private val secondarySemanticRepo: SemanticRepository,
                    private val linguisticRepo: LinguisticRepository,
+                   private val nucleusRepository: NucleusRepository,
                    private val substringGenerator: SubstringGenerator = SubstringGenerator(),
                    private val randomiseSubstringChoice: Boolean = false,
                    private val randomiseSemanticSubstitutions: Boolean = true,
@@ -34,36 +36,55 @@ class JokeDesigner(private val dictionaryRepo: DictionaryRepository,
 
         val nucleusWord = dictionaryRepo.getWord(nucleus)
 
+        return designJoke(nucleus, nucleusWord)
+    }
+
+    /**
+     * Generates the joke specification for a joke using a randomly chosen nucleus.
+     *
+     * Please note that this is a joke telling AI. The joke will probably be rubbish.
+     */
+    fun designRandomJoke(): JokeSpec {
+
+        val nucleusWord = nucleusRepository.getNucleus()
+
+        return designJoke(nucleusWord.spelling, nucleusWord)
+    }
+
+    /**
+     * Main workhorse of the JokeDesigner that actually produces the joke.
+     */
+    private fun designJoke(nucleusString: String, nucleusWord: Word?): JokeSpec {
         val primarySetup: SemanticSubstitution? = when (nucleusWord) {
             null -> null
             else -> chooseSetup(nucleusWord, listOf(nucleusWord), primarySemanticRepo)
         }
 
-        val substrings = substringGenerator.getSubstrings(nucleus).toMutableList()
+        val substrings = substringGenerator.getSubstrings(nucleusString).toMutableList()
         if (randomiseSubstringChoice) substrings.shuffle()
 
-        for(substring in substrings) {
+        for (substring in substrings) {
             val candidateSubstring = dictionaryRepo.getWord(substring)
-            if(candidateSubstring != null){
+            if (candidateSubstring != null) {
                 val linguisticSubs = linguisticRepo
                         .getLinguisticSubs(candidateSubstring)
-                        .filterNot{(c) -> usedWord(c, listOf(nucleusWord, primarySetup?.substitution)) }
-                        .filter{(c) -> commonWord(c)}
+                        .filterNot { (c) -> usedWord(c, listOf(nucleusWord, primarySetup?.substitution)) }
+                        .filter { (c) -> commonWord(c) }
                         .toMutableList()
 
                 if (randomiseLinguisticSubstitutions) linguisticSubs.shuffle()
 
-                for(linguisticSub in linguisticSubs){
+                for (linguisticSub in linguisticSubs) {
                     val usedWords = listOf(nucleusWord, primarySetup?.substitution, candidateSubstring, linguisticSub.substitution)
                     val secondarySetup = chooseSetup(linguisticSub.substitution, usedWords, secondarySemanticRepo)
 
-                    if(secondarySetup != null){
-                        return JokeSpec(nucleus, nucleusWord, primarySetup, secondarySetup, linguisticSub)
+                    if (secondarySetup != null) {
+                        return JokeSpec(nucleusString, nucleusWord, primarySetup, secondarySetup, linguisticSub)
                     }
                 }
             }
         }
-        throw NoJokeException("No joke could be found for the word '$nucleus'.")
+        throw NoJokeException("No joke could be found for the word '$nucleusString'.")
     }
 
     /**

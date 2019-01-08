@@ -4,9 +4,11 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.wabradshaw.claptrap.repositories.DictionaryRepository
 import com.wabradshaw.claptrap.repositories.LinguisticRepository
+import com.wabradshaw.claptrap.repositories.NucleusRepository
 import com.wabradshaw.claptrap.repositories.SemanticRepository
 import com.wabradshaw.claptrap.structure.*
 import java.io.InputStream
+import java.util.*
 
 /**
  * A JsonRepository is a dictionary that uses a custom json dictionary to store relationships between words. As this
@@ -38,11 +40,12 @@ class JsonRepository(jsonSource: InputStream = object{}.javaClass.getResourceAsS
                              Relationship.SYNONYM, Relationship.IS_A, Relationship.INCLUDES, Relationship.NEAR_SYNONYM,
                              Relationship.PROPERTY, Relationship.ACTION, Relationship.ACTION_CONTINUOUS,
                              Relationship.RECIPIENT_ACTION, Relationship.RECIPIENT_ACTION_PAST))
-    : DictionaryRepository, SemanticRepository, LinguisticRepository {
+    : DictionaryRepository, SemanticRepository, LinguisticRepository, NucleusRepository {
 
     private val allWords = jacksonObjectMapper().readValue<List<WordMappingDTO>>(jsonSource).filter{showAdult || !it.adult}
     private val wordMap = allWords.associateBy {it.spelling}
     private val groupMap = allWords.groupBy { word -> word.group }
+    private val rng = Random()
 
     override fun getWord(string: String): Word? {
         return wordMap[string]?.toWord()
@@ -60,6 +63,10 @@ class JsonRepository(jsonSource: InputStream = object{}.javaClass.getResourceAsS
             true -> emptyList()
             false -> validRelationships.flatMap{relationship -> getRelationship(detailedWord!!, relationship)}
         }
+    }
+
+    override fun getNucleus(): Word{
+        return allWords.get(rng.nextInt(allWords.size)).toWord()
     }
 
     /**
