@@ -18,7 +18,7 @@ class SubstringGeneratorTest {
     fun testTypical(){
         val generator = SubstringGenerator()
         val result = generator.getSubstrings("abcdefgh")
-        assertEquals(listOf("abcde", "defgh", "abcd", "efgh", "abc", "fgh"), result)
+        assertEquals(listOf("abcde", "defgh", "abcd", "efgh", "abc", "fgh", "ab", "gh"), result)
     }
 
     /**
@@ -29,7 +29,7 @@ class SubstringGeneratorTest {
     fun testShorterThanMax(){
         val generator = SubstringGenerator()
         val result = generator.getSubstrings("abcd")
-        assertEquals(listOf("abcd", "abc", "bcd"), result)
+        assertEquals(listOf("abcd", "abc", "bcd", "ab", "cd"), result)
     }
 
     /**
@@ -39,7 +39,7 @@ class SubstringGeneratorTest {
     @Test
     fun testShorterThanMin(){
         val generator = SubstringGenerator()
-        val result = generator.getSubstrings("ab")
+        val result = generator.getSubstrings("a")
         assertEquals(emptyList<String>(), result)
     }
 
@@ -50,7 +50,7 @@ class SubstringGeneratorTest {
     fun testChangeMax(){
         val generator = SubstringGenerator(maxLength = 6)
         val result = generator.getSubstrings("abcdefgh")
-        assertEquals(listOf("abcdef", "cdefgh", "abcde", "defgh", "abcd", "efgh", "abc", "fgh"), result)
+        assertEquals(listOf("abcdef", "cdefgh", "abcde", "defgh", "abcd", "efgh", "abc", "fgh", "ab", "gh"), result)
     }
 
     /**
@@ -68,9 +68,9 @@ class SubstringGeneratorTest {
      */
     @Test
     fun testChangeMaxAndMin(){
-        val generator = SubstringGenerator(maxLength = 6, minLength = 2)
+        val generator = SubstringGenerator(maxLength = 6, minLength = 4)
         val result = generator.getSubstrings("abcdefgh")
-        assertEquals(listOf("abcdef", "cdefgh", "abcde", "defgh", "abcd", "efgh", "abc", "fgh", "ab", "gh"), result)
+        assertEquals(listOf("abcdef", "cdefgh", "abcde", "defgh", "abcd", "efgh"), result)
     }
 
     /**

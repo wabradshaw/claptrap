@@ -5,13 +5,13 @@ import java.lang.Math.min
 /**
  * A SubstringGenerator is used to find substrings of words that are candidates for substitution. These will later be
  * reduced to just the substrings representing actual words. The default setting is to select substrings at the start
- * and end of the word with between 3 and 5 characters (inclusive).
+ * and end of the word with between 2 and 5 characters (inclusive).
  *
  * @property maxLength The maximum number of characters in a substring. Inclusive.
  * @property minLength The minimum number of characters in a substring. Inclusive.
  */
 class SubstringGenerator(val maxLength: Int = 5,
-                         val minLength: Int = 3){
+                         val minLength: Int = 2){
 
     /**
      * Gets all substrings in a word which are suitable for substitution. The results are in order of length, longest
