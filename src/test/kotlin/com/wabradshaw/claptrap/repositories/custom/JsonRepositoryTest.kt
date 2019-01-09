@@ -16,6 +16,7 @@ class JsonRepositoryTest {
     private val hat = Word("hat", "hat", PartOfSpeech.NOUN, 100.0)
     private val rat = Word("rat", "rat", PartOfSpeech.NOUN, 100.0)
     private val twat = Word("twat", "twat", PartOfSpeech.NOUN, 100.0)
+    private val capital_cat = Word("CAT", "CAT", PartOfSpeech.NOUN, 100.0)
 
     private val unknown = Word("zzz", "zzz", PartOfSpeech.UNKNOWN, 100.0)
     private val quark = Word("quark", "quark", PartOfSpeech.NOUN, 100.0)
@@ -52,6 +53,16 @@ class JsonRepositoryTest {
     fun testGetWord_exists_onlyWord(){
         val repo = JsonRepository(this.javaClass.getResourceAsStream("/dictionaries/catOnly.json"))
         val result = repo.getWord("cat")
+        assertEquals(cat, result)
+    }
+
+    /**
+     * Tests that getWord ignores case when looking for words.
+     */
+    @Test
+    fun testGetWord_caseInsensitive(){
+        val repo = JsonRepository(this.javaClass.getResourceAsStream("/dictionaries/catOnly.json"))
+        val result = repo.getWord("Cat")
         assertEquals(cat, result)
     }
 
@@ -99,6 +110,17 @@ class JsonRepositoryTest {
         val result = repo.getLinguisticSubs(cat)
         assertEquals(1, result.size)
         assertEquals(LinguisticSubstitution(bat, cat, LinguisticSimilarity.RHYME), result[0])
+    }
+
+    /**
+     * Tests the getLinguisticSubs method will ignore case when looking for substitutions
+     */
+    @Test
+    fun testGetLinguisticSubs_caseInsensitive(){
+        val repo = JsonRepository(this.javaClass.getResourceAsStream("/dictionaries/catBat.json"))
+        val result = repo.getLinguisticSubs(capital_cat)
+        assertEquals(1, result.size)
+        assertEquals(LinguisticSubstitution(bat, capital_cat, LinguisticSimilarity.RHYME), result[0])
     }
 
     /**
@@ -410,6 +432,19 @@ class JsonRepositoryTest {
                 validRelationships = listOf(Relationship.RECIPIENT_ACTION_PAST))
         val result = repo.getSemanticSubs(quark)
         assertEquals(emptyList<LinguisticSubstitution>(), result)
+    }
+
+    /**
+     * Tests the getSemanticSubs method will ignore case.
+     */
+    @Test
+    fun testGetSemanticSubs_caseInsensitive(){
+        val repo = JsonRepository(jsonSource = this.javaClass.getResourceAsStream("/dictionaries/catOnly.json"),
+                validRelationships = listOf(Relationship.HAS_A))
+        val result = repo.getSemanticSubs(capital_cat)
+        assertEquals(2, result.size)
+        assertEquals(SemanticSubstitution(tail, capital_cat, Relationship.HAS_A), result[0])
+        assertEquals(SemanticSubstitution(whiskers, capital_cat, Relationship.HAS_A), result[1])
     }
 
     /**

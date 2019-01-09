@@ -43,25 +43,25 @@ class JsonRepository(jsonSource: InputStream = object{}.javaClass.getResourceAsS
     : DictionaryRepository, SemanticRepository, LinguisticRepository, NucleusRepository {
 
     private val allWords = jacksonObjectMapper().readValue<List<WordMappingDTO>>(jsonSource).filter{showAdult || !it.adult}
-    private val wordMap = allWords.associateBy {it.spelling}
+    private val wordMap = allWords.associateBy {it.spelling.toLowerCase()}
     private val groupMap = allWords.groupBy { word -> word.group }
     private val rng = Random()
 
     override fun getWord(string: String): Word? {
-        return wordMap[string]?.toWord()
+        return wordMap[string.toLowerCase()]?.toWord()
     }
 
     override fun getLinguisticSubs(word: Word): List<LinguisticSubstitution> {
-        val allSubs = groupMap.getOrDefault(wordMap[word.spelling]?.group, emptyList())
-        return allSubs.filter{it.spelling != word.spelling}
+        val allSubs = groupMap.getOrDefault(wordMap[word.spelling.toLowerCase()]?.group, emptyList())
+        return allSubs.filterNot{it.spelling.equals(word.spelling, true)}
                       .map{ LinguisticSubstitution(it.toWord(), word, LinguisticSimilarity.RHYME) }
     }
 
     override fun getSemanticSubs(word: Word): List<SemanticSubstitution> {
-        val detailedWord = wordMap[word.spelling]
+        val detailedWord = wordMap[word.spelling.toLowerCase()]
         return when(detailedWord == null){
             true -> emptyList()
-            false -> validRelationships.flatMap{relationship -> getRelationship(detailedWord!!, relationship)}
+            false -> validRelationships.flatMap{relationship -> getRelationship(word, detailedWord!!, relationship)}
         }
     }
 
@@ -72,7 +72,7 @@ class JsonRepository(jsonSource: InputStream = object{}.javaClass.getResourceAsS
     /**
      * Gets all of the substitutions for the given relationship.
      */
-    private fun getRelationship(detailedWord: WordMappingDTO, relationship: Relationship): Iterable<SemanticSubstitution> {
+    private fun getRelationship(word: Word, detailedWord: WordMappingDTO, relationship: Relationship): Iterable<SemanticSubstitution> {
        val substitutions = when(relationship){
             Relationship.HAS_A -> detailedWord.has
             Relationship.IN -> detailedWord.inside
@@ -90,7 +90,7 @@ class JsonRepository(jsonSource: InputStream = object{}.javaClass.getResourceAsS
             else -> emptyList()
         }
 
-        return substitutions.map{SemanticSubstitution(Word(it, it, PartOfSpeech.UNKNOWN, 100.0), detailedWord.toWord(), relationship)}
+        return substitutions.map{SemanticSubstitution(Word(it, it, PartOfSpeech.UNKNOWN, 100.0), word, relationship)}
     }
 //
 //    private fun getPartOfSpeech(detailedWord: WordMappingDTO, relationship: Relationship): PartOfSpeech {
