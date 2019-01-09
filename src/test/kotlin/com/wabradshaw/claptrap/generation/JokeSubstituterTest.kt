@@ -122,4 +122,31 @@ class JokeSubstituterTest {
         val result = JokeSubstituter().createJokeWord(testSpec("washing machine","wash", "posh"))
         assertEquals("posh-ing machine", result)
     }
+
+    /**
+     * Tests that a substitution isn't case sensitive at the start.
+     */
+    @Test
+    fun testIgnoreCase_start(){
+        val result = JokeSubstituter().createJokeWord(testSpec("Donald Trump","don", "con"))
+        assertEquals("con-ald Trump", result)
+    }
+
+    /**
+     * Tests that a substitution isn't case sensitive at the end.
+     */
+    @Test
+    fun testIgnoreCase_end(){
+        val result = JokeSubstituter().createJokeWord(testSpec("parrot","rot", "Scot"))
+        assertEquals("par-Scot", result)
+    }
+
+    /**
+     * Tests that a substitution isn't case sensitive in the middle.
+     */
+    @Test
+    fun testIgnoreCase_middle(){
+        val result = JokeSubstituter().createJokeWord(testSpec("Harry Potter","pot", "Scot"))
+        assertEquals("Harry Scot-ter", result)
+    }
 }
