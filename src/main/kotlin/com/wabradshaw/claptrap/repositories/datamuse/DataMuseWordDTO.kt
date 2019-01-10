@@ -9,7 +9,7 @@ import com.wabradshaw.claptrap.structure.Word
  * JSON transfer object to convert DataMuse responses into Word objects.
  */
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-@JsonIgnoreProperties(value = "numSyllables")
+@JsonIgnoreProperties(value = ["numSyllables"])
 class DataMuseWordDTO(val word:String, val score:Int, val tags: List<String>){
 
     private val pos = when (tags.get(1)){
