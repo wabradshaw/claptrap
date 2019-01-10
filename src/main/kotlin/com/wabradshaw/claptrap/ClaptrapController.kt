@@ -4,7 +4,9 @@ import com.wabradshaw.claptrap.design.JokeDesigner
 import com.wabradshaw.claptrap.repositories.custom.JsonRepository
 import com.wabradshaw.claptrap.structure.Joke
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 /*
@@ -13,18 +15,34 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class ClaptrapController {
 
-    private val mainRepository = JsonRepository()
-    private val nucleusRepository = JsonRepository(object{}.javaClass.getResourceAsStream("/nucleusDictionary.json"))
+    private val adultMainRepo = JsonRepository()
+    private val adultNucleusRepo = JsonRepository(object{}.javaClass.getResourceAsStream("/nucleusDictionary.json"))
 
-    val jokeDesigner = JokeDesigner(dictionaryRepo = mainRepository,
-            primarySemanticRepo = nucleusRepository,
-            secondarySemanticRepo = mainRepository,
-            linguisticRepo = mainRepository,
-            nucleusRepository = nucleusRepository)
-    val jokeService: ClaptrapService = ClaptrapService(jokeDesigner)
+    val adultJokeDesigner = JokeDesigner(dictionaryRepo = adultMainRepo,
+            primarySemanticRepo = adultNucleusRepo,
+            secondarySemanticRepo = adultMainRepo,
+            linguisticRepo = adultMainRepo,
+            nucleusRepository = adultNucleusRepo)
+    val adultJokeService: ClaptrapService = ClaptrapService(adultJokeDesigner)
+
+    private val childMainRepo = JsonRepository(showAdult = false)
+    private val childNucleusRepo = JsonRepository(object{}.javaClass.getResourceAsStream("/nucleusDictionary.json"),
+                                                  showAdult = false)
+
+    val childJokeDesigner = JokeDesigner(dictionaryRepo = childMainRepo,
+            primarySemanticRepo = childNucleusRepo,
+            secondarySemanticRepo = childMainRepo,
+            linguisticRepo = childMainRepo,
+            nucleusRepository = childNucleusRepo)
+    val childJokeService: ClaptrapService = ClaptrapService(childJokeDesigner)
 
     @GetMapping("/joke")
-    fun getJoke(): ResponseEntity<Joke> {
-        return ResponseEntity.ok(jokeService.tellJoke())
+    @CrossOrigin
+    fun getJoke(@RequestParam(value="sweary") adult: Boolean): ResponseEntity<Joke> {
+        val joke = when (adult) {
+            true -> adultJokeService.tellJoke()
+            false -> childJokeService.tellJoke()
+        }
+        return ResponseEntity.ok(joke)
     }
 }
