@@ -34,8 +34,8 @@ class JokeGenerator(private val setupTemplates: List<SetupTemplate> = SetupTempl
 
     private fun createPunchline(spec: JokeSpec): String {
         val joke = substituter.createJokeWord(spec)
-        
-        return "A $joke!"
+        val determiner = determinerManager.chooseDefaultDeterminer(joke)
+        return "$determiner $joke!".capitalize()
     }
 
 }
