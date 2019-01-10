@@ -17,12 +17,10 @@ const val NO_DETERMINER = "_noDet"
  * @property id             The unique id to refer back to this template. Used for traceability of a finished joke.
  * @param script            The script that determines the output joke setup. It's a string containing placeholders
  *                          for the semantic substitutions.
- * @param determinerManager The determiner manager to use to add or remove determiners. Defaults to the typical one.
  */
 class SetupTemplate(val id: String,
                     val constraints: List<SetupConstraint>,
-                    val script: String,
-                    private val determinerManager: DeterminerManager = DeterminerManager()) {
+                    val script: String) {
 
     /**
      * Checks whether or not the setup template can be used with the current joke spec. This means that all of the
@@ -40,7 +38,7 @@ class SetupTemplate(val id: String,
      * @param primary The string (including a determiner) which fits the primary setup slot
      * @param secondary The string (including a determiner) which fits the secondary setup slot
      */
-    fun apply(primary: String, secondary: String):String{
+    fun apply(primary: String, secondary: String, determinerManager: DeterminerManager):String{
         return script.replace(PRIMARY_PLACEHOLDER + NO_DETERMINER, determinerManager.removeDeterminer(primary))
                      .replace(SECONDARY_PLACEHOLDER + NO_DETERMINER, determinerManager.removeDeterminer(secondary))
                      .replace(PRIMARY_PLACEHOLDER, primary)

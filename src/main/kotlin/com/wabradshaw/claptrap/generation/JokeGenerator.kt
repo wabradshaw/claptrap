@@ -6,7 +6,8 @@ import com.wabradshaw.claptrap.structure.Joke
 import com.wabradshaw.claptrap.structure.JokeSpec
 
 class JokeGenerator(private val setupTemplates: List<SetupTemplate> = SetupTemplateLoader().load(),
-                    private val substituter:JokeSubstituter = JokeSubstituter()) {
+                    private val substituter:JokeSubstituter = JokeSubstituter(),
+                    private val determinerManager:DeterminerManager = DeterminerManager()) {
 
     fun generateJoke(spec: JokeSpec): Joke {
 
@@ -15,7 +16,7 @@ class JokeGenerator(private val setupTemplates: List<SetupTemplate> = SetupTempl
 
         val setup = chooseSetup(spec, primarySetup, secondarySetup)
 
-        return Joke(setup.apply(primarySetup, secondarySetup),
+        return Joke(setup.apply(primarySetup, secondarySetup, determinerManager),
                     createPunchline(spec),
                     spec,
                     setup.id)

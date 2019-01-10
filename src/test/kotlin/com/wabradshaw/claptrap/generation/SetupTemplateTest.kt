@@ -23,6 +23,7 @@ class SetupTemplateTest {
                                    Word("cat", "cat", PartOfSpeech.NOUN, 1.0),
                                    LinguisticSimilarity.RHYME)
     )
+    val determinerManager = DeterminerManager()
 
     /**
      * Tests that a template with no constraints applies.
@@ -87,7 +88,7 @@ class SetupTemplateTest {
     @Test
     fun testApply_noPlaceholders(){
         val template = SetupTemplate("1", emptyList(),"This won't be changed.")
-        assertEquals("This won't be changed.", template.apply("who", "cares"))
+        assertEquals("This won't be changed.", template.apply("who", "cares", determinerManager))
     }
 
     /**
@@ -96,7 +97,7 @@ class SetupTemplateTest {
     @Test
     fun testApply_typicalJoke(){
         val template = SetupTemplate("1", emptyList(),"What type of $PRIMARY_PLACEHOLDER$NO_DETERMINER has $SECONDARY_PLACEHOLDER?")
-        assertEquals("What type of catapult has a brim?", template.apply("a catapult", "a brim"))
+        assertEquals("What type of catapult has a brim?", template.apply("a catapult", "a brim", determinerManager))
     }
 
     /**
@@ -105,7 +106,7 @@ class SetupTemplateTest {
     @Test
     fun testApply_primaryReplaced(){
         val template = SetupTemplate("1", emptyList(),"a b c $PRIMARY_PLACEHOLDER c")
-        assertEquals("a b c a b c", template.apply("a b", "cares"))
+        assertEquals("a b c a b c", template.apply("a b", "cares", determinerManager))
     }
 
     /**
@@ -114,7 +115,7 @@ class SetupTemplateTest {
     @Test
     fun testApply_secondaryReplaced(){
         val template = SetupTemplate("1", emptyList(),"a b c $SECONDARY_PLACEHOLDER c")
-        assertEquals("a b c a b c", template.apply("unused", "a b"))
+        assertEquals("a b c a b c", template.apply("unused", "a b", determinerManager))
     }
 
     /**
@@ -123,7 +124,7 @@ class SetupTemplateTest {
     @Test
     fun testApply_primaryReplacedNoDet(){
         val template = SetupTemplate("1", emptyList(),"a b c a $PRIMARY_PLACEHOLDER$NO_DETERMINER c")
-        assertEquals("a b c a b c", template.apply("a b", "cares"))
+        assertEquals("a b c a b c", template.apply("a b", "cares", determinerManager))
     }
 
     /**
@@ -132,6 +133,6 @@ class SetupTemplateTest {
     @Test
     fun testApply_secondaryReplacedNoDet(){
         val template = SetupTemplate("1", emptyList(),"a b c a $SECONDARY_PLACEHOLDER$NO_DETERMINER c")
-        assertEquals("a b c a b c", template.apply("unused", "a b"))
+        assertEquals("a b c a b c", template.apply("unused", "a b", determinerManager))
     }
 }
