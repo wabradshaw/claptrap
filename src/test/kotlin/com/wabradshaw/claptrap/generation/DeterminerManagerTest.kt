@@ -66,4 +66,48 @@ class DeterminerManagerTest {
         assertEquals("tithe offering", result)
     }
 
+    /**
+     * Tests that a word that starts with a normal consonant will return "a".
+     */
+    @Test
+    fun testDefault_consonant(){
+        val result = manager.chooseDefaultDeterminer("cat")
+        assertEquals("a", result)
+    }
+
+    /**
+     * Tests that a word that starts with a normal vowel will return "an".
+     */
+    @Test
+    fun testDefault_vowel(){
+        val result = manager.chooseDefaultDeterminer("octopus")
+        assertEquals("an", result)
+    }
+
+    /**
+     * Tests that a word that starts with an unusual consonant can return "an".
+     */
+    @Test
+    fun testDefault_awkwardConsonant(){
+        val result = manager.chooseDefaultDeterminer("honor")
+        assertEquals("an", result)
+    }
+
+    /**
+     * Tests that a word that starts with an unusual vowel can return "a".
+     */
+    @Test
+    fun testDefault_awkwardVowel(){
+        val result = manager.chooseDefaultDeterminer("university")
+        assertEquals("a", result)
+    }
+
+    /**
+     * Tests that a word that starts with a capital can return "an".
+     */
+    @Test
+    fun testDefault_caseSensitive(){
+        val result = manager.chooseDefaultDeterminer("NPC")
+        assertEquals("an", result)
+    }
 }
