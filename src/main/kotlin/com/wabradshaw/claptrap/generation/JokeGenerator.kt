@@ -13,19 +13,28 @@ class JokeGenerator(private val setupTemplates: List<SetupTemplate> = SetupTempl
         val primarySetup = spec.primarySetup?.substitution?.spelling ?: spec.nucleus
         val secondarySetup = spec.secondarySetup.substitution.spelling
 
-        val joke = substituter.createJokeWord(spec)
-
-        val validTemplates = setupTemplates.filter{it.isValid(spec)}
-
-        if(validTemplates.isEmpty()){
-            throw NoJokeException("Could not work out how to write a joke setup for $primarySetup/$secondarySetup.")
-        }
-
-        val setup = validTemplates.shuffled()[0]
+        val setup = chooseSetup(spec, primarySetup, secondarySetup)
 
         return Joke(setup.apply(primarySetup, secondarySetup),
-                    "A $joke!",
+                    createPunchline(spec),
                     spec,
                     setup.id)
     }
+
+    private fun chooseSetup(spec: JokeSpec, primarySetup: String, secondarySetup: String): SetupTemplate {
+        val validTemplates = setupTemplates.filter { it.isValid(spec) }
+
+        if (validTemplates.isEmpty()) {
+            throw NoJokeException("Could not work out how to write a joke setup for $primarySetup/$secondarySetup.")
+        }
+
+        return validTemplates.shuffled()[0]
+    }
+
+    private fun createPunchline(spec: JokeSpec): String {
+        val joke = substituter.createJokeWord(spec)
+        
+        return "A $joke!"
+    }
+
 }
