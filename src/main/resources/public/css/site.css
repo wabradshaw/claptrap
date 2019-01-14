@@ -1,0 +1,104 @@
+@font-face {
+	font-family: montserrat;
+	src: url(fonts/montserrat/Montserrat-ExtraBold.otf);
+	font-weight: 900;
+}
+
+@font-face {
+	font-family: montserrat;
+	src: url(fonts/montserrat/Montserrat-Regular.otf);
+}
+
+/********************/
+/*    Components    */
+/********************/
+
+.card {
+	background-color: white;
+	border: 2px solid black;
+	-webkit-box-shadow: 10px 10px 0px 0px black;
+	-moz-box-shadow: 10px 10px 0px 0px black;
+	box-shadow: 10px 10px 0px 0px black;
+	margin: 20px;
+	padding: 20px;
+}
+
+.button {
+    background-color: #ffe000;
+    padding: 1em;
+    width: fit-content;
+    font-family: montserrat;
+    border: 2px solid black;
+	cursor: pointer;
+}
+
+.button:hover, 
+.button:focus,
+.button:active {
+	background-color: white;
+}
+
+/********************/
+/* Specific Objects */
+/********************/
+
+html, body{
+	margin: 0px;
+	height: 100%;
+	min-height: 100%;
+	overflow: hidden;
+	background-color: #aa0000ff;
+}
+
+#banner {
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 5px 20px 5px 5px;
+}
+
+#main-window {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Title */
+
+#title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#main-title {
+	width: 500px;
+    max-width: 50vw;
+    min-width: 200px;
+}
+
+#slogan {
+    font-family: montserrat;
+    font-size: 20px;
+    color: #ffe000;
+}
+
+/* Intro Page */
+
+#intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#intro-card {
+	font-family: montserrat;
+    font-size: 20px;
+    line-height: 1.5em;
+}
+
+#intro>.generate-button {
+	font-size: 20px;
+    min-width: 200px;
+    display: flex;
+    justify-content: center;
+}
