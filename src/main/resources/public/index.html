@@ -29,12 +29,12 @@
 							Rate the jokes to help Claptrap learn what's funny and what isn't. Or what doesn't make any sense at all. You can even help Claptrap improve by teaching it how words relate to one another.
 						</p>
 					</div>
-					<div class="generate-button button" role="button" tabindex="0" data-bind="click: generateJoke">Tell a Joke</div>
+					<div class="generate-button button" role="button" tabindex="0" data-bind="click: generateJoke, event: {keypress: generateJoke}">Tell a Joke</div>
 				</div>
 				<div id="joke" data-bind="with: currentJoke">
 					<div id="setup" class="card" data-bind="text: setup"></div>
 					<div id="punchline" class="card" data-bind="text: punchline"></div>
-					<div class="generate-button button" role="button" tabindex="0" data-bind="click: $root.generateJoke">Tell another</div>
+					<div class="generate-button button" role="button" tabindex="0" data-bind="click: $root.generateJoke, event: {keypress: $root.generateJoke}">Tell another</div>
 					<div id="rating-buttons">
 						<div id="good-rating" class="rating button" role="button" tabindex="0"><i class="fa fa-2x fa-thumbs-up"></i></div>
 						<div id="bad-rating" class="rating button" role="button" tabindex="0"><i class="fa fa-2x fa-thumbs-down"></i></div>
