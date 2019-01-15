@@ -61,7 +61,7 @@ class JsonRepository(jsonSource: InputStream = object{}.javaClass.getResourceAsS
         val detailedWord = wordMap[word.spelling.toLowerCase()]
         return when(detailedWord == null){
             true -> emptyList()
-            false -> validRelationships.flatMap{relationship -> getRelationship(word, detailedWord!!, relationship)}
+            false -> validRelationships.flatMap{relationship -> getRelationship(word, detailedWord, relationship)}
         }
     }
 
