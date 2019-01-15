@@ -40,7 +40,7 @@
 
 .generate-button {
 	font-size: 20px;
-    min-width: 200px;
+    min-width: 316px;
     display: flex;
     justify-content: center;
 }
@@ -52,9 +52,12 @@
 html, body{
 	margin: 0px;
 	height: 100%;
+	width: 100%;
 	min-height: 100%;
 	overflow: hidden;
 	background-color: #aa0000ff;
+	display:flex;
+	flex-direction:column;
 }
 
 #banner {
@@ -67,6 +70,18 @@ html, body{
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+	flex-grow: 1;
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#content-window {
+	min-height: 500px;
+}
+
+#footer {
+	height: 100px;
 }
 
 /* Title */
@@ -112,13 +127,15 @@ html, body{
 }
 
 #setup {
-	width: 90%;
-	margin-right:10%;
+	width: 600px;
+	margin-right: 100px;
+	margin-top: 40px;
 }
 
 #punchline {
-	width: 90%;
-	margin-left:10%;
+	width: 600px;
+	margin-left: 100px;
+	margin-bottom: 40px;
 }
 
 #setup, #punchline {
@@ -130,12 +147,12 @@ html, body{
 }
 
 #rating-buttons {
-	display:flex;
+	display: flex;
 	justify-content: center;
 }
 
 .rating {
-	margin:10px;
+	margin: 10px;
 	width: 30px;
 	height: 30px;
 	display: flex;
@@ -143,11 +160,11 @@ html, body{
 }
 
 .rating>.fa {
-	margin:auto;
+	margin: auto;
 }
 
 #improve-button {
-	margin:10px;
+	margin: 10px;
 	height: 30px;
 	display: flex;
 	align-items: center;
