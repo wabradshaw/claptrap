@@ -18,7 +18,7 @@ class DeterminerManager {
      * @param string The string representation of the word
      */
     fun removeDeterminer(string: String): String {
-        return determiners.fold(string) {string, det -> Regex("^$det ").replace(string, "")}
+        return determiners.fold(string) {str, det -> Regex("^$det ").replace(str, "")}
     }
 
     /**
