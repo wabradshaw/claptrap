@@ -124,6 +124,9 @@ html, body{
 #setup, #punchline {
     font-family: montserrat;
     font-size: 28px;
+	min-height: 68px;
+    align-items: center;
+    display: flex;
 }
 
 #rating-buttons {
