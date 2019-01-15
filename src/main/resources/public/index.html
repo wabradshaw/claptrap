@@ -7,7 +7,7 @@
         <script src="js/ext/jquery-3.1.1.min.js"></script>
 		<script src="js/ext/knockout-3.4.2.js"></script>
 		
-		<script src="todo.js"></script>		
+		<script src="js/claptrap.js"></script>		
         <title>Claptrap</title>
     </head>
 	<body>
@@ -20,7 +20,7 @@
 				<div id="slogan">The Crap Joke Generation App</div>
 			</div>
 			<div id="content-window">
-				<div id="intro">
+				<div id="intro" data-bind="ifnot: currentJoke">
 					<div id="intro-card" class="card">
 						<p>
 							Claptrap is an AI that makes up its own jokes. Everytime you ask it for a joke it will come up with a brand new one. It'll probably be terrible. Sorry.
@@ -29,12 +29,12 @@
 							Rate the jokes to help Claptrap learn what's funny and what isn't. Or what doesn't make any sense at all. You can even help Claptrap improve by teaching it how words relate to one another.
 						</p>
 					</div>
-					<div class="generate-button button" role="button" tabindex="0">Tell a Joke</div>
+					<div class="generate-button button" role="button" tabindex="0" data-bind="click: generateJoke">Tell a Joke</div>
 				</div>
-				<div id="joke">
-					<div id="setup" class="card">What do you call a greasy catapult?</div>
-					<div id="punchline" class="card">A fat-apult!</div>
-					<div class="generate-button button" role="button" tabindex="0">Tell another</div>
+				<div id="joke" data-bind="with: currentJoke">
+					<div id="setup" class="card" data-bind="text: setup"></div>
+					<div id="punchline" class="card" data-bind="text: punchline"></div>
+					<div class="generate-button button" role="button" tabindex="0" data-bind="click: $root.generateJoke">Tell another</div>
 					<div id="rating-buttons">
 						<div id="good-rating" class="rating button" role="button" tabindex="0"><i class="fa fa-2x fa-thumbs-up"></i></div>
 						<div id="bad-rating" class="rating button" role="button" tabindex="0"><i class="fa fa-2x fa-thumbs-down"></i></div>
