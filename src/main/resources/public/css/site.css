@@ -64,6 +64,9 @@ html, body{
     display: flex;
     flex-direction: row-reverse;
     padding: 5px 20px 5px 5px;
+	font-family: montserrat;
+	font-size: 16px;
+	color: #ffe000;
 }
 
 #main-window {
@@ -116,6 +119,7 @@ html, body{
 	font-family: montserrat;
     font-size: 20px;
     line-height: 1.5em;
+	margin-bottom: 40px;
 }
 
 /* Joke View */
