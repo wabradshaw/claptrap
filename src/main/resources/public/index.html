@@ -46,19 +46,11 @@
 				</div>
 				<div id="explanation-view" class="ko-start-hidden" data-bind="if: $root.mode() == 'Explanation', css: {'ko-start-hidden': false}">
 					<div id="explanation-descriptor" class="background-info">Claptrap thinks that:</div>
-					<div id="explanation-list">
+					<div id="explanation-list" data-bind="foreach: relationships">
 						<div class="explanation">
-							<div class="card">white noise sounds like sight noise</div>
-							<div class="button icon-button" role="button" tabindex="0"><i class="fa fa-2x fa-times"></i></div>
-						</div>
-						<div class="explanation">
-							<div class="card">white noise is a type of sound</div>
-							<div class="button icon-button" role="button" tabindex="0"><i class="fa fa-2x fa-times"></i></div>
-						</div>
-						<div class="explanation">
-							<div class="card">a sight has eyes</div>
-							<div class="button icon-button" role="button" tabindex="0"><i class="fa fa-2x fa-times"></i></div>
-						</div>
+							<div class="card" data-bind="text: descriptor"></div>
+							<div class="button icon-button" role="button" tabindex="0" data-bind="click: toggleRelationship, event: {keypress: toggleRelationship}, css: { toggled: wrong }"><i class="fa fa-2x fa-times"></i></div>
+						</div>						
 					</div>					
 					<div id="back-button" class="button focal-button" role="button" tabindex="0" data-bind="click: $root.showJoke, event: {keypress: $root.showJoke}">Back</div>		
 				</div>
