@@ -30,21 +30,23 @@ function Joke(data, token){
 			},			
 			
 			data: JSON.stringify({
-				setup: self.setup,
-				punchline: self.punchline,
-				vote: self.vote,
-				template: self.data.setupTemplate,
-				nucleus: self.data.spec.nucleus,
-				primarySetup: self.data.spec.primarySetup.substitution.spelling,
-				secondarySetup: self.data.spec.secondarySetup.substitution.spelling,
-				linguisticOriginal: self.data.spec.linguisticSub.original.spelling,
-				linguisticReplacement: self.data.spec.linguisticSub.substitution.spelling,
-				primaryRelationship: self.data.spec.primarySetup.relationship,
-				secondaryRelationship: self.data.spec.secondarySetup.relationship
+			    vote: self.vote,
+			    joke: {
+                    setup: self.setup,
+                    punchline: self.punchline,
+                    template: self.data.setupTemplate,
+                    nucleus: self.data.spec.nucleus,
+                    primarySetup: self.data.spec.primarySetup.substitution.spelling,
+                    secondarySetup: self.data.spec.secondarySetup.substitution.spelling,
+                    linguisticOriginal: self.data.spec.linguisticSub.original.spelling,
+                    linguisticReplacement: self.data.spec.linguisticSub.substitution.spelling,
+                    primaryRelationship: self.data.spec.primarySetup.relationship,
+                    secondaryRelationship: self.data.spec.secondarySetup.relationship
+				}
 			}),
 			
 			success: function(result){
-				alert("Done");
+				alert("TODO");
 			},
 			error: function(){
 				alert("Could not access the server");

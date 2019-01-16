@@ -1,15 +1,15 @@
 package com.wabradshaw.claptrap.logging
 
+import com.wabradshaw.claptrap.JokeDTO
+
+/**
+ * A data transfer object representing a user's rating for a joke.
+ */
 class JokeRatingDTO {
-    lateinit var setup: String
-    lateinit var punchline: String
+
+    // How good they thought the joke was. Positive if they liked it, negative if they didn't.
     var vote: Int = 0
-    lateinit var template: String
-    lateinit var nucleus: String
-    var primarySetup: String? = null
-    lateinit var secondarySetup: String
-    lateinit var linguisticOriginal: String
-    lateinit var linguisticReplacement: String
-    var primaryRelationship: String? = null
-    lateinit var secondaryRelationship: String
+
+    // The joke in question.
+    lateinit var joke: JokeDTO
 }
