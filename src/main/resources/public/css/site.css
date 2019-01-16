@@ -55,6 +55,11 @@
     justify-content: center;
 }
 
+/* Used to prevent content flashing onto the screen when it first loads. */
+.ko-start-hidden {
+	display: none !important;
+}
+
 /********************/
 /* Specific Objects */
 /********************/

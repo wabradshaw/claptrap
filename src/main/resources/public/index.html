@@ -32,7 +32,7 @@
 					</div>
 					<div class="generate-button button" role="button" tabindex="0" data-bind="click: generateJoke, event: {keypress: generateJoke}">Generate a Joke</div>
 				</div>
-				<div id="joke" data-bind="with: currentJoke">
+				<div id="joke" class="ko-start-hidden" data-bind="with: currentJoke, css: {'ko-start-hidden': false}">
 					<div id="setup" class="card" data-bind="text: setup"></div>
 					<div id="punchline" class="card" data-bind="text: punchline"></div> 
 					<div class="generate-button button" role="button" tabindex="0" data-bind="click: $root.generateJoke, event: {keypress: $root.generateJoke}">Generate another</div>
