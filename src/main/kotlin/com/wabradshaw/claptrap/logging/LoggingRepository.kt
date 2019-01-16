@@ -23,7 +23,7 @@ class LoggingRepository(val db: DatabaseConfiguration) {
      * @param countryVal The name of the country the trip is in.
      * @param timezoneVal The timezone offset for the location.
      */
-    fun logRating(tokenVal: String, joke: Joke, voteVal : Vote){
+    fun logRating(tokenVal: String, joke: JokeRatingDTO){
         connect();
 
         transaction{
@@ -31,22 +31,16 @@ class LoggingRepository(val db: DatabaseConfiguration) {
                 it[token] = tokenVal
                 it[setup] = joke.setup
                 it[punchline] = joke.punchline
-
-                it[vote] = when(voteVal){
-                    Vote.GOOD -> 1
-                    Vote.NEUTRAL -> 0
-                    Vote.BAD -> -1
-                }
-
-                it[template] = joke.setupTemplate
-                it[nucleus] = joke.spec.nucleus
-                it[hasPrimary] = joke.spec.nucleus.endsWith(joke.spec.primarySetup?.substitution?.spelling ?: joke.spec.nucleus)
-                it[primarySetup] = joke.spec.primarySetup?.substitution?.spelling ?: joke.spec.nucleus
-                it[secondarySetup] = joke.spec.secondarySetup.substitution.spelling
-                it[linguisticOriginal] = joke.spec.linguisticSub.original.spelling
-                it[linguisticReplacement] = joke.spec.linguisticSub.substitution.spelling
-                it[primaryRelationship] = joke.spec.primarySetup?.relationship?.name ?: "nucleus"
-                it[secondaryRelationship] = joke.spec.secondarySetup.relationship.name
+                it[vote] = joke.vote
+                it[template] = joke.template
+                it[nucleus] = joke.nucleus
+                it[hasPrimary] = joke.nucleus.endsWith(joke.primarySetup ?: joke.nucleus)
+                it[primarySetup] = joke.primarySetup ?: joke.nucleus
+                it[secondarySetup] = joke.secondarySetup
+                it[linguisticOriginal] = joke.linguisticOriginal
+                it[linguisticReplacement] = joke.linguisticReplacement
+                it[primaryRelationship] = joke.primaryRelationship ?: "nucleus"
+                it[secondaryRelationship] = joke.secondaryRelationship
             }
 
         }

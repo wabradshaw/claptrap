@@ -10,11 +10,8 @@ class LoggingService {
     @Autowired
     lateinit var loggingRepository: LoggingRepository;
 
-    fun logRating(token : String, joke : Joke, vote: Vote){
-        when(vote) {
-            Vote.NEUTRAL -> TODO() //Delete rating
-            else -> loggingRepository.logRating(token, joke, vote)
-        }
+    fun logRating(token : String, joke : JokeRatingDTO){
+        loggingRepository.logRating(token, joke)
     }
 
 }
