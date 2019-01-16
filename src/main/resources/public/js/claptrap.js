@@ -13,11 +13,13 @@ function Joke(data, token){
 	self.toggleGood = function(){
 		self.vote(self.vote() == 1 ? 0 : 1);
 		rateJoke();
+		$('#good-rating').blur()
 	}
 	
 	self.toggleBad = function(){
 		self.vote(self.vote() == -1 ? 0 : -1);
 		rateJoke();
+		$('#bad-rating').blur()
 	}
 
 	function rateJoke(){
