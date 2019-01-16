@@ -33,8 +33,12 @@
 }
 
 .button:hover, 
-.button:focus,
-.button:active {
+.button:focus {
+	background-color: #ffec64;
+}
+
+.button:active,
+.button.toggled {
 	background-color: white;
 }
 

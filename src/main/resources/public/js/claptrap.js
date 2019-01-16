@@ -8,15 +8,15 @@ function Joke(data, token){
 	self.punchline = data.punchline;
 	
 	self.token = token;
-	self.vote = 0;
+	self.vote = ko.observable(0);
 	
 	self.toggleGood = function(){
-		self.vote = self.vote == 1 ? 0 : 1;
+		self.vote(self.vote() == 1 ? 0 : 1);
 		rateJoke();
 	}
 	
 	self.toggleBad = function(){
-		self.vote = self.vote == -1 ? 0 : -1;
+		self.vote(self.vote() == -1 ? 0 : -1);
 		rateJoke();
 	}
 
@@ -30,7 +30,7 @@ function Joke(data, token){
 			},			
 			
 			data: JSON.stringify({
-			    vote: self.vote,
+			    vote: self.vote(),
 			    joke: {
                     setup: self.setup,
                     punchline: self.punchline,
@@ -43,13 +43,12 @@ function Joke(data, token){
                     primaryRelationship: self.data.primaryRelationship,
                     secondaryRelationship: self.data.secondaryRelationship
 				}
-			}),
-			
+			}),			
 			success: function(result){
-				alert("TODO");
+				console.log("Rating logged");
 			},
 			error: function(){
-				alert("Could not access the server");
+				console.log("Could not access the logging server");
 			}
 		});
 	}	
