@@ -1,0 +1,16 @@
+CREATE TABLE `JokeRatings` (
+ 	`token` VARCHAR(32) NOT NULL,
+ 	`setup` VARCHAR(128) NOT NULL,
+ 	`punchline` VARCHAR(32) NOT NULL,
+ 	`vote` INT(4) NOT NULL,
+ 	`template` VARCHAR(12) NOT NULL,
+ 	`nucleus` VARCHAR(32) NOT NULL,
+ 	`hasPrimary` BOOLEAN NOT NULL,
+ 	`primarySetup` VARCHAR(64) NOT NULL,
+ 	`secondarySetup` VARCHAR(64) NOT NULL,
+ 	`linguisticOriginal` VARCHAR(16) NOT NULL,
+ 	`linguisticReplacement` VARCHAR(16) NOT NULL,
+ 	`primaryRelationship` VARCHAR(16) NOT NULL,
+ 	`secondaryRelationship` VARCHAR(16) NOT NULL,
+ 	PRIMARY KEY (`token`, `setup`, `punchline`)
+ );
