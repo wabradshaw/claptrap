@@ -62,7 +62,7 @@ function Joke(data, token){
 function JokingViewModel(){
 	var self = this;
 	self.currentJoke = ko.observable()
-	self.token = "Test"
+	self.token = new Date().getTime() + Math.random().toString(36).substring(2)
 	
 	self.generateJoke = function(){
 		$.get("./joke?sweary=false", function(data){
