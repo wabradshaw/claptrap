@@ -30,13 +30,16 @@
     font-family: montserrat;
     border: 2px solid black;
 	cursor: pointer;
-	box-shadow: 5px 5px 0px 0px black;
+	box-shadow: 6px 6px 0px 0px black;
+	-webkit-transition: box-shadow 0.3s;
+	transition: box-shadow 0.3s;
 	outline: none; /* Replaced by hover/focus coloring */
 }
 
 .button:hover, 
 .button:focus {
 	background-color: #ffec64;
+	box-shadow: 4px 4px 0px 0px black;
 }
 
 .button:active,
