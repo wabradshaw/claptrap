@@ -1,10 +1,44 @@
 /**
  * Knockout Data class for a blog.
  */
-function Joke(setup, punchline){
+function Joke(data, token){
 	var self = this;
-	self.setup = setup;
-	self.punchline = punchline;
+	self.data = data;
+	self.setup = data.setup;
+	self.punchline = data.punchline;
+	
+	self.token = token;
+	self.vote = 0;
+	
+	self.toggleGood = function(){
+		self.vote = self.vote == 1 ? 0 : 1;
+		rateJoke();
+	}
+	
+	self.toggleBad = function(){
+		self.vote = self.vote == -1 ? 0 : -1;
+		rateJoke();
+	}
+
+	function rateJoke(){
+		$.ajax({
+			type: 'POST',
+			url: './rate/' + self.token,
+			contentType: 'application/json',
+			xhrFields: {
+				withCredentials: true
+			},			
+			
+			data: {},
+			
+			success: function(result){
+				alert("Done");
+			},
+			error: function(){
+				alert("Could not access the server");
+			}
+		});
+	}	
 }
 
 /**
@@ -13,11 +47,12 @@ function Joke(setup, punchline){
 function JokingViewModel(){
 	var self = this;
 	self.currentJoke = ko.observable()
+	self.token = "Test"
 	
 	self.generateJoke = function(){
 		$.get("./joke?sweary=false", function(data){
 			console.log(data);
-			self.currentJoke(new Joke(data.setup, data.punchline));
+			self.currentJoke(new Joke(data, self.token));
 		});
 	}
 }

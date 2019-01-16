@@ -1,13 +1,11 @@
 package com.wabradshaw.claptrap
 
 import com.wabradshaw.claptrap.design.JokeDesigner
+import com.wabradshaw.claptrap.logging.Vote
 import com.wabradshaw.claptrap.repositories.custom.JsonRepository
-import com.wabradshaw.claptrap.structure.Joke
+import com.wabradshaw.claptrap.structure.*
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.CrossOrigin
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 /*
  * A RESTful controller for the Claptrap system

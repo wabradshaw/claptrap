@@ -1,14 +1,17 @@
 package com.wabradshaw.claptrap
 
+import com.wabradshaw.claptrap.logging.DatabaseConfiguration
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.builder.SpringApplicationBuilder
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.web.support.SpringBootServletInitializer
 
 /**
  * A top level Application class that allows SpringBoot to initialise this as a servlet.
  */
 @SpringBootApplication
+@EnableConfigurationProperties(DatabaseConfiguration::class)
 class Application : SpringBootServletInitializer() {
 
     override fun configure(application: SpringApplicationBuilder): SpringApplicationBuilder {
