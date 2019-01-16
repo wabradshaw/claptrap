@@ -30,19 +30,39 @@
 							Rate the jokes to help Claptrap learn what's funny and what isn't. Or what doesn't make any sense at all. You can even help Claptrap improve by teaching it how words relate to one another.
 						</p>
 					</div>
-					<div class="generate-button button" role="button" tabindex="0" data-bind="click: generateJoke, event: {keypress: generateJoke}">Generate a Joke</div>
+					<div class="button focal-button" role="button" tabindex="0" data-bind="click: generateJoke, event: {keypress: generateJoke}">Generate a Joke</div>
 				</div>
-				<div id="joke" class="ko-start-hidden" data-bind="with: currentJoke, css: {'ko-start-hidden': false}">
+				<!-- ko with: currentJoke -->
+				<div id="joke" class="ko-start-hidden" data-bind="if: $root.mode() == 'Joke', css: {'ko-start-hidden': false}">
 					<div id="setup" class="card" data-bind="text: setup"></div>
 					<div id="punchline" class="card" data-bind="text: punchline"></div> 
-					<div class="generate-button button" role="button" tabindex="0" data-bind="click: $root.generateJoke, event: {keypress: $root.generateJoke}">Generate another</div>
+					<div class="button focal-button" role="button" tabindex="0" data-bind="click: $root.generateJoke, event: {keypress: $root.generateJoke}">Generate another</div>
 					<div id="rating-buttons">
-						<div id="good-rating" class="rating button" role="button" tabindex="0" data-bind="click: toggleGood, event: {keypress: toggleGood}, css: { toggled: vote() == 1 }"><i class="fa fa-2x fa-thumbs-up"></i></div>
-						<div id="bad-rating" class="rating button" role="button" tabindex="0" data-bind="click: toggleBad, event: {keypress: toggleBad}, css: { toggled: vote() == -1 }"><i class="fa fa-2x fa-thumbs-down"></i></div>
-						<div id="confused-rating" class="rating button" role="button" tabindex="0"><i class="fa fa-2x fa-question"></i></div>
+						<div id="good-rating" class="button icon-button" role="button" tabindex="0" data-bind="click: toggleGood, event: {keypress: toggleGood}, css: { toggled: vote() == 1 }"><i class="fa fa-2x fa-thumbs-up"></i></div>
+						<div id="bad-rating" class="button icon-button" role="button" tabindex="0" data-bind="click: toggleBad, event: {keypress: toggleBad}, css: { toggled: vote() == -1 }"><i class="fa fa-2x fa-thumbs-down"></i></div>
+						<div id="explain-button" class="button icon-button" role="button" tabindex="0" data-bind="click: $root.showExplanation, event: {keypress: $root.showExplanation}"><i class="fa fa-2x fa-question"></i></div>
 						<div id="improve-button" class="button" role="button" tabindex="0">Improve</div>
 					</div>					
 				</div>
+				<div id="explanation-view" class="ko-start-hidden" data-bind="if: $root.mode() == 'Explanation', css: {'ko-start-hidden': false}">
+					<div id="explanation-descriptor" class="background-info">Claptrap thinks that:</div>
+					<div id="explanation-list">
+						<div class="explanation">
+							<div class="card">white noise sounds like sight noise</div>
+							<div class="button icon-button" role="button" tabindex="0"><i class="fa fa-2x fa-times"></i></div>
+						</div>
+						<div class="explanation">
+							<div class="card">white noise is a type of sound</div>
+							<div class="button icon-button" role="button" tabindex="0"><i class="fa fa-2x fa-times"></i></div>
+						</div>
+						<div class="explanation">
+							<div class="card">a sight has eyes</div>
+							<div class="button icon-button" role="button" tabindex="0"><i class="fa fa-2x fa-times"></i></div>
+						</div>
+					</div>					
+					<div id="back-button" class="button focal-button" role="button" tabindex="0" data-bind="click: $root.showJoke, event: {keypress: $root.showJoke}">Back</div>		
+				</div>
+				<!-- /ko -->
 			</div>
 		</div>
 		<div id="footer"></div>

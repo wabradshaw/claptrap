@@ -61,15 +61,27 @@ function Joke(data, token){
  */
 function JokingViewModel(){
 	var self = this;
-	self.currentJoke = ko.observable()
-	self.token = new Date().getTime() + Math.random().toString(36).substring(2)
+	self.currentJoke = ko.observable();
+	self.token = new Date().getTime() + Math.random().toString(36).substring(2);
+	
+	self.mode = ko.observable('Joke');
 	
 	self.generateJoke = function(){
 		$.get("./joke?sweary=false", function(data){
 			console.log(data);
+			self.showJoke();
 			self.currentJoke(new Joke(data, self.token));
 		});
 	}
+	
+	self.showJoke = function(){
+		self.mode('Joke');
+	}
+	
+	self.showExplanation = function(){
+		self.mode('Explanation');
+	}
+	
 }
 
 /**
