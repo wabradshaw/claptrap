@@ -38,11 +38,11 @@ class ClaptrapController {
 
     @GetMapping("/joke")
     @CrossOrigin
-    fun getJoke(@RequestParam(value="sweary") adult: Boolean): ResponseEntity<Joke> {
+    fun getJoke(@RequestParam(value="sweary") adult: Boolean): ResponseEntity<JokeDTO> {
         val joke = when (adult) {
             true -> adultJokeService.tellJoke()
             false -> childJokeService.tellJoke()
         }
-        return ResponseEntity.ok(joke)
+        return ResponseEntity.ok(JokeDTO(joke))
     }
 }
