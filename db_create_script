@@ -14,3 +14,13 @@ CREATE TABLE `JokeRatings` (
  	`secondaryRelationship` VARCHAR(16) NOT NULL,
  	PRIMARY KEY (`token`, `setup`, `punchline`)
  );
+
+ CREATE TABLE `RelationshipRatings` (
+  	`token` VARCHAR(32) NOT NULL,
+ 	`original` VARCHAR(64) NOT NULL,
+ 	`substitution` VARCHAR(64) NOT NULL,
+ 	`relationship` VARCHAR(16) NOT NULL,
+ 	`position` VARCHAR(16) NOT NULL,
+ 	`wrong` BOOLEAN NOT NULL,
+ 	PRIMARY KEY (`token`, `original`, `substitution`, `relationship`, `position`)
+ );

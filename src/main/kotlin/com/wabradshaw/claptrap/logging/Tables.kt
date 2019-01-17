@@ -21,3 +21,15 @@ object JokeRatings : Table() {
         index(true, token, setup, punchline)
     }
 }
+
+object RelationRatings : Table() {
+    val token : Column<String> = varchar("token", length=32).primaryKey(0) // A token representing a user's session
+    val original : Column<String> = varchar("original", length=64).primaryKey(1) // The primary word in the relationship
+    val substitution : Column<String> = varchar("substitution", length=64).primaryKey(2) // The secondary word in the relationship
+    val relationship : Column<String> = varchar("relationship", length=16).primaryKey(3) // How the words were linked
+    val position : Column<String> = varchar("position", length=16).primaryKey(4) // Where in the joke it was used
+    val wrong : Column<Boolean> = JokeRatings.bool("wrong") // Whether or not the user has marked this as an issue
+    init {
+        index(true, token, original, substitution, relationship, position)
+    }
+}
