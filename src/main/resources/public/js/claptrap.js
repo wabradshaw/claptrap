@@ -86,7 +86,19 @@ function Relationship(token, descriptor, original, substitution, relationship, p
 		});	
 	}
 }
- 
+
+function JokeSpec(joke){
+	var self = this;
+	self.nucleus = joke.data.nucleus;
+	self.linguisticOriginal = joke.data.linguisticOriginal;
+	self.linguisticReplacement = joke.data.linguisticReplacement;
+	
+	self.primarySetup = ko.observable(joke.data.primarySetup || joke.data.nucleus)
+	self.primaryRelationship = ko.observable(joke.data.primaryRelationship || "SYNONYM")
+	self.secondarySetup = ko.observable(joke.data.secondarySetup)
+	self.secondaryRelationship = ko.observable(joke.data.secondaryRelationship)
+}
+	
 /**
  * Knockout Data class for a joke.
  */
@@ -158,12 +170,29 @@ function Joke(data, token){
 function JokingViewModel(){
 	var self = this;
 	self.currentJoke = ko.observable();
+	self.suggestedJoke = ko.observable();
 	self.token = new Date().getTime() + Math.random().toString(36).substring(2);
 	
 	self.mode = ko.observable('Joke');
 	
 	self.generateJoke = function(){
-		$.get("./joke?sweary=false", function(data){
+		$.get("./joke", function(data){
+			console.log(data);
+			self.showJoke();			
+			self.currentJoke(new Joke(data, self.token));
+			self.suggestedJoke(new JokeSpec(self.currentJoke()));			
+		});
+	}
+	
+	self.regenerateJoke = function(){
+		$.get("./joke/custom?nucleus=" + self.suggestedJoke().nucleus
+				+ "&linguisticOriginal=" + self.suggestedJoke().linguisticOriginal
+				+ "&linguisticSubstitute=" + self.suggestedJoke().linguisticReplacement
+				+ "&primarySetup=" + self.suggestedJoke().primarySetup()
+				+ "&primaryRelationship=" + self.suggestedJoke().primaryRelationship()
+				+ "&secondarySetup=" + self.suggestedJoke().secondarySetup()
+				+ "&secondaryRelationship=" + self.suggestedJoke().secondaryRelationship()
+				, function(data){
 			console.log(data);
 			self.showJoke();
 			self.currentJoke(new Joke(data, self.token));
@@ -178,6 +207,9 @@ function JokingViewModel(){
 		self.mode('Explanation');
 	}
 	
+	self.showImprove = function(){
+		self.mode('Improve');
+	}
 }
 
 /**

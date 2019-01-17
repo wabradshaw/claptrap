@@ -42,7 +42,7 @@
 						<div id="good-rating" class="button icon-button" role="button" tabindex="0" data-bind="click: toggleGood, event: {keypress: toggleGood}, css: { toggled: vote() == 1 }"><i class="fa fa-2x fa-thumbs-up fa-flip-horizontal"></i></div>
 						<div id="bad-rating" class="button icon-button" role="button" tabindex="0" data-bind="click: toggleBad, event: {keypress: toggleBad}, css: { toggled: vote() == -1 }"><i class="fa fa-2x fa-thumbs-down"></i></div>
 						<div id="explain-button" class="button small-text-button" role="button" tabindex="0" data-bind="click: $root.showExplanation, event: {keypress: $root.showExplanation}">Explain</div>
-						<div id="improve-button" class="button small-text-button" role="button" tabindex="0">Improve</div>
+						<div id="improve-button" class="button small-text-button" role="button" tabindex="0" data-bind="click: $root.showImprove, event: {keypress: $root.showImprove}">Improve</div>
 					</div>					
 				</div>
 				<div id="explanation-view" class="ko-start-hidden" data-bind="if: $root.mode() == 'Explanation', css: {'ko-start-hidden': false}">
@@ -54,6 +54,19 @@
 						</div>						
 					</div>					
 					<div id="back-button" class="button focal-button" role="button" tabindex="0" data-bind="click: $root.showJoke, event: {keypress: $root.showJoke}">Back</div>		
+				</div>
+				<!-- /ko -->
+				<!-- ko with: suggestedJoke -->
+				<div id="explanation-view" class="ko-start-hidden" data-bind="if: $root.mode() == 'Improve', css: {'ko-start-hidden': false}">
+					<div id="explanation-descriptor" class="background-info">Improve the relationships below to teach Claptrap</div>
+					<div id="explanation-list" data-bind="foreach: relationships">
+						<div class="explanation">
+							<div class="card" data-bind="text: descriptor"></div>
+							<div class="button icon-button" role="button" tabindex="0" data-bind="click: toggleRelationship, event: {keypress: toggleRelationship}, css: { toggled: wrong }"><i class="fa fa-2x fa-times"></i></div>
+						</div>						
+					</div>					
+					<div id="cancel-button" class="button focal-button" role="button" tabindex="0" data-bind="click: $root.showJoke, event: {keypress: $root.showJoke}">Cancel</div>	
+					<div id="regenerate-button" class="button focal-button" role="button" tabindex="0" data-bind="click: $root.regenerateJoke, event: {keypress: $root.regenerateJoke}">Try It</div>						
 				</div>
 				<!-- /ko -->
 			</div>
