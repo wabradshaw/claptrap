@@ -1,3 +1,15 @@
+function stripDet(word){
+	return word.replace(/^(a|an|some|the) /i,"");
+}
+
+function addDet(word){
+	if(/^([A-Z]|one )/.test(word)){
+		return word;
+	} else {
+		return `${AvsAnSimple.query(word)} ${word}`;
+	}
+}
+
 function getLinguisticDescriptor(spec){
 	var nucleus = spec.nucleus;
 	var original = spec.linguisticOriginal;
@@ -5,28 +17,29 @@ function getLinguisticDescriptor(spec){
 							  .replace(/--/g,"-")
 							  .replace(/ -|- /g," ")
 							  .replace(/^-|-$/g,"");
-	var formattedResult = spec.punchline.replace(/A |An /,"")
-									    .replace("!","");
+	var formattedResult = stripDet(spec.punchline).replace("!","");
 	return splitNucleus + " sounds like " + formattedResult
 }
 
 function getSemanticDescriptor(original, sub, relationship){
+	var originalDet = addDet(original);
+	
 	switch(relationship) {
-		case "SYNONYM": return original + " is the same as "+ sub;
-		case "NEAR_SYNONYM": return original + " is similar to "+ sub;
-		case "IS_A": return original + " is a type of "+ sub;
-		case "INCLUDES": return sub + " is a type of "+ original;
-		case "HAS_A": return original + " has "+ sub;
-		case "PART_OF": return sub + " has a "+ original;
-		case "IN": return original + " can be found in "+ sub;
-		case "ON": return original + " can be found on "+ sub;
-		case "FROM": return original + " comes from "+ sub;
-		case "PROPERTY": return original + " are "+ sub;
-		case "ACTION": return original + " can "+ sub;
-		case "ACTION_CONTINUOUS": return original + " can be "+ sub;
-		case "RECIPIENT_ACTION": return "someone can " + sub + " " + original;
-		case "RECIPIENT_ACTION": return "someone could have " + sub + " " + original;
-		default: return original + " is related to " + sub;
+		case "SYNONYM": return `${originalDet} is the same as ${sub}`;
+		case "NEAR_SYNONYM": return `${originalDet} is similar to ${sub}`;
+		case "IS_A": return `${originalDet} is a type of ${sub}`;
+		case "INCLUDES": return `${sub} is a type of ${originalDet}`;
+		case "HAS_A": return `${originalDet} has ${sub}`;
+		case "PART_OF": return `${sub} has ${originalDet}`;
+		case "IN": return `${originalDet} can be found in ${sub}`;
+		case "ON": return `${originalDet} can be found on ${sub}`;
+		case "FROM": return `${originalDet} comes from ${sub}`;
+		case "PROPERTY": return `${originalDet} is ${sub}`;
+		case "ACTION": return `${originalDet} can perform the action of ${stripDet(sub)}`;
+		case "ACTION_CONTINUOUS": return `${originalDet} can be ${stripDet(sub)}`;
+		case "RECIPIENT_ACTION": return `someone can ${stripDet(sub)} ${originalDet}`;
+		case "RECIPIENT_ACTION_PAST": return `someone could have ${stripDet(sub)} ${originalDet}`;
+		default: return `${originalDet} is related to ${sub}`;
 	}
 }
 
