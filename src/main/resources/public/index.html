@@ -39,10 +39,10 @@
 					<div id="punchline" class="card" data-bind="text: punchline"></div> 
 					<div class="button focal-button" role="button" tabindex="0" data-bind="click: $root.generateJoke, event: {keypress: $root.generateJoke}">Generate another</div>
 					<div id="rating-buttons">
-						<div id="good-rating" class="button icon-button" role="button" tabindex="0" data-bind="click: toggleGood, event: {keypress: toggleGood}, css: { toggled: vote() == 1 }"><i class="fa fa-2x fa-thumbs-up"></i></div>
+						<div id="good-rating" class="button icon-button" role="button" tabindex="0" data-bind="click: toggleGood, event: {keypress: toggleGood}, css: { toggled: vote() == 1 }"><i class="fa fa-2x fa-thumbs-up fa-flip-horizontal"></i></div>
 						<div id="bad-rating" class="button icon-button" role="button" tabindex="0" data-bind="click: toggleBad, event: {keypress: toggleBad}, css: { toggled: vote() == -1 }"><i class="fa fa-2x fa-thumbs-down"></i></div>
-						<div id="explain-button" class="button icon-button" role="button" tabindex="0" data-bind="click: $root.showExplanation, event: {keypress: $root.showExplanation}"><i class="fa fa-2x fa-question"></i></div>
-						<div id="improve-button" class="button" role="button" tabindex="0">Improve</div>
+						<div id="explain-button" class="button small-text-button" role="button" tabindex="0" data-bind="click: $root.showExplanation, event: {keypress: $root.showExplanation}">Explain</div>
+						<div id="improve-button" class="button small-text-button" role="button" tabindex="0">Improve</div>
 					</div>					
 				</div>
 				<div id="explanation-view" class="ko-start-hidden" data-bind="if: $root.mode() == 'Explanation', css: {'ko-start-hidden': false}">

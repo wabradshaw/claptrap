@@ -53,7 +53,7 @@
 
 .focal-button {
 	font-size: 20px;
-    min-width: 316px;
+    min-width: 392px;
     display: flex;
     justify-content: center;
 }
@@ -64,6 +64,15 @@
 	height: 30px;
 	display: flex;
 	align-items: center;
+}
+
+.small-text-button {
+	margin: 10px;
+	height: 30px;
+	width: 96px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .icon-button>.fa {
@@ -185,11 +194,20 @@ html, body{
 	justify-content: center;
 }
 
-#improve-button {
-	margin: 10px;
-	height: 30px;
-	display: flex;
-	align-items: center;
+#good-rating {
+	margin-right: 0px;
+}
+
+#good-rating > i{
+	margin-top: -3px;
+}
+
+#bad-rating {
+	margin-left: 0px;
+}
+
+#bad-rating > i{
+	margin-top: 3px;
 }
 
 /* Explanation View */
