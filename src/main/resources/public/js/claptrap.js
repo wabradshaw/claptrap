@@ -113,7 +113,7 @@ function Joke(data, token){
 
 	self.relationships = ko.observableArray([]);
 	self.relationships.push(new Relationship(self.token, getLinguisticDescriptor(self.data), self.data.nucleus, self.data.linguisticReplacement, "RHYME", "linguistic"));
-	if(!self.data.primarySetup.endsWith(self.data.nucleus)){
+	if(self.data.primarySetup && !self.data.primarySetup.endsWith(self.data.nucleus)){
 		self.relationships.push(new Relationship(self.token, getSemanticDescriptor(self.data.nucleus, self.data.primarySetup, self.data.primaryRelationship), self.data.linguisticReplacement, self.data.secondarySetup, self.data.secondaryRelationship, "primary"));
 	}
 	self.relationships.push(new Relationship(self.token, getSemanticDescriptor(self.data.linguisticReplacement, self.data.secondarySetup, self.data.secondaryRelationship), self.data.linguisticReplacement, self.data.secondarySetup, self.data.secondaryRelationship, "secondary"));
