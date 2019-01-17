@@ -14,4 +14,9 @@ class LoggingService {
         loggingRepository.logRating(token, joke)
     }
 
+
+    fun logRelation(token : String, relation : RelationRatingDTO){
+        loggingRepository.logRelation(token, relation)
+    }
+
 }

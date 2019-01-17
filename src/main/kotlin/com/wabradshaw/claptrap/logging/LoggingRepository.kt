@@ -23,7 +23,7 @@ class LoggingRepository(val db: DatabaseConfiguration) {
      * @param jokeRating The rating for the joke. Includes both the user's vote, and the info on the joke.
      */
     fun logRating(tokenVal: String, jokeRating: JokeRatingDTO){
-        connect();
+        connect()
 
         val joke = jokeRating.joke
 
@@ -43,6 +43,31 @@ class LoggingRepository(val db: DatabaseConfiguration) {
                 it[linguisticReplacement] = joke.linguisticReplacement
                 it[primaryRelationship] = joke.primaryRelationship ?: "nucleus"
                 it[secondaryRelationship] = joke.secondaryRelationship
+            }
+        }
+    }
+
+
+    /**
+     * Inserts the specified relationship rating into the database
+     * @param tokenVal       The string token representing the user's current session. Used to handle multiple votes on
+     *                       the same relationship.
+     * @param relationRating The rating for the relationship. Includes both the user's vote and the relationship.
+     */
+    fun logRelation(tokenVal: String, relationRating: RelationRatingDTO){
+        connect()
+
+        val relation = relationRating.relationship
+
+        transaction{
+            RelationshipRatings.replace {
+                it[token] = tokenVal
+                it[wrong] = relationRating.wrong
+
+                it[original] = relation.original
+                it[substitution] = relation.substitution
+                it[relationship] = relation.relationship
+                it[position] = relation.position
             }
         }
     }

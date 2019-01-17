@@ -20,4 +20,11 @@ class LoggingController(val service: LoggingService) {
                  @RequestBody() body: JokeRatingDTO) {
         service.logRating(token, body)
     }
+
+    @PostMapping("/rate/relation/{token}")
+    @CrossOrigin
+    fun rateRelationship(@PathVariable(value = "token") token: String,
+                         @RequestBody() body: RelationRatingDTO) {
+        service.logRelation(token, body)
+    }
 }

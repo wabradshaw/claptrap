@@ -53,13 +53,37 @@ function Relationship(token, descriptor, original, substitution, relationship, p
 	self.original = original;
 	self.substitution = substitution;
 	self.relationship = relationship;
+	self.position = position;
 	
 	self.wrong = ko.observable(false);
 	
 	self.toggleRelationship = function(){
 		self.wrong(!self.wrong());
 		$(":focus").blur();
-		console.log("todo");		
+		$.ajax({
+			type: 'POST',
+			url: './rate/relation/' + self.token,
+			contentType: 'application/json',
+			xhrFields: {
+				withCredentials: true
+			},			
+			
+			data: JSON.stringify({
+			    wrong: self.wrong(),
+			    relationship: {
+                    original: self.original,
+                    substitution: self.substitution,
+                    relationship: self.relationship,
+                    position: self.position
+				}
+			}),			
+			success: function(result){
+				console.log("Relation rating logged");
+			},
+			error: function(){
+				console.log("Could not access the logging server");
+			}
+		});	
 	}
 }
  

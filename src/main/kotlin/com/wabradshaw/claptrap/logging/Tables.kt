@@ -22,7 +22,7 @@ object JokeRatings : Table() {
     }
 }
 
-object RelationRatings : Table() {
+object RelationshipRatings : Table() {
     val token : Column<String> = varchar("token", length=32).primaryKey(0) // A token representing a user's session
     val original : Column<String> = varchar("original", length=64).primaryKey(1) // The primary word in the relationship
     val substitution : Column<String> = varchar("substitution", length=64).primaryKey(2) // The secondary word in the relationship
