@@ -1,5 +1,7 @@
 package com.wabradshaw.claptrap.logging
 
+import com.wabradshaw.claptrap.logging.JokeRatings.primaryKey
+import com.wabradshaw.claptrap.logging.RelationshipRatings.primaryKey
 import org.jetbrains.exposed.sql.Column
 import org.jetbrains.exposed.sql.Table
 

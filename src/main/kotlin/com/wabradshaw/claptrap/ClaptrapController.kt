@@ -3,7 +3,6 @@ package com.wabradshaw.claptrap
 import com.wabradshaw.claptrap.design.JokeDesigner
 import com.wabradshaw.claptrap.repositories.custom.JsonRepository
 import com.wabradshaw.claptrap.structure.Relationship
-import org.jetbrains.exposed.sql.not
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
@@ -51,7 +50,7 @@ class ClaptrapController {
         } else if (!nucleus.contains(linguisticOriginal)){
             ResponseEntity.badRequest().build()
         } else {
-            val joke = jokeService.tellJoke() //Todo: change to regenerateJoke
+            val joke = jokeService.regenerateJoke(nucleus, linguisticOriginal, linguisticSubstitute, primarySetup, primaryRelationship, secondarySetup, secondaryRelationship)
             ResponseEntity.ok(JokeDTO(joke))
         }
     }

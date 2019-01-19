@@ -25,6 +25,8 @@
 	box-shadow: 10px 10px 0px 0px black;
 	margin: 20px;
 	padding: 20px;
+	cursor: default;
+	transition: box-shadow 0.3s;
 }
 
 .button {
@@ -56,6 +58,14 @@
     min-width: 392px;
     display: flex;
     justify-content: center;
+}
+
+.split-button {
+	font-size: 20px;
+    min-width: 169px;
+    display: flex;
+    justify-content: center;
+	margin: 5px;
 }
 
 .icon-button {
@@ -237,4 +247,75 @@ html, body{
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 40px;
+}
+
+/* Improve View */
+
+#improvement-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#improvement-list {
+    margin-top: 40px;
+}	
+
+.improvement {
+	display: flex;
+}
+
+.improvement > * {
+	margin-left: 5px;
+	margin-right: 5px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.card.editable {
+    border: 6px solid #ffe000;
+    font-size: medium;
+    padding: 14px;
+	cursor: default;
+}
+
+.card.editable:hover, 
+.card.editable:focus,
+.card.editable:active {
+	background-color: #fff6b3;
+}
+
+.improvement > div{
+	width: 192px;
+}
+
+input.card.editable {
+    width: 160px;
+}
+
+select.card.editable {
+    width: 276px;
+}
+
+.small-joke {
+	display: flex;
+	width: 100%;
+}
+
+.small-joke > .card {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+	flex-grow: 1;
+}
+
+#improvement-buttons {
+	display: flex;
+	margin-top: 20px;
+}
+
+#regenerate-button {
+	margin-top: 20px;	
+	margin-bottom: 20px;
 }

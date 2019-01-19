@@ -43,6 +43,36 @@ function getSemanticDescriptor(original, sub, relationship){
 	}
 }
 
+function Link(type, descriptor, addDet){
+	var self = this;
+	self.type = type;
+	self.descriptor = descriptor;
+	self.addDet = addDet;
+}
+
+var primaryLinks = [
+	new Link("SYNONYM", "is the same as", false),
+	new Link("IS_A", "is more specific than", false),
+	new Link("INCLUDES", "is less specific than", false)
+];
+
+var secondaryLinks = [
+	new Link("SYNONYM", "is the same as", false),
+	new Link("IS_A", "is more specific than", false),
+	new Link("INCLUDES", "is less specific than", false),
+	new Link("NEAR_SYNONYM", "is similar to", false),
+	new Link("HAS_A", "has", false),
+	new Link("PART_OF", "is part of", false),
+	new Link("IN", "can be found in", false),
+	new Link("ON", "can be found on", false),
+	new Link("IN", "comes from", false),
+	new Link("PROPERTY", "can be described as", false),
+	new Link("ACTION", "(e.g. 'runs')", false),
+	new Link("ACTION_CONTINUOUS", "can be (e.g. 'shining')", true),
+	new Link("RECIPIENT_ACTION", "is something someone can", false),
+	new Link("RECIPIENT_ACTION_PAST", "could have been", true)
+];
+
 /**
  * Knockout Data class for a relationship within a joke.
  */ 
@@ -90,13 +120,18 @@ function Relationship(token, descriptor, original, substitution, relationship, p
 function JokeSpec(joke){
 	var self = this;
 	self.nucleus = joke.data.nucleus;
+	self.detNucleus = addDet(self.nucleus);
 	self.linguisticOriginal = joke.data.linguisticOriginal;
 	self.linguisticReplacement = joke.data.linguisticReplacement;
+	self.detLinguisticReplacement = addDet(self.linguisticReplacement);
 	
 	self.primarySetup = ko.observable(joke.data.primarySetup || joke.data.nucleus)
-	self.primaryRelationship = ko.observable(joke.data.primaryRelationship || "SYNONYM")
+	self.primaryLink = ko.observable(primaryLinks.find(link => link.type == (joke.data.primaryRelationship || "SYNONYM")))
 	self.secondarySetup = ko.observable(joke.data.secondarySetup)
-	self.secondaryRelationship = ko.observable(joke.data.secondaryRelationship)
+	self.secondaryLink = ko.observable(primaryLinks.find(link => link.type == joke.data.secondaryRelationship))
+	
+	self.primaryOptions = primaryLinks
+	self.secondaryOptions = secondaryLinks
 }
 	
 /**
@@ -189,14 +224,18 @@ function JokingViewModel(){
 				+ "&linguisticOriginal=" + self.suggestedJoke().linguisticOriginal
 				+ "&linguisticSubstitute=" + self.suggestedJoke().linguisticReplacement
 				+ "&primarySetup=" + self.suggestedJoke().primarySetup()
-				+ "&primaryRelationship=" + self.suggestedJoke().primaryRelationship()
+				+ "&primaryRelationship=" + self.suggestedJoke().primaryLink().type
 				+ "&secondarySetup=" + self.suggestedJoke().secondarySetup()
-				+ "&secondaryRelationship=" + self.suggestedJoke().secondaryRelationship()
+				+ "&secondaryRelationship=" + self.suggestedJoke().secondaryLink().type
 				, function(data){
 			console.log(data);
-			self.showJoke();
 			self.currentJoke(new Joke(data, self.token));
 		});
+	}
+	
+	self.submitJoke = function(){
+		self.showJoke();
+		// TODO: Log
 	}
 	
 	self.showJoke = function(){
