@@ -47,7 +47,7 @@ class ClaptrapController {
 
         return if(tooLong(nucleus) || tooLong(linguisticSubstitute) || tooLong(primarySetup) || tooLong(secondarySetup)) {
             ResponseEntity.badRequest().build()
-        } else if (!nucleus.contains(linguisticOriginal)){
+        } else if (!nucleus.toLowerCase().contains(linguisticOriginal.toLowerCase())){
             ResponseEntity.badRequest().build()
         } else {
             val joke = jokeService.regenerateJoke(nucleus, linguisticOriginal, linguisticSubstitute, primarySetup, primaryRelationship, secondarySetup, secondaryRelationship)
