@@ -11,12 +11,12 @@ class ClaptrapService(private val jokeDesigner: JokeDesigner,
                       private val jokeGenerator: JokeGenerator = JokeGenerator()) {
 
     fun tellJoke(topic: String): Joke {
-        var spec = jokeDesigner.designJokeFromNucleus(topic)
+        val spec = jokeDesigner.designJokeFromNucleus(topic)
         return jokeGenerator.generateJoke(spec)
     }
 
     fun tellJoke(): Joke {
-        var spec = jokeDesigner.designRandomJoke()
+        val spec = jokeDesigner.designRandomJoke()
         return jokeGenerator.generateJoke(spec)
     }
 
@@ -29,7 +29,7 @@ class ClaptrapService(private val jokeDesigner: JokeDesigner,
             secondarySetup: String,
             secondaryRelationship: Relationship
     ): Joke {
-        var spec = JokeSpec(nucleus = nucleus,
+        val spec = JokeSpec(nucleus = nucleus,
                             nucleusWord = asWord(nucleus),
                             linguisticSub = LinguisticSubstitution(substitution = asWord(linguisticSubstitute),
                                                                    original = asWord(linguisticOriginal),
