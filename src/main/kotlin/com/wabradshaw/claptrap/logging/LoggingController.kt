@@ -1,11 +1,5 @@
 package com.wabradshaw.claptrap.logging
 
-import com.wabradshaw.claptrap.ClaptrapService
-import com.wabradshaw.claptrap.design.JokeDesigner
-import com.wabradshaw.claptrap.logging.JokeRatings.token
-import com.wabradshaw.claptrap.repositories.custom.JsonRepository
-import com.wabradshaw.claptrap.structure.*
-import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 /*
