@@ -24,3 +24,24 @@ CREATE TABLE `JokeRatings` (
  	`wrong` BOOLEAN NOT NULL,
  	PRIMARY KEY (`token`, `original`, `substitution`, `relationship`, `position`)
  );
+
+ CREATE TABLE `JokeSuggestions` (
+  	`token` VARCHAR(32) NOT NULL,
+  	`nucleus` VARCHAR(32) NOT NULL,
+  	`linguisticOriginal` VARCHAR(16) NOT NULL,
+  	`linguisticReplacement` VARCHAR(16) NOT NULL,
+  	`oldSetup` VARCHAR(128) NOT NULL,
+  	`oldPunchline` VARCHAR(32) NOT NULL,
+  	`oldTemplate` VARCHAR(12) NOT NULL,
+  	`oldPrimarySetup` VARCHAR(64) NOT NULL,
+  	`oldSecondarySetup` VARCHAR(64) NOT NULL,
+  	`oldPrimaryRelationship` VARCHAR(16) NOT NULL,
+  	`oldSecondaryRelationship` VARCHAR(16) NOT NULL,
+    `newSetup` VARCHAR(128) NOT NULL,
+    `newPunchline` VARCHAR(32) NOT NULL,
+    `newTemplate` VARCHAR(12) NOT NULL,
+    `newPrimarySetup` VARCHAR(64) NOT NULL,
+    `newSecondarySetup` VARCHAR(64) NOT NULL,
+    `newPrimaryRelationship` VARCHAR(16) NOT NULL,
+    `newSecondaryRelationship` VARCHAR(16) NOT NULL
+  );

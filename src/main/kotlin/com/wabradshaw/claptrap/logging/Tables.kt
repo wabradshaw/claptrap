@@ -35,3 +35,24 @@ object RelationshipRatings : Table() {
         index(true, token, original, substitution, relationship, position)
     }
 }
+
+object JokeSuggestions : Table() {
+    val token : Column<String> = varchar("token", length=32) // A token representing a user's session
+    val nucleus : Column<String> = varchar("nucleus", length=32) // The word used as the nucleus in both
+    val linguisticOriginal : Column<String> = varchar("linguisticOriginal", length=16) // The substring that was replaced in both
+    val linguisticReplacement : Column<String> = varchar("linguisticReplacement", length=16) // The linguistic replacement in both
+    val oldSetup : Column<String> = varchar("oldSetup", length=128) // The full joke setup in the original joke
+    val oldPunchline : Column<String> = varchar("oldPunchline", length=32) // The full joke punchline in the original joke
+    val oldTemplate : Column<String> = varchar("oldTemplate", length=12) // The id of the setup template in the original joke
+    val oldPrimarySetup : Column<String> = varchar("oldPrimarySetup", length=64) // The link to the nucleus word in the original joke
+    val oldSecondarySetup : Column<String> = varchar("oldSecondarySetup", length=64) // The link to the substitution in the original joke
+    val oldPrimaryRelationship : Column<String> = varchar("oldPrimaryRelationship", length=16) // How the primary setup links to the nucleus in the original joke
+    val oldSecondaryRelationship : Column<String> = varchar("oldSecondaryRelationship", length=16) // How the secondary setup links to the linguistic replacement in the original joke
+    val newSetup : Column<String> = varchar("newSetup", length=128) // The full joke setup in the suggested joke
+    val newPunchline : Column<String> = varchar("newPunchline", length=32) // The full joke punchline in the suggested joke
+    val newTemplate : Column<String> = varchar("newTemplate", length=12) // The id of the setup template in the suggested joke
+    val newPrimarySetup : Column<String> = varchar("newPrimarySetup", length=64) // The link to the nucleus word in the suggested joke
+    val newSecondarySetup : Column<String> = varchar("newSecondarySetup", length=64) // The link to the substitution in the suggested joke
+    val newPrimaryRelationship : Column<String> = varchar("newPrimaryRelationship", length=16) // How the primary setup links to the nucleus in the suggested joke
+    val newSecondaryRelationship : Column<String> = varchar("newSecondaryRelationship", length=16) // How the secondary setup links to the linguistic replacement in the suggested joke
+}
