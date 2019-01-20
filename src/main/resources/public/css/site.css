@@ -137,10 +137,32 @@ html, body{
 
 #banner {
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
+	justify-content: flex-end;
     padding: 5px 20px 5px 5px;
 	font-size: 16px;
+}
+
+#banner > a {
 	color: #ffe000;
+	text-decoration: none;
+}
+
+#banner > a:active{
+	color: white;
+}
+
+#banner > a:hover, 
+#banner > a:focus {
+	color: #ffec64;
+}
+
+.banner-separator {
+	margin-left: 10px;
+	margin-right: 10px;
+	height: 20px;
+	width: 2px;
+	background-color: #ffe000;
 }
 
 #main-window {
@@ -159,6 +181,16 @@ html, body{
 
 #footer {
 	height: 100px;
+	display: flex;
+}
+
+#cc {
+    font-size: x-small;
+    color: #ee2222;
+    margin-left: auto;
+    margin-top: auto;
+    margin-right: 5px;
+    margin-bottom: 5px;
 }
 
 /* Title */
