@@ -232,6 +232,7 @@ function JokingViewModel(){
 				, function(data){
 			console.log(data);
 			self.suggestedJoke(new Joke(data, self.token));
+			self.showPreview();
 		});
 	}
 	
@@ -272,7 +273,7 @@ function JokingViewModel(){
 					}
 				}),			
 				success: function(result){
-					console.log("Rating logged");
+					console.log("Suggestion logged");
 				},
 				error: function(){
 					console.log("Could not access the logging server");
@@ -293,6 +294,10 @@ function JokingViewModel(){
 	
 	self.showImprove = function(){
 		self.mode('Improve');
+	}
+	
+	self.showPreview = function(){
+		self.mode('Preview');
 	}
 }
 

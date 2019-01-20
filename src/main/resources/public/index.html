@@ -35,8 +35,8 @@
 				</div>
 				<!-- ko with: currentJoke -->
 				<div id="joke" class="ko-start-hidden" data-bind="if: $root.mode() == 'Joke', css: {'ko-start-hidden': false}">
-					<div id="setup" class="card" data-bind="text: setup"></div>
-					<div id="punchline" class="card" data-bind="text: punchline"></div> 
+					<div class="card setup" data-bind="text: setup"></div>
+					<div class="card punchline" data-bind="text: punchline"></div> 
 					<div class="button focal-button" role="button" tabindex="0" data-bind="click: $root.generateJoke, event: {keypress: $root.generateJoke}">Generate another</div>
 					<div id="rating-buttons">
 						<div id="good-rating" class="button icon-button" role="button" tabindex="0" data-bind="click: toggleGood, event: {keypress: toggleGood}, css: { toggled: vote() == 1 }"><i class="fa fa-2x fa-thumbs-up fa-flip-horizontal"></i></div>
@@ -57,6 +57,7 @@
 				</div>
 				<!-- /ko -->
 				<div id="improvement-view" class="ko-start-hidden" data-bind="if: $root.mode() == 'Improve', css: {'ko-start-hidden': false}">
+					<div id="improvement-descriptor" class="background-info">Change the relationships below to help Claptrap learn</div>
 					<div id="improvement-list" data-bind="with: suggestedJokeSpec">
 						<div class="improvement">
 							<div class="card" data-bind="text: detNucleus"></div>
@@ -69,15 +70,17 @@
 							<input type="text" class="card editable" data-bind="value: secondarySetup"/>
 						</div>						
 					</div>
-					<div id="regenerate-button" class="button focal-button" role="button" tabindex="0"
-					data-bind="click: regenerateJoke, event: {keypress: regenerateJoke}">Try It</div>				
-					<div class="small-joke" data-bind="with: suggestedJoke">
-						<div class="card" data-bind="text: setup"></div>
-						<div class="card" data-bind="text: punchline"></div>
-					</div>
 					<div id="improvement-buttons">
-						<div id="cancel-button" class="button split-button" role="button" tabindex="0" data-bind="click: $root.showJoke, event: {keypress: showJoke}">Cancel</div>
-						<div id="submit-button" class="button split-button" role="button" tabindex="0" data-bind="click: $root.submitJoke, event: {keypress: submitJoke}">Submit</div>
+						<div class="button split-button" role="button" tabindex="0" data-bind="click: showJoke, event: {keypress: showJoke}">Cancel</div>
+						<div id="regenerate-button" class="button split-button" role="button" tabindex="0" data-bind="click: regenerateJoke, event: {keypress: regenerateJoke}">Try It</div>
+					</div>
+				</div>
+				<div id="preview-submission-view" class="ko-start-hidden" data-bind="if: $root.mode() == 'Preview', css: {'ko-start-hidden': false}">				
+					<div class="card setup" data-bind="text: suggestedJoke().setup"></div>
+					<div class="card punchline" data-bind="text: suggestedJoke().punchline"></div> 
+					<div id="preview-submission-buttons">
+						<div class="button split-button" role="button" tabindex="0" data-bind="click: showImprove, event: {keypress: showImprove}">Edit</div>
+						<div id="submit-button" class="button split-button" role="button" tabindex="0" data-bind="click: submitJoke, event: {keypress: submitJoke}">Submit</div>
 					</div>						
 				</div>
 			</div>
