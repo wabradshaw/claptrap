@@ -1,5 +1,6 @@
 package com.wabradshaw.claptrap.logging
 
+import com.wabradshaw.claptrap.JokeDTO
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.replace
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -68,6 +69,43 @@ class LoggingRepository(val db: DatabaseConfiguration) {
                 it[substitution] = relation.substitution
                 it[relationship] = relation.relationship
                 it[position] = relation.position
+            }
+        }
+    }
+
+    /**
+     * Inserts the specified joke rating into the database
+     * @param tokenVal   The string token representing the user's current session. Used to handle multiple votes on the
+     *                   same joke.
+     * @param oldJoke The just the user has suggested an improvement to.
+     * @param newJoke The improved joke suggested by the user.
+     */
+    fun logSuggestion(tokenVal: String, oldJoke: JokeDTO, newJoke: JokeDTO){
+        connect()
+
+        transaction{
+            JokeSuggestions.replace {
+                it[token] = tokenVal
+                
+                it[linguisticOriginal] = newJoke.linguisticOriginal
+                it[linguisticReplacement] = newJoke.linguisticReplacement
+                it[nucleus] = newJoke.nucleus
+
+                it[oldSetup] = oldJoke.setup
+                it[oldPunchline] = oldJoke.punchline
+                it[oldTemplate] = oldJoke.template
+                it[oldPrimarySetup] = oldJoke.primarySetup ?: oldJoke.nucleus
+                it[oldSecondarySetup] = oldJoke.secondarySetup
+                it[oldPrimaryRelationship] = oldJoke.primaryRelationship ?: "nucleus"
+                it[oldSecondaryRelationship] = oldJoke.secondaryRelationship
+
+                it[oldSetup] = newJoke.setup
+                it[oldPunchline] = newJoke.punchline
+                it[oldTemplate] = newJoke.template
+                it[oldPrimarySetup] = newJoke.primarySetup ?: newJoke.nucleus
+                it[oldSecondarySetup] = newJoke.secondarySetup
+                it[oldPrimaryRelationship] = newJoke.primaryRelationship ?: "nucleus"
+                it[oldSecondaryRelationship] = newJoke.secondaryRelationship
             }
         }
     }
