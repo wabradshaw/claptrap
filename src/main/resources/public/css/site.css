@@ -39,6 +39,8 @@
 	-webkit-transition: box-shadow 0.3s;
 	transition: box-shadow 0.3s;
 	outline: none; /* Replaced by hover/focus coloring */
+	color: black;
+	text-decoration: none;
 }
 
 .button:hover, 

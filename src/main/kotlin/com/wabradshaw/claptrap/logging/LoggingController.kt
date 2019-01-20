@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*
  * A RESTful controller for logging ratings in the system
  */
 @RestController
+@RequestMapping(value= ["/service"])
 class LoggingController(val service: LoggingService) {
 
     @PostMapping("/rate/{token}")

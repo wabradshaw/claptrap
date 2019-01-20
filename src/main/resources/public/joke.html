@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<link rel="stylesheet" type="text/css" href="css/site.css" />
+        <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" /> 
+		
+        <script src="js/ext/jquery-3.1.1.min.js"></script>
+		<script src="js/ext/knockout-3.4.2.js"></script>
+		<script src="js/ext/AvsAn-simple.js"></script>
+		
+		<script src="js/claptrap.js"></script>		
+        <title>Claptrap</title>
+    </head>
+	<body>
+		<div id="banner">
+			<a>How it Works</a>
+			<a>Contact us</a>
+		</div>
+		<div id="main-window">
+			<div id="title">
+				<a href="./joke.html" tabindex="3"><img id="main-title" src="img/claptrap.svg" alt="Claptrap"/></a>
+				<div id="slogan">The Crap Joke Generation App</div>
+			</div>
+			<div id="content-window">				
+				<!-- ko with: currentJoke -->
+				<div id="joke" class="ko-start-hidden" data-bind="if: $root.mode() == 'Joke', css: {'ko-start-hidden': false}">
+					<div class="card setup" data-bind="text: setup"></div>
+					<div class="card punchline" data-bind="text: punchline"></div> 
+					<div class="button focal-button" role="button" tabindex="1" data-bind="click: $root.generateJoke, event: {keypress: $root.generateJoke}">Generate another</div>
+					<div id="rating-buttons">
+						<div id="good-rating" class="button icon-button" role="button" tabindex="1" data-bind="click: toggleGood, event: {keypress: toggleGood}, css: { toggled: vote() == 1 }"><i class="fa fa-2x fa-thumbs-up fa-flip-horizontal"></i></div>
+						<div id="bad-rating" class="button icon-button" role="button" tabindex="1" data-bind="click: toggleBad, event: {keypress: toggleBad}, css: { toggled: vote() == -1 }"><i class="fa fa-2x fa-thumbs-down"></i></div>
+						<div id="explain-button" class="button small-text-button" role="button" tabindex="1" data-bind="click: $root.showExplanation, event: {keypress: $root.showExplanation}">Explain</div>
+						<div id="improve-button" class="button small-text-button" role="button" tabindex="1" data-bind="click: $root.showImprove, event: {keypress: $root.showImprove}">Improve</div>
+					</div>					
+				</div>
+				<div id="explanation-view" class="ko-start-hidden" data-bind="if: $root.mode() == 'Explanation', css: {'ko-start-hidden': false}">
+					<div id="explanation-descriptor" class="background-info">Claptrap thinks that:</div>
+					<div id="explanation-list" data-bind="foreach: relationships">
+						<div class="explanation">
+							<div class="card" data-bind="text: descriptor"></div>
+							<div class="button icon-button" role="button" tabindex="1" data-bind="click: toggleRelationship, event: {keypress: toggleRelationship}, css: { toggled: wrong }"><i class="fa fa-2x fa-times"></i></div>
+						</div>						
+					</div>					
+					<div id="back-button" class="button focal-button" role="button" tabindex="1" data-bind="click: $root.showJoke, event: {keypress: $root.showJoke}">Back</div>		
+				</div>
+				<!-- /ko -->
+				<div id="improvement-view" class="ko-start-hidden" data-bind="if: $root.mode() == 'Improve', css: {'ko-start-hidden': false}">
+					<div id="improvement-descriptor" class="background-info">Change the relationships below to help Claptrap learn</div>
+					<div id="improvement-list" data-bind="with: suggestedJokeSpec">
+						<div class="improvement">
+							<div class="card" data-bind="text: detNucleus"></div>
+							<select class="card editable" data-bind="options: primaryOptions, optionsText: 'descriptor', value: primaryLink"></select>
+							<input type="text" class="card editable" data-bind="value: primarySetup"/>
+						</div>						
+						<div class="improvement">
+							<div class="card" data-bind="text: detLinguisticReplacement"></div>
+							<select class="card editable" data-bind="options: secondaryOptions, optionsText: 'descriptor', value: secondaryLink"></select>
+							<input type="text" class="card editable" data-bind="value: secondarySetup"/>
+						</div>						
+					</div>
+					<div id="improvement-buttons">
+						<div class="button split-button" role="button" tabindex="1" data-bind="click: showJoke, event: {keypress: showJoke}">Cancel</div>
+						<div id="regenerate-button" class="button split-button" role="button" tabindex="1" data-bind="click: regenerateJoke, event: {keypress: regenerateJoke}">Try It</div>
+					</div>
+				</div>
+				<div id="preview-submission-view" class="ko-start-hidden" data-bind="if: $root.mode() == 'Preview', css: {'ko-start-hidden': false}">				
+					<div class="card setup" data-bind="text: suggestedJoke().setup"></div>
+					<div class="card punchline" data-bind="text: suggestedJoke().punchline"></div> 
+					<div id="preview-submission-buttons">
+						<div class="button split-button" role="button" tabindex="1" data-bind="click: showImprove, event: {keypress: showImprove}">Edit</div>
+						<div id="submit-button" class="button split-button" role="button" tabindex="1" data-bind="click: submitJoke, event: {keypress: submitJoke}">Submit</div>
+					</div>						
+				</div>
+			</div>
+		</div>
+		<div id="footer"></div>
+	</body>
+</html>

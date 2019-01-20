@@ -92,7 +92,7 @@ function Relationship(token, descriptor, original, substitution, relationship, p
 		$(":focus").blur();
 		$.ajax({
 			type: 'POST',
-			url: './rate/relation/' + self.token,
+			url: './service/rate/relation/' + self.token,
 			contentType: 'application/json',
 			xhrFields: {
 				withCredentials: true
@@ -168,7 +168,7 @@ function Joke(data, token){
 	function rateJoke(){
 		$.ajax({
 			type: 'POST',
-			url: './rate/' + self.token,
+			url: './service/rate/' + self.token,
 			contentType: 'application/json',
 			xhrFields: {
 				withCredentials: true
@@ -212,7 +212,7 @@ function JokingViewModel(){
 	self.mode = ko.observable('Joke');
 	
 	self.generateJoke = function(){
-		$.get("./joke", function(data){
+		$.get("./service/joke", function(data){
 			console.log(data);
 			self.showJoke();			
 			self.currentJoke(new Joke(data, self.token));
@@ -222,7 +222,7 @@ function JokingViewModel(){
 	}
 	
 	self.regenerateJoke = function(){
-		$.get("./joke/custom?nucleus=" + self.suggestedJokeSpec().nucleus
+		$.get("./service/joke/custom?nucleus=" + self.suggestedJokeSpec().nucleus
 				+ "&linguisticOriginal=" + self.suggestedJokeSpec().linguisticOriginal
 				+ "&linguisticSubstitute=" + self.suggestedJokeSpec().linguisticReplacement
 				+ "&primarySetup=" + self.suggestedJokeSpec().primarySetup()
@@ -240,7 +240,7 @@ function JokingViewModel(){
 		if(self.currentJoke() != self.suggestedJoke()){
 			$.ajax({
 				type: 'POST',
-				url: './suggest/' + self.token,
+				url: './service/suggest/' + self.token,
 				contentType: 'application/json',
 				xhrFields: {
 					withCredentials: true
@@ -299,11 +299,14 @@ function JokingViewModel(){
 	self.showPreview = function(){
 		self.mode('Preview');
 	}
+	
 }
 
 /**
  * Register the ContentViewModel.
  */
 $( document ).ready(function() {
-	ko.applyBindings(new JokingViewModel());
+	var jokeModel = new JokingViewModel();
+	ko.applyBindings(jokeModel);
+	jokeModel.generateJoke();
 });

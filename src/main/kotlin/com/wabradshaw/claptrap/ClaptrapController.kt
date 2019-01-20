@@ -4,15 +4,13 @@ import com.wabradshaw.claptrap.design.JokeDesigner
 import com.wabradshaw.claptrap.repositories.custom.JsonRepository
 import com.wabradshaw.claptrap.structure.Relationship
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.CrossOrigin
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 /*
  * A RESTful controller for the Claptrap system
  */
 @RestController
+@RequestMapping(value= ["/service"])
 class ClaptrapController {
 
     private val maxLetters = 30
