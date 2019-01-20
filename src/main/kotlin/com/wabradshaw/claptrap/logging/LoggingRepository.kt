@@ -99,13 +99,13 @@ class LoggingRepository(val db: DatabaseConfiguration) {
                 it[oldPrimaryRelationship] = oldJoke.primaryRelationship ?: "nucleus"
                 it[oldSecondaryRelationship] = oldJoke.secondaryRelationship
 
-                it[oldSetup] = newJoke.setup
-                it[oldPunchline] = newJoke.punchline
-                it[oldTemplate] = newJoke.template
-                it[oldPrimarySetup] = newJoke.primarySetup ?: newJoke.nucleus
-                it[oldSecondarySetup] = newJoke.secondarySetup
-                it[oldPrimaryRelationship] = newJoke.primaryRelationship ?: "nucleus"
-                it[oldSecondaryRelationship] = newJoke.secondaryRelationship
+                it[newSetup] = newJoke.setup
+                it[newPunchline] = newJoke.punchline
+                it[newTemplate] = newJoke.template
+                it[newPrimarySetup] = newJoke.primarySetup ?: newJoke.nucleus
+                it[newSecondarySetup] = newJoke.secondarySetup
+                it[newPrimaryRelationship] = newJoke.primaryRelationship ?: "nucleus"
+                it[newSecondaryRelationship] = newJoke.secondaryRelationship
             }
         }
     }

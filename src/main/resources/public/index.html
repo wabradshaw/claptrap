@@ -56,9 +56,8 @@
 					<div id="back-button" class="button focal-button" role="button" tabindex="0" data-bind="click: $root.showJoke, event: {keypress: $root.showJoke}">Back</div>		
 				</div>
 				<!-- /ko -->
-				<!-- ko with: suggestedJoke -->
 				<div id="improvement-view" class="ko-start-hidden" data-bind="if: $root.mode() == 'Improve', css: {'ko-start-hidden': false}">
-					<div id="improvement-list">
+					<div id="improvement-list" data-bind="with: suggestedJokeSpec">
 						<div class="improvement">
 							<div class="card" data-bind="text: detNucleus"></div>
 							<select class="card editable" data-bind="options: primaryOptions, optionsText: 'descriptor', value: primaryLink"></select>
@@ -70,17 +69,17 @@
 							<input type="text" class="card editable" data-bind="value: secondarySetup"/>
 						</div>						
 					</div>
-					<div id="regenerate-button" class="button focal-button" role="button" tabindex="0" data-bind="click: $root.regenerateJoke, event: {keypress: $root.regenerateJoke}">Try It</div>				
-					<div class="small-joke">
-						<div class="card" data-bind="text: $root.currentJoke().setup"></div>
-						<div class="card" data-bind="text: $root.currentJoke().punchline"></div>
+					<div id="regenerate-button" class="button focal-button" role="button" tabindex="0"
+					data-bind="click: regenerateJoke, event: {keypress: regenerateJoke}">Try It</div>				
+					<div class="small-joke" data-bind="with: suggestedJoke">
+						<div class="card" data-bind="text: setup"></div>
+						<div class="card" data-bind="text: punchline"></div>
 					</div>
 					<div id="improvement-buttons">
-						<div id="cancel-button" class="button split-button" role="button" tabindex="0" data-bind="click: $root.showJoke, event: {keypress: $root.showJoke}">Cancel</div>
-						<div id="submit-button" class="button split-button" role="button" tabindex="0" data-bind="click: $root.submitJoke, event: {keypress: $root.submitJoke}">Submit</div>
+						<div id="cancel-button" class="button split-button" role="button" tabindex="0" data-bind="click: $root.showJoke, event: {keypress: showJoke}">Cancel</div>
+						<div id="submit-button" class="button split-button" role="button" tabindex="0" data-bind="click: $root.submitJoke, event: {keypress: submitJoke}">Submit</div>
 					</div>						
 				</div>
-				<!-- /ko -->
 			</div>
 		</div>
 		<div id="footer"></div>

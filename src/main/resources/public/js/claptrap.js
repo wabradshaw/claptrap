@@ -128,7 +128,7 @@ function JokeSpec(joke){
 	self.primarySetup = ko.observable(joke.data.primarySetup || joke.data.nucleus)
 	self.primaryLink = ko.observable(primaryLinks.find(link => link.type == (joke.data.primaryRelationship || "SYNONYM")))
 	self.secondarySetup = ko.observable(joke.data.secondarySetup)
-	self.secondaryLink = ko.observable(primaryLinks.find(link => link.type == joke.data.secondaryRelationship))
+	self.secondaryLink = ko.observable(secondaryLinks.find(link => link.type == joke.data.secondaryRelationship))
 	
 	self.primaryOptions = primaryLinks
 	self.secondaryOptions = secondaryLinks
@@ -206,6 +206,7 @@ function JokingViewModel(){
 	var self = this;
 	self.currentJoke = ko.observable();
 	self.suggestedJoke = ko.observable();
+	self.suggestedJokeSpec = ko.observable();
 	self.token = new Date().getTime() + Math.random().toString(36).substring(2);
 	
 	self.mode = ko.observable('Joke');
@@ -215,27 +216,71 @@ function JokingViewModel(){
 			console.log(data);
 			self.showJoke();			
 			self.currentJoke(new Joke(data, self.token));
-			self.suggestedJoke(new JokeSpec(self.currentJoke()));			
+			self.suggestedJoke(self.currentJoke());
+			self.suggestedJokeSpec(new JokeSpec(self.currentJoke()));			
 		});
 	}
 	
 	self.regenerateJoke = function(){
-		$.get("./joke/custom?nucleus=" + self.suggestedJoke().nucleus
-				+ "&linguisticOriginal=" + self.suggestedJoke().linguisticOriginal
-				+ "&linguisticSubstitute=" + self.suggestedJoke().linguisticReplacement
-				+ "&primarySetup=" + self.suggestedJoke().primarySetup()
-				+ "&primaryRelationship=" + self.suggestedJoke().primaryLink().type
-				+ "&secondarySetup=" + self.suggestedJoke().secondarySetup()
-				+ "&secondaryRelationship=" + self.suggestedJoke().secondaryLink().type
+		$.get("./joke/custom?nucleus=" + self.suggestedJokeSpec().nucleus
+				+ "&linguisticOriginal=" + self.suggestedJokeSpec().linguisticOriginal
+				+ "&linguisticSubstitute=" + self.suggestedJokeSpec().linguisticReplacement
+				+ "&primarySetup=" + self.suggestedJokeSpec().primarySetup()
+				+ "&primaryRelationship=" + self.suggestedJokeSpec().primaryLink().type
+				+ "&secondarySetup=" + self.suggestedJokeSpec().secondarySetup()
+				+ "&secondaryRelationship=" + self.suggestedJokeSpec().secondaryLink().type
 				, function(data){
 			console.log(data);
-			self.currentJoke(new Joke(data, self.token));
+			self.suggestedJoke(new Joke(data, self.token));
 		});
 	}
 	
 	self.submitJoke = function(){
+		if(self.currentJoke() != self.suggestedJoke()){
+			$.ajax({
+				type: 'POST',
+				url: './suggest/' + self.token,
+				contentType: 'application/json',
+				xhrFields: {
+					withCredentials: true
+				},			
+				
+				data: JSON.stringify({
+					oldJoke: {
+						setup: self.currentJoke().setup,
+						punchline: self.currentJoke().punchline,
+						template: self.currentJoke().data.template,
+						nucleus: self.currentJoke().data.nucleus,
+						primarySetup: self.currentJoke().data.primarySetup,
+						secondarySetup: self.currentJoke().data.secondarySetup,
+						linguisticOriginal: self.currentJoke().data.linguisticOriginal,
+						linguisticReplacement: self.currentJoke().data.linguisticReplacement,
+						primaryRelationship: self.currentJoke().data.primaryRelationship,
+						secondaryRelationship: self.currentJoke().data.secondaryRelationship
+					},
+					newJoke: {
+						setup: self.suggestedJoke().setup,
+						punchline: self.suggestedJoke().punchline,
+						template: self.suggestedJoke().data.template,
+						nucleus: self.suggestedJoke().data.nucleus,
+						primarySetup: self.suggestedJoke().data.primarySetup,
+						secondarySetup: self.suggestedJoke().data.secondarySetup,
+						linguisticOriginal: self.suggestedJoke().data.linguisticOriginal,
+						linguisticReplacement: self.suggestedJoke().data.linguisticReplacement,
+						primaryRelationship: self.suggestedJoke().data.primaryRelationship,
+						secondaryRelationship: self.suggestedJoke().data.secondaryRelationship
+					}
+				}),			
+				success: function(result){
+					console.log("Rating logged");
+				},
+				error: function(){
+					console.log("Could not access the logging server");
+				}
+			});
+		}
+		self.currentJoke(self.suggestedJoke());		
 		self.showJoke();
-		// TODO: Log
 	}
 	
 	self.showJoke = function(){
