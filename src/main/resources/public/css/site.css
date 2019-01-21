@@ -353,3 +353,12 @@ select.card.editable {
 	display: flex;
 	margin-top: 20px;
 }
+
+/* About Page */
+#about > .card:nth-child(odd) {
+	margin-left: 50px;
+}	
+
+#about > .card:nth-child(even) {
+	margin-right: 50px;
+}	

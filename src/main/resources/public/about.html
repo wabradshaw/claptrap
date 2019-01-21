@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<link rel="stylesheet" type="text/css" href="css/site.css" />
+        <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" /> 
+
+        <title>Claptrap</title>
+    </head>
+	<body>
+		<div id="banner">
+			<a href="./index.html" tabindex="2">Intro</a>
+			<div class="banner-separator"></div>
+			<a href="./joke.html" tabindex="2">Jokes</a>
+			<div class="banner-separator"></div>
+			<a href="./about.html" tabindex="2">About</a>
+		</div>
+		<div id="main-window">
+			<div id="title">
+				<a href="./joke.html" tabindex="3"><img id="main-title" src="img/claptrap.svg" alt="Claptrap"/></a>
+				<div id="slogan">The Crap Joke Generation App</div>
+			</div>
+			<div id="content-window">
+				<div id="about">
+					<div class="card">
+						Claptrap is a computer that makes up its own jokes. Terrible, terrible jokes. Rather than using a pre-built list of puns, it builds up jokes using a model of what words sound alike and how objects are related.
+					</div>
+					<div class="card">
+						The puns start with a random word known as the nucleus. It then looks in its library of relationships to see if the start (or end) of the nucleus can be replaced by a different rhyming word. This substitution gives Claptrap the punchline, but it still needs a setup to make a joke.
+					</div>
+					<div class="card">
+						To create the setup Claptrap uses semantic relationships like synonyms or properties. These relationships are used to create descriptions that hint at the punchline. Claptrap finds one relation for the rhyming word, and (where possible) one for the nucleus. Finally, it chooses a pattern for the description based on the relationships and compiles it all together into a hilarious joke. 
+					</div>
+					<div class="card">
+						Once the joke has been produced, that's where you come in. Claptrap let's you rate the jokes and even suggest improvements. By doing this you're helping to teach Claptrap what words are linked and what type of relationships make the best puns. The more data you give, the funnier Claptrap can eventually be. 
+					</div>
+					<div class="card">
+						The project was created by me, William Bradshaw. Sorry. If you have any comments or questions feel free to give me a shout at <a href=	"mailto:w.a.bradshaw@gmail.com?subject=Claptrap">w.a.bradshaw@gmail.com</a>.
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="footer">
+			<span id="cc">&copy;W.A.Bradshaw</span>
+		</div>
+	</body>
+</html>
