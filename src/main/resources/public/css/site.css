@@ -330,10 +330,12 @@ html, body{
 
 input.card.editable {
     width: 160px;
+	cursor: pointer;
 }
 
 select.card.editable {
     width: 276px;
+	cursor: text;
 }
 
 #improvement-buttons {
