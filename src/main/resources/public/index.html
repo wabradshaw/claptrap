@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<link rel="stylesheet" type="text/css" href="css/site.css" />
         <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" /> 
 
+        <script src="js/ext/jquery-3.1.1.min.js"></script>
+		
+		<script src="js/menu.js"></script>	
         <title>Claptrap</title>
 		
 		<link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
@@ -16,7 +20,16 @@
 		<meta name="theme-color" content="#aa0000">
     </head>
 	<body>
-		<div id="banner">
+		<div class="banner banner-s">
+			<div class="banner-menu hidden">
+				<a class="button banner-button" href="./index.html" tabindex="2">Intro</a>
+				<a class="button banner-button" href="./joke.html" tabindex="2">Jokes</a>
+				<a class="button banner-button" href="./about.html" tabindex="2">About</a>
+			</div>
+			<a href="./joke.html" tabindex="3"><img id="small-title" src="img/claptrap.svg" alt="Claptrap"/></a>
+			<div id="hamburger" class="button banner-button" role="button" tabindex="2" onclick="toggleTopMenuButtons()" onkeydown="toggleTopMenuButtons()"><i class="fa fa-bars"></i></div>
+		</div>
+		<div class="banner banner-l banner-menu">
 			<a href="./index.html" tabindex="2">Intro</a>
 			<div class="banner-separator"></div>
 			<a href="./joke.html" tabindex="2">Jokes</a>
@@ -24,7 +37,7 @@
 			<a href="./about.html" tabindex="2">About</a>
 		</div>
 		<div id="main-window">
-			<div id="title">
+			<div id="title-l">
 				<a href="./joke.html" tabindex="3"><img id="main-title" src="img/claptrap.svg" alt="Claptrap"/></a>
 				<div id="slogan">The Crap Joke Generation App</div>
 			</div>
