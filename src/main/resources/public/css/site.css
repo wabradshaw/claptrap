@@ -102,22 +102,37 @@
 }
 
 .card.setup {
-	width: 600px;
-	margin-right: 100px;
 	margin-top: 40px;
 }
 
 .card.punchline {
-	width: 600px;
-	margin-left: 100px;
 	margin-bottom: 40px;
 }
 
 .setup, .punchline {
-    font-size: 28px;
+    font-size: 20px;
 	min-height: 68px;
     align-items: center;
     display: flex;
+}
+
+@media only screen and (min-width: 476px) {
+	.card.setup {
+		width: 80%;
+		margin-right: 10%;
+	}
+
+	.card.punchline {
+		width: 80%;
+		margin-left: 10%;
+	}
+
+	.setup, .punchline {
+		font-size: 28px;
+		min-height: 68px;
+		align-items: center;
+		display: flex;
+	}
 }
 
 .hidden {
@@ -312,28 +327,54 @@ html, body{
 #joke {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
+}
+
+.action-buttons {
+	justify-content: space-between;
+    padding-top: 10px;
+}
+
+.action-buttons-s {
+	display: flex;
+}
+
+.action-buttons-l {
+	display: none;
 }
 
 #rating-buttons {
 	display: flex;
-	justify-content: center;
+	padding: 0px;
+	margin: 0px;
 }
 
-#good-rating {
-	margin-right: 0px;
+.action-buttons .button {
+	margin: 0px;
 }
 
 #good-rating > i{
 	margin-top: -3px;
 }
 
-#bad-rating {
-	margin-left: 0px;
-}
-
 #bad-rating > i{
 	margin-top: 3px;
+}
+
+
+@media only screen and (min-width: 476px) {
+	#joke {
+		align-items: center;
+	}
+	
+	.action-buttons-s {
+		display: none;
+	}
+	
+	.action-buttons-l {
+		display: flex;
+		width: 436px;
+	}
 }
 
 /* Explanation View */
