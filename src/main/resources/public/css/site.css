@@ -254,7 +254,7 @@ html, body{
 	display: none;
 }
 
-@media only screen and (min-width: 800px) {
+@media only screen and (min-width: 600px) and (min-height: 600px) {
 	.banner-s {
 		display: none;
 	}
