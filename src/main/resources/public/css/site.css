@@ -23,8 +23,9 @@
 	-webkit-box-shadow: 10px 10px 0px 0px black;
 	-moz-box-shadow: 10px 10px 0px 0px black;
 	box-shadow: 10px 10px 0px 0px black;
-	margin: 20px;
 	padding: 20px;
+	margin-top: 20px;
+	margin-bottom: 20px;
 	cursor: default;
 	transition: box-shadow 0.3s;
 }
@@ -32,7 +33,6 @@
 .button {
     background-color: #ffe000;
     padding: 1em;
-    width: fit-content;
     border: 2px solid black;
 	cursor: pointer;
 	box-shadow: 6px 6px 0px 0px black;
@@ -57,9 +57,14 @@
 
 .focal-button {
 	font-size: 20px;
-    min-width: 392px;
     display: flex;
     justify-content: center;
+}
+
+@media only screen and (min-width: 476px) {
+	.focal-button {
+		width: 392px;
+	}
 }
 
 .split-button {
@@ -196,6 +201,8 @@ html, body{
 
 #content-window {
 	min-height: 500px;
+	padding-left: 20px;
+	padding-right: 20px;
 }
 
 #footer {
@@ -285,7 +292,13 @@ html, body{
 #intro {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
+}
+
+@media only screen and (min-width: 476px) {
+	#intro {
+		align-items: center;
+	}
 }
 
 #intro-card {
