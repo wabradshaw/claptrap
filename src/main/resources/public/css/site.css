@@ -380,30 +380,54 @@ html, body{
 /* Explanation View */
 
 #explanation-descriptor {
-    margin-top: 40px;
+	margin-top: 10px;
     margin-left: 10px;
     margin-bottom: 20px;
-    font-size: larger;
+    font-size: medium;
 }
-
+	
 .explanation {
 	display: flex;
+	justify-items: stretch;
 }
 
 .explanation > .card {
-    width: 500px;
+    max-width: 500px;
     margin: 10px;
-    box-shadow: 6px 6px 0px 0px black;
+    box-shadow: 6px 6px 0px 0px black;	
+    flex-grow: 1;
 }
 
-.explanation:nth-child(odd) > .card {
-    margin-left: 30px;
+.explanation > .button {
+	min-height: 30px;
+	height: auto;
 }
 
 #back-button {
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 40px;
+	margin-top: 20px;
+}
+
+@media only screen and (min-width: 700px) {
+	.explanation > .card {
+		width: 500px;
+		flex-grow: 0;
+	}
+
+	.explanation:nth-child(odd) > .card {
+		margin-left: 30px;
+	}
+	
+	
+	#explanation-descriptor {
+		margin-top: 40px;
+		margin-left: 10px;
+		margin-bottom: 20px;
+		font-size: larger;
+	}
+		
+	#back-button {
+		margin-top: 40px;
+	}
 }
 
 /* Improve View */
