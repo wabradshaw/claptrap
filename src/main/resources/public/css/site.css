@@ -69,10 +69,10 @@
 
 .split-button {
 	font-size: 20px;
-    min-width: 169px;
     display: flex;
     justify-content: center;
 	margin: 5px;
+	flex-grow: 1;
 }
 
 .icon-button {
@@ -360,8 +360,7 @@ html, body{
 #bad-rating > i{
 	margin-top: 3px;
 }
-
-
+	
 @media only screen and (min-width: 476px) {
 	#joke {
 		align-items: center;
@@ -448,13 +447,14 @@ html, body{
 
 .improvement {
 	display: flex;
+    flex-direction: column;
+	justify-content: center;
+	margin-top: 20px;
+	margin-bottom: 20px;
 }
 
-.improvement > * {
-	margin-left: 5px;
-	margin-right: 5px;
-	margin-top: 10px;
-	margin-bottom: 10px;
+.improvement-box {
+	margin: 0px;
 }
 
 .card.editable {
@@ -470,23 +470,64 @@ html, body{
 	background-color: #fff6b3;
 }
 
-.improvement > div{
-	width: 192px;
-}
-
 input.card.editable {
-    width: 160px;
 	cursor: pointer;
 }
 
 select.card.editable {
-    width: 276px;
+    width: 90vw;
 	cursor: text;
 }
 
 #improvement-buttons {
 	display: flex;
 	margin-top: 40px;
+	width: 100%;
+}
+
+@media only screen and (max-width: 753px) and (min-width: 536px){
+	.improvement {
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+	
+	.improvement-text-wrapper{
+		width: 476px;
+	}
+	
+	input.card.editable {
+		width: 160px;
+	}
+		
+	#improvement-buttons {
+		width: 392px;
+	}
+	
+	select.card.editable {
+		width: 276px;
+	}
+}
+
+@media only screen and (min-width: 754px) {
+	.improvement {	
+		flex-direction: row;
+	}		
+	
+	.improvement-text-wrapper{
+		width: 192px;
+	}
+	
+	input.card.editable {
+		width: 160px;
+	}
+		
+	#improvement-buttons {
+		width: 392px;
+	}
+	
+	select.card.editable {
+		width: 276px;
+	}
 }
 
 /* Preview View */

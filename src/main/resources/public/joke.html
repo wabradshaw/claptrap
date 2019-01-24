@@ -80,14 +80,18 @@
 					<div id="improvement-descriptor" class="background-info">Can you do better than Claptrap? Try changing the words in yellow to generate your own version of the joke.</div>
 					<div id="improvement-list" data-bind="with: suggestedJokeSpec">
 						<div class="improvement">
-							<div class="card" data-bind="text: detNucleus"></div>
-							<select class="card editable" data-bind="options: primaryOptions, optionsText: 'descriptor', value: primaryLink"></select>
-							<input type="text" class="card editable" data-bind="value: primarySetup"/>
+							<div class="improvement-text-wrapper">
+								<div class="card improvement-box" data-bind="text: detNucleus"></div>
+							</div>
+							<select class="card editable improvement-box" data-bind="options: primaryOptions, optionsText: 'descriptor', value: primaryLink"></select>
+							<input type="text" class="card editable improvement-box" data-bind="value: primarySetup"/>
 						</div>						
 						<div class="improvement">
-							<div class="card" data-bind="text: detLinguisticReplacement"></div>
-							<select class="card editable" data-bind="options: secondaryOptions, optionsText: 'descriptor', value: secondaryLink"></select>
-							<input type="text" class="card editable" data-bind="value: secondarySetup"/>
+							<div class="improvement-text-wrapper">
+								<div class="card improvement-box" data-bind="text: detLinguisticReplacement"></div>
+							</div>
+							<select class="card editable improvement-box" data-bind="options: secondaryOptions, optionsText: 'descriptor', value: secondaryLink"></select>
+							<input type="text" class="card editable improvement-box" data-bind="value: secondarySetup"/>
 						</div>						
 					</div>
 					<div id="improvement-buttons">
