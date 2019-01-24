@@ -286,18 +286,22 @@ function JokingViewModel(){
 	
 	self.showJoke = function(){
 		self.mode('Joke');
+		$(window).scrollTop(0);
 	}
 	
 	self.showExplanation = function(){
 		self.mode('Explanation');
+		$(window).scrollTop(0);
 	}
 	
 	self.showImprove = function(){
 		self.mode('Improve');
+		$(window).scrollTop(0);
 	}
 	
 	self.showPreview = function(){
 		self.mode('Preview');
+		$(window).scrollTop(0);
 	}
 	
 }
