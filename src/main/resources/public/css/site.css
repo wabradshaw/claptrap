@@ -576,3 +576,28 @@ select.card.editable {
 		margin-right: 50px;
 	}
 }
+
+/* Scroll */
+.scroll-indicator-top {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    height: 5px;
+    padding: 0px;
+    margin: 0px;
+    opacity: 1;
+    background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(255,255,255,0) 100%);
+}
+
+.scroll-indicator-bottom {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 5px;
+    padding: 0px;
+    margin: 0px;
+    opacity: 1;
+    background: linear-gradient(0deg, rgba(0,0,0,0.5) 0%, rgba(255,255,255,0) 100%);
+}
