@@ -98,7 +98,7 @@
 
 .background-info {
 	color: white;
-	
+    font-size: medium;	
 }
 
 .card.setup {
@@ -135,6 +135,12 @@
 	}
 }
 
+@media only screen and (min-width: 700px) {
+	.background-info {
+		font-size: larger;
+	}
+}
+		
 .hidden {
 	display: none !important;
 }
@@ -382,7 +388,6 @@ html, body{
 	margin-top: 10px;
     margin-left: 10px;
     margin-bottom: 20px;
-    font-size: medium;
 }
 	
 .explanation {
@@ -404,6 +409,8 @@ html, body{
 
 #back-button {
 	margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 @media only screen and (min-width: 700px) {
@@ -421,7 +428,6 @@ html, body{
 		margin-top: 40px;
 		margin-left: 10px;
 		margin-bottom: 20px;
-		font-size: larger;
 	}
 		
 	#back-button {
