@@ -222,9 +222,14 @@ html, body{
 }
 
 #content-window {
-	min-height: 500px;
 	padding-left: 20px;
 	padding-right: 20px;
+}
+
+@media only screen and (min-height: 640px) {
+	#content-window {
+		min-height: 500px;
+	}
 }
 
 #footer {
