@@ -1,5 +1,6 @@
 package com.wabradshaw.claptrap.generation
 
+import com.wabradshaw.claptrap.structure.Form
 import com.wabradshaw.claptrap.structure.JokeSpec
 import com.wabradshaw.claptrap.structure.PartOfSpeech
 import com.wabradshaw.claptrap.structure.Relationship
@@ -31,7 +32,14 @@ enum class SetupConstraintType(val function: (spec: JokeSpec, arg: String) -> Bo
     PRIMARY_RELATIONSHIP({spec, rel -> Relationship.valueOf(rel) == spec.primarySetup?.relationship}),
 
     /* Constrains what the relationship is between the secondary setup word and the nucleus substitute. */
-    SECONDARY_RELATIONSHIP({spec, rel -> Relationship.valueOf(rel) == spec.secondarySetup.relationship})
+    SECONDARY_RELATIONSHIP({spec, rel -> Relationship.valueOf(rel) == spec.secondarySetup.relationship}),
+
+    /* Constrains what the form of the nucleus must be. Assumes normal if unknown. */
+    NUCLEUS_FORM({spec, form -> Form.valueOf(form) == spec.nucleusWord?.form?:Form.NORMAL}),
+
+    /* Constrains what the form of the nucleus must not be. Assumes normal if unknown. */
+    NUCLEUS_FORM_NOT({spec, form -> Form.valueOf(form) != spec.nucleusWord?.form?:Form.NORMAL}),
+
 }
 
 /**

@@ -311,4 +311,117 @@ class SetupConstraintTest {
                 linguisticSubstitution)
         assertFalse(constraint.applies(spec))
     }
+
+    /**
+     * Tests the nucleus form constraint for UNCOUNT when looking for UNCOUNT
+     */
+    @Test
+    fun testNucleusForm_matches(){
+        val constraint = SetupConstraint(SetupConstraintType.NUCLEUS_FORM, "UNCOUNT")
+        val spec = JokeSpec("management",
+                Word("management","management",PartOfSpeech.NOUN,100.0, Form.UNCOUNT),
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                linguisticSubstitution)
+        assertTrue(constraint.applies(spec))
+    }
+
+    /**
+     * Tests the nucleus form constraint for PLURAL when looking for UNCOUNT
+     */
+    @Test
+    fun testNucleusForm_different(){
+        val constraint = SetupConstraint(SetupConstraintType.NUCLEUS_FORM, "UNCOUNT")
+        val spec = JokeSpec("cats",
+                Word("cats","cats",PartOfSpeech.NOUN,100.0, Form.PLURAL),
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                linguisticSubstitution)
+        assertFalse(constraint.applies(spec))
+    }
+
+    /**
+     * Tests the nucleus form constraint matches NORMAL if there is no nucleus word
+     */
+    @Test
+    fun testNucleusForm_noNucleus_normal(){
+        val constraint = SetupConstraint(SetupConstraintType.NUCLEUS_FORM, "NORMAL")
+        val spec = JokeSpec("tiger",
+                null,
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                linguisticSubstitution)
+        assertTrue(constraint.applies(spec))
+    }
+
+    /**
+     * Tests the nucleus form constraint doesn't match non-NORMAL constraints if there is no nucleus word
+     */
+    @Test
+    fun testNucleusForm_noNucleus_other(){
+        val constraint = SetupConstraint(SetupConstraintType.NUCLEUS_FORM, "UNCOUNT")
+        val spec = JokeSpec("tiger",
+                null,
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                linguisticSubstitution)
+        assertFalse(constraint.applies(spec))
+    }
+
+    /**
+     * Tests the nucleus form constraint for UNCOUNT when looking for UNCOUNT
+     */
+    @Test
+    fun testNucleusFormNot_matches(){
+        val constraint = SetupConstraint(SetupConstraintType.NUCLEUS_FORM, "UNCOUNT")
+        val spec = JokeSpec("management",
+                Word("management","management",PartOfSpeech.NOUN,100.0, Form.UNCOUNT),
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                linguisticSubstitution)
+        assertFalse(constraint.applies(spec))
+    }
+
+    /**
+     * Tests the nucleus form constraint for PLURAL when looking for UNCOUNT
+     */
+    @Test
+    fun testNucleusFormNot_different(){
+        val constraint = SetupConstraint(SetupConstraintType.NUCLEUS_FORM, "UNCOUNT")
+        val spec = JokeSpec("cats",
+                Word("cats","cats",PartOfSpeech.NOUN,100.0, Form.PLURAL),
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                linguisticSubstitution)
+        assertTrue(constraint.applies(spec))
+    }
+
+    /**
+     * Tests the nucleus form constraint matches NORMAL if there is no nucleus word
+     */
+    @Test
+    fun testNucleusFormNot_noNucleus_normal(){
+        val constraint = SetupConstraint(SetupConstraintType.NUCLEUS_FORM, "NORMAL")
+        val spec = JokeSpec("tiger",
+                null,
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                linguisticSubstitution)
+        assertFalse(constraint.applies(spec))
+    }
+
+    /**
+     * Tests the nucleus form constraint doesn't match non-NORMAL constraints if there is no nucleus word
+     */
+    @Test
+    fun testNucleusFormNot_noNucleus_other(){
+        val constraint = SetupConstraint(SetupConstraintType.NUCLEUS_FORM, "UNCOUNT")
+        val spec = JokeSpec("tiger",
+                null,
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                SemanticSubstitution(noun, noun, Relationship.IS_A),
+                linguisticSubstitution)
+        assertTrue(constraint.applies(spec))
+    }
+
 }
