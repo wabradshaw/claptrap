@@ -1,6 +1,7 @@
 package com.wabradshaw.claptrap.repositories.custom
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.wabradshaw.claptrap.structure.Form
 import com.wabradshaw.claptrap.structure.PartOfSpeech
 import com.wabradshaw.claptrap.structure.Word
 
@@ -8,6 +9,7 @@ class WordMappingDTO(val spelling: String,
                      val group: String,
                      val pos: String,
                      val adult: Boolean,
+                     @JsonProperty("form") val formString: String = "Normal",
                      val has: List<String> = emptyList(),
                      @JsonProperty("in") val inside: List<String> = emptyList(),
                      val on: List<String> = emptyList(),
@@ -29,7 +31,17 @@ class WordMappingDTO(val spelling: String,
         else -> PartOfSpeech.UNKNOWN
     }
 
+    private val form = when (formString){
+        "Normal" -> Form.NORMAL
+        "Plural" -> Form.PLURAL
+        "Uncount" -> Form.UNCOUNT
+        "Person" -> Form.PERSON
+        "Name" -> Form.PROPER_NOUN
+        "Unique" -> Form.UNIQUE
+        else -> Form.NORMAL
+    }
+
     fun toWord(): Word {
-        return Word(spelling, spelling, partOfSpeech, 100.0)
+        return Word(spelling, spelling, partOfSpeech, 100.0, form)
     }
 }
