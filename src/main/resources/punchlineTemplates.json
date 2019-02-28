@@ -1,0 +1,8 @@
+[
+  {"id": "normal01", "script": "$3!", "constraints": [{"type":"NUCLEUS_FORM", "arg":"NORMAL"}]},
+  {"id": "plural01", "script": "$3_noDet!", "constraints": [{"type":"NUCLEUS_FORM", "arg":"PLURAL"}]},
+  {"id": "uncount01", "script": "$3_noDet!", "constraints": [{"type":"NUCLEUS_FORM", "arg":"UNCOUNT"}]},
+  {"id": "proper01", "script": "$3_noDet!", "constraints": [{"type":"NUCLEUS_FORM", "arg":"PROPER_NOUN"}]},
+  {"id": "person01", "script": "$3_noDet!", "constraints": [{"type":"NUCLEUS_FORM", "arg":"PERSON"}]},
+  {"id": "unique01", "script": "The $3_noDet!", "constraints": [{"type":"NUCLEUS_FORM", "arg":"UNIQUE"}]}
+]

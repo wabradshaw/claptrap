@@ -5,16 +5,16 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 /**
- * A set of tests for the SetupTemplateLoader
+ * A set of tests for the PunchlineTemplateLoader
  */
-class SetupTemplateLoaderTest {
+class PunchlineTemplateLoaderTest {
 
     /**
      * Tests the template loader loading an empty array.
      */
     @Test
     fun testEmptyTemplates(){
-        val result = SetupTemplateLoader().load(object{}.javaClass.getResourceAsStream("/setup-templates/empty.json"))
+        val result = PunchlineTemplateLoader().load(object{}.javaClass.getResourceAsStream("/punchline-templates/empty.json"))
         assertEquals(0, result.size)
     }
 
@@ -23,10 +23,10 @@ class SetupTemplateLoaderTest {
      */
     @Test
     fun testSingleNoConstraints(){
-        val result = SetupTemplateLoader().load(object{}.javaClass.getResourceAsStream("/setup-templates/singleNoConstraints.json"))
+        val result = PunchlineTemplateLoader().load(object{}.javaClass.getResourceAsStream("/punchline-templates/singleNoConstraints.json"))
         assertEquals(1, result.size)
         assertEquals("has01", result[0].id)
-        assertEquals("What do you call a $1 with $2?", result[0].script)
+        assertEquals("$3!", result[0].script)
         assertEquals(0, result[0].constraints.size)
     }
 
@@ -35,10 +35,10 @@ class SetupTemplateLoaderTest {
      */
     @Test
     fun testSingleOneConstraint(){
-        val result = SetupTemplateLoader().load(object{}.javaClass.getResourceAsStream("/setup-templates/singleOneConstraint.json"))
+        val result = PunchlineTemplateLoader().load(object{}.javaClass.getResourceAsStream("/punchline-templates/singleOneConstraint.json"))
         assertEquals(1, result.size)
         assertEquals("has01", result[0].id)
-        assertEquals("What do you call a $1 with $2?", result[0].script)
+        assertEquals("$3!", result[0].script)
         assertEquals(1, result[0].constraints.size)
         assertEquals(TemplateConstraintType.SECONDARY_RELATIONSHIP, result[0].constraints[0].constraint)
         assertEquals("HAS_A", result[0].constraints[0].arg)
@@ -49,10 +49,10 @@ class SetupTemplateLoaderTest {
      */
     @Test
     fun testSingleMultipleConstraints(){
-        val result = SetupTemplateLoader().load(object{}.javaClass.getResourceAsStream("/setup-templates/singleMultipleConstraints.json"))
+        val result = PunchlineTemplateLoader().load(object{}.javaClass.getResourceAsStream("/punchline-templates/singleMultipleConstraints.json"))
         assertEquals(1, result.size)
         assertEquals("has01", result[0].id)
-        assertEquals("What do you call a $1 with $2?", result[0].script)
+        assertEquals("$3!", result[0].script)
         assertEquals(3, result[0].constraints.size)
     }
 
@@ -61,7 +61,7 @@ class SetupTemplateLoaderTest {
      */
     @Test
     fun testMultiple(){
-        val result = SetupTemplateLoader().load(object{}.javaClass.getResourceAsStream("/setup-templates/multiple.json"))
+        val result = PunchlineTemplateLoader().load(object{}.javaClass.getResourceAsStream("/punchline-templates/multiple.json"))
         assertEquals(3, result.size)
     }
 }

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "has01",
+    "script": "$3!",
+    "constraints": [
+      {
+        "type": "SECONDARY_RELATIONSHIP",
+        "arg": "HAS_A"
+      },
+      {
+        "type": "SECONDARY_POS",
+        "arg": "NOUN"
+      },
+      {
+        "type": "PRIMARY_KNOWN",
+        "arg": "false"
+      }
+    ]
+  }
+]

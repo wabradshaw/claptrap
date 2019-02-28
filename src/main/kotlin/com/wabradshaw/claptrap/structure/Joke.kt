@@ -6,9 +6,11 @@ package com.wabradshaw.claptrap.structure
  * @property setup The string starting the joke off.
  * @property punchline The part of the joke that's meant to be funny.
  * @property spec The specification that was used to create the joke. Primarily used when debugging.
- * @property setupTemplate The template used to generate the joke. Primarily used when debugging.
+ * @property setupTemplate The template used to generate the setup of the joke. Primarily used when debugging.
+ * @property punchlineTemplate The template used to generate the punchline of the joke. Primarily used when debugging.
  */
 data class Joke(val setup: String,
                 val punchline: String,
                 val spec: JokeSpec,
-                val setupTemplate: String);
+                val setupTemplate: String,
+                val punchlineTemplate: String);

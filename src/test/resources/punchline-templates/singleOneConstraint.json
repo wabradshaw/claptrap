@@ -1,0 +1,12 @@
+[
+  {
+    "id": "has01",
+    "script": "$3!",
+    "constraints": [
+      {
+        "type": "SECONDARY_RELATIONSHIP",
+        "arg": "HAS_A"
+      }
+    ]
+  }
+]

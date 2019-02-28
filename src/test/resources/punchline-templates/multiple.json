@@ -1,0 +1,5 @@
+[
+{"id": "has01", "script": "$3!", "constraints": [{"type":"SECONDARY_RELATIONSHIP", "arg":"HAS_A"}]},
+{"id": "in01", "script": "The $3_noDet!", "constraints": [{"type":"SECONDARY_RELATIONSHIP", "arg":"IN"}]},
+{"id": "on01", "script": "$3_noDet?", "constraints": [{"type":"SECONDARY_RELATIONSHIP", "arg":"ON"}]}
+]

@@ -10,7 +10,7 @@ import org.junit.jupiter.api.TestInstance;
  *
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class SetupTemplateTest {
+class PunchlineTemplateTest {
 
     val spec = JokeSpec(
             "catapult",
@@ -30,7 +30,7 @@ class SetupTemplateTest {
      */
     @Test
     fun testIsValid_noConstraints(){
-        val template = SetupTemplate("1", emptyList(),"Irrelevant.")
+        val template = PunchlineTemplate("1", emptyList(),"Irrelevant.")
         assertTrue(template.isValid(spec))
     }
 
@@ -39,9 +39,9 @@ class SetupTemplateTest {
      */
     @Test
     fun testIsValid_oneConstraint_valid(){
-        val template = SetupTemplate("1",
-                                     listOf(TemplateConstraint(TemplateConstraintType.SECONDARY_POS, "NOUN")),
-                                     "Irrelevant.")
+        val template = PunchlineTemplate("1",
+                                         listOf(TemplateConstraint(TemplateConstraintType.SECONDARY_POS, "NOUN")),
+                                         "Irrelevant.")
         assertTrue(template.isValid(spec))
     }
 
@@ -50,9 +50,9 @@ class SetupTemplateTest {
      */
     @Test
     fun testIsValid_oneConstraint_invalid(){
-        val template = SetupTemplate("1",
-                listOf(TemplateConstraint(TemplateConstraintType.SECONDARY_POS, "VERB")),
-                "Irrelevant.")
+        val template = PunchlineTemplate("1",
+                                         listOf(TemplateConstraint(TemplateConstraintType.SECONDARY_POS, "VERB")),
+                                         "Irrelevant.")
         assertFalse(template.isValid(spec))
     }
 
@@ -61,7 +61,7 @@ class SetupTemplateTest {
      */
     @Test
     fun testIsValid_multipleConstraints_valid(){
-        val template = SetupTemplate("1",
+        val template = PunchlineTemplate("1",
                 listOf(TemplateConstraint(TemplateConstraintType.SECONDARY_POS, "NOUN"),
                        TemplateConstraint(TemplateConstraintType.NUCLEUS_KNOWN, "false"),
                        TemplateConstraint(TemplateConstraintType.SECONDARY_RELATIONSHIP, "HAS_A")),
@@ -74,7 +74,7 @@ class SetupTemplateTest {
      */
     @Test
     fun testIsValid_multipleConstraints_invalid(){
-        val template = SetupTemplate("1",
+        val template = PunchlineTemplate("1",
                 listOf(TemplateConstraint(TemplateConstraintType.SECONDARY_POS, "NOUN"),
                         TemplateConstraint(TemplateConstraintType.NUCLEUS_KNOWN, "true"),
                         TemplateConstraint(TemplateConstraintType.SECONDARY_RELATIONSHIP, "HAS_A")),
@@ -87,61 +87,44 @@ class SetupTemplateTest {
      */
     @Test
     fun testApply_noPlaceholders(){
-        val template = SetupTemplate("1", emptyList(),"This won't be changed.")
-        assertEquals("This won't be changed.", template.apply("who", "cares", determinerManager))
+        val template = PunchlineTemplate("1", emptyList(),"This won't be changed.")
+        assertEquals("This won't be changed.", template.apply("who cares", determinerManager))
     }
 
     /**
      * Tests a script for a typical joke.
      */
     @Test
-    fun testApply_typicalJoke(){
-        val template = SetupTemplate("1", emptyList(),"What type of $PRIMARY_PLACEHOLDER$NO_DETERMINER has $SECONDARY_PLACEHOLDER?")
-        assertEquals("What type of catapult has a brim?", template.apply("a catapult", "a brim", determinerManager))
+    fun testApply_joke(){
+        val template = PunchlineTemplate("1", emptyList(),"It's $PUN_PLACEHOLDER!")
+        assertEquals("It's a fire-at!", template.apply("a fire-at", determinerManager))
     }
 
     /**
-     * Tests that the template can be capitalised.
+     * Tests a script that removes a determiner.
      */
     @Test
-    fun testApply_capitalises(){
-        val template = SetupTemplate("1", emptyList(),"a b c")
-        assertEquals("A b c", template.apply("unused", "unused", determinerManager))
+    fun testApply_removeDet(){
+        val template = PunchlineTemplate("1", emptyList(),"The $PUN_PLACEHOLDER$NO_DETERMINER!")
+        assertEquals("The moon!", template.apply("a moon", determinerManager))
     }
 
     /**
-     * Tests that the primary placeholder can be used
+     * Tests a script will capitalise the first character.
      */
     @Test
-    fun testApply_primaryReplaced(){
-        val template = SetupTemplate("1", emptyList(),"a b c $PRIMARY_PLACEHOLDER c")
-        assertEquals("A b c a b c", template.apply("a b", "cares", determinerManager))
+    fun testApply_capitalise_start(){
+        val template = PunchlineTemplate("1", emptyList(),"$PUN_PLACEHOLDER!")
+        assertEquals("A fire-at!", template.apply("a fire-at", determinerManager))
     }
 
     /**
-     * Tests that the secondary placeholder can be used
+     * Tests a script will capitalise the first character, even if a determiner was removed.
      */
     @Test
-    fun testApply_secondaryReplaced(){
-        val template = SetupTemplate("1", emptyList(),"a b c $SECONDARY_PLACEHOLDER c")
-        assertEquals("A b c a b c", template.apply("unused", "a b", determinerManager))
+    fun testApply_capitalise_removeDet(){
+        val template = PunchlineTemplate("1", emptyList(),"$PUN_PLACEHOLDER$NO_DETERMINER!")
+        assertEquals("Fire-at!", template.apply("a fire-at", determinerManager))
     }
 
-    /**
-     * Tests that the primary placeholder can be used in combination with the no-determiner marker.
-     */
-    @Test
-    fun testApply_primaryReplacedNoDet(){
-        val template = SetupTemplate("1", emptyList(),"a b c a $PRIMARY_PLACEHOLDER$NO_DETERMINER c")
-        assertEquals("A b c a b c", template.apply("a b", "cares", determinerManager))
-    }
-
-    /**
-     * Tests that the secondary placeholder can be used in combination with the no-determiner marker.
-     */
-    @Test
-    fun testApply_secondaryReplacedNoDet(){
-        val template = SetupTemplate("1", emptyList(),"a b c a $SECONDARY_PLACEHOLDER$NO_DETERMINER c")
-        assertEquals("A b c a b c", template.apply("unused", "a b", determinerManager))
-    }
 }
