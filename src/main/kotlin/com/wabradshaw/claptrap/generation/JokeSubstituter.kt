@@ -20,7 +20,7 @@ class JokeSubstituter {
      *
      * The substituter will attempt to match the capitalisation of the original string as much as possible. If the
      * replaced segment of the original string would be capitalised (init-caps or all caps), the substitution will be
-     * likewise. If the substitution is already capitalised,
+     * likewise. If the substitution is capitalised, but the original isn't, the substitute will stay capitalised.
      *
      * E.g.
      * linguistically substituting "lot" for "yacht"
