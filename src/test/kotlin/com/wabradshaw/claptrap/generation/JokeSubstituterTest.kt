@@ -79,6 +79,104 @@ class JokeSubstituterTest {
     }
 
     /**
+     * Tests that a substitution which can be done at the start of multiple words will use the start of the first.
+     */
+    @Test
+    fun testTwoWords_startStart() {
+        val result = JokeSubstituter().createJokeWord(testSpec("abc1 abc2","abc", "def"))
+        assertEquals("def-1 abc2", result)
+    }
+
+    /**
+     * Tests that a substitution which can be done in the middle of one word or the start of the next will use the start
+     * of the second.
+     */
+    @Test
+    fun testTwoWords_middleStart() {
+        val result = JokeSubstituter().createJokeWord(testSpec("1abc1 abc2","abc", "def"))
+        assertEquals("1abc1 def-2", result)
+    }
+
+    /**
+     * Tests that a substitution which can be done at the end of one word or the start of the next will use the start
+     * of the second.
+     */
+    @Test
+    fun testTwoWords_endStart() {
+        val result = JokeSubstituter().createJokeWord(testSpec("1abc abc2","abc", "def"))
+        assertEquals("1abc def-2", result)
+    }
+
+    /**
+     * Tests that a substitution which can be done at the start of one word or the middle of the next will use the
+     * start of the first.
+     */
+    @Test
+    fun testTwoWords_startMiddle() {
+        val result = JokeSubstituter().createJokeWord(testSpec("abc1 2abc2","abc", "def"))
+        assertEquals("def-1 2abc2", result)
+    }
+
+    /**
+     * Tests that a substitution which can be done in the middle of multiple words will use the middle of the first.
+     */
+    @Test
+    fun testTwoWords_middleMiddle() {
+        val result = JokeSubstituter().createJokeWord(testSpec("1abc1 2abc2","abc", "def"))
+        assertEquals("1-def-1 2abc2", result)
+    }
+
+    /**
+     * Tests that a substitution which can be done at the end of one word or the middle of the next will use the end
+     * of the first.
+     */
+    @Test
+    fun testTwoWords_endMiddle() {
+        val result = JokeSubstituter().createJokeWord(testSpec("1abc 2abc2","abc", "def"))
+        assertEquals("1-def 2abc2", result)
+    }
+
+    /**
+     * Tests that a substitution which can be done at the start of one word or the end of the next will use the
+     * start of the first.
+     */
+    @Test
+    fun testTwoWords_startEnd() {
+        val result = JokeSubstituter().createJokeWord(testSpec("abc1 2abc","abc", "def"))
+        assertEquals("def-1 2abc", result)
+    }
+
+    /**
+     * Tests that a substitution which can be done in the middle of one word or the end of the next will use the end
+     * of the second.
+     */
+    @Test
+    fun testTwoWords_middleEnd() {
+        val result = JokeSubstituter().createJokeWord(testSpec("1abc1 2abc","abc", "def"))
+        assertEquals("1abc1 2-def", result)
+    }
+
+    /**
+     * Tests that a substitution which can be done at the end of one word or the middle of the next will use the end
+     * of the first.
+     */
+    @Test
+    fun testTwoWords_endEnd() {
+        val result = JokeSubstituter().createJokeWord(testSpec("1abc 2abc","abc", "def"))
+        assertEquals("1-def 2abc", result)
+    }
+
+    /**
+     * Tests that a substitution which can be done at the end of one word or the middle of the next will use the end
+     * of the first.
+     */
+    @Test
+    fun testManyWords_firstValidStart() {
+        val result = JokeSubstituter().createJokeWord(testSpec("xyz nabc abc abc","abc", "def"))
+        assertEquals("xyz nabc def abc", result)
+    }
+
+    /**
      * Tests that a substitution next to an existing hyphen won't lead to double hyphens.
      */
     @Test
