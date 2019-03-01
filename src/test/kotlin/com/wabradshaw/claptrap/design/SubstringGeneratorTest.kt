@@ -82,4 +82,54 @@ class SubstringGeneratorTest {
         val result = generator.getSubstrings("abcdefgh")
         assertEquals(emptyList<String>(), result)
     }
+
+    /**
+     * Tests that two words will be split and substrings returned from both.
+     */
+    @Test
+    fun testTwoWords(){
+        val generator = SubstringGenerator(maxLength = 4, minLength = 3)
+        val result = generator.getSubstrings("abcdefgh ijklmnopqrst")
+        assertEquals(listOf("abcd","ijkl","efgh","qrst","abc","ijk","fgh","rst"), result)
+    }
+
+    /**
+     * Tests that many words will be split and substrings returned from each.
+     */
+    @Test
+    fun testManyWords(){
+        val generator = SubstringGenerator(maxLength = 3, minLength = 2)
+        val result = generator.getSubstrings("abcdefg ijklmn opqrst uvwxyz")
+        assertEquals(listOf("abc","ijk","opq","uvw","efg","lmn","rst","xyz","ab","ij","op","uv","fg","mn","st", "yz"), result)
+    }
+
+    /**
+     * Tests that it can handle multiple words, where a word is shorter than the max.
+     */
+    @Test
+    fun testShortEnd(){
+        val generator = SubstringGenerator(maxLength = 4, minLength = 2)
+        val result = generator.getSubstrings("abcdefgh ijk")
+        assertEquals(listOf("abcd", "efgh", "abc", "ijk", "fgh", "ab", "ij", "gh", "jk"), result)
+    }
+
+    /**
+     * Tests that it can handle multiple words, where the first word is shorter than the max.
+     */
+    @Test
+    fun testShortStart(){
+        val generator = SubstringGenerator(maxLength = 4, minLength = 2)
+        val result = generator.getSubstrings("abc ijklmn")
+        assertEquals(listOf("ijkl", "klmn", "abc", "ijk", "lmn", "ab", "ij", "bc", "mn"), result)
+    }
+
+    /**
+     * Tests that duplicates between two words will be ignored.
+     */
+    @Test
+    fun testTwoWords_duplicates(){
+        val generator = SubstringGenerator(maxLength = 3, minLength = 3)
+        val result = generator.getSubstrings("cable cabbage")
+        assertEquals(listOf("cab", "ble", "age"), result)
+    }
 }
