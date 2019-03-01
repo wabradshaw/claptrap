@@ -33,7 +33,7 @@ import java.util.*
  * @param validRelationships A list of the semantic relationships that can be used in jokes. Defaults to all of those
  *                           included in the default json.
  */
-class JsonRepository(jsonSource: InputStream = object{}.javaClass.getResourceAsStream("/customDictionary.json"),
+class JsonRepository(jsonSource: InputStream = object{}.javaClass.getResourceAsStream("/substitutionDictionary.json"),
                      private val showAdult: Boolean = true,
                      private val validRelationships: List<Relationship>
                        = listOf(Relationship.HAS_A, Relationship.IN, Relationship.ON, Relationship.FROM,
