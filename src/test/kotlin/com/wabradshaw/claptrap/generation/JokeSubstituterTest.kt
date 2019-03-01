@@ -222,29 +222,67 @@ class JokeSubstituterTest {
     }
 
     /**
-     * Tests that a substitution isn't case sensitive at the start.
+     * Tests that a substitution at the start will match init-caps.
      */
     @Test
-    fun testIgnoreCase_start(){
+    fun testMatchCaps_start(){
         val result = JokeSubstituter().createJokeWord(testSpec("Donald Trump","don", "con"))
-        assertEquals("con-ald Trump", result)
+        assertEquals("Con-ald Trump", result)
     }
 
     /**
-     * Tests that a substitution isn't case sensitive at the end.
+     * Tests that a substitution in the middle will match init-caps.
      */
     @Test
-    fun testIgnoreCase_end(){
-        val result = JokeSubstituter().createJokeWord(testSpec("parrot","rot", "Scot"))
-        assertEquals("par-Scot", result)
+    fun testMatchCaps_middle(){
+        val result = JokeSubstituter().createJokeWord(testSpec("Harry Potter","pot", "rot"))
+        assertEquals("Harry Rot-ter", result)
     }
 
     /**
-     * Tests that a substitution isn't case sensitive in the middle.
+     * Tests that a substitution at the end will match init-caps.
      */
     @Test
-    fun testIgnoreCase_middle(){
-        val result = JokeSubstituter().createJokeWord(testSpec("Harry Potter","pot", "Scot"))
-        assertEquals("Harry Scot-ter", result)
+    fun testMatchCaps_end(){
+        val result = JokeSubstituter().createJokeWord(testSpec("iPad","pad", "fad"))
+        assertEquals("i-Fad", result)
     }
+
+    /**
+     * Tests that a substitution at the start will match all-caps.
+     */
+    @Test
+    fun testMatchAllCaps_start(){
+        val result = JokeSubstituter().createJokeWord(testSpec("DONALD TRUMP","don", "con"))
+        assertEquals("CON-ALD TRUMP", result)
+    }
+
+    /**
+     * Tests that a substitution in the middle will match all-caps.
+     */
+    @Test
+    fun testMatchAllCaps_middle(){
+        val result = JokeSubstituter().createJokeWord(testSpec("HARRY POTTER","pot", "rot"))
+        assertEquals("HARRY ROT-TER", result)
+    }
+
+    /**
+     * Tests that a substitution at the end will match all-caps.
+     */
+    @Test
+    fun testMatchAllCaps_end(){
+        val result = JokeSubstituter().createJokeWord(testSpec("IPAD","pad", "fad"))
+        assertEquals("I-FAD", result)
+    }
+
+    /**
+     * Tests that a substitution capital matching only needs the replaced segment to be capitalised for the match.
+     */
+    @Test
+    fun testMatchOnlySegment(){
+        val result = JokeSubstituter().createJokeWord(testSpec("DONald trump","don", "con"))
+        assertEquals("CON-ald trump", result)
+    }
+
+
 }
