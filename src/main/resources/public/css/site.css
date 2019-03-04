@@ -656,18 +656,18 @@ select.card.editable {
 	}
 }
 
-/* About Page */
+/* Text Pages */
 
-#about > .card {
+.text-page > .card {
 	font-size: 16px;
 }
 
 @media only screen and (min-width: 800px) {
-	#about > .card:nth-child(odd) {
+	.text-page > .card:nth-child(odd) {
 		margin-left: 50px;
 	}	
 
-	#about > .card:nth-child(even) {
+	.text-page > .card:nth-child(even) {
 		margin-right: 50px;
 	}
 }
