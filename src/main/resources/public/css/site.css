@@ -407,6 +407,67 @@ html, body{
 	}
 }
 
+.share-buttons {
+	justify-content: space-between;
+    padding-top: 10px;
+	display: flex;
+}
+
+.share-buttons .button {
+    background-color: none;
+    border: 0px solid black;
+	color: white;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.share-buttons img {
+	border: 0;
+	box-shadow: 0;
+	display: inline;
+}
+
+#fb {
+	background-color: #3B5998;
+}
+
+#fb:hover,
+#fb:focus,
+#fb:active {
+	background-color: #869ECC;
+}
+
+#twitter {
+	background-color: #1DA1F2;
+}
+
+#twitter:hover,
+#twitter:focus,
+#twitter:active {
+	background-color: #73C4F4;
+}
+
+#reddit {
+	background-color: #FF4500;
+}
+
+#reddit:hover,
+#reddit:focus,
+#reddit:active {
+	background-color: #FF8E64;
+}
+
+#email {
+	background-color: #787878;
+}
+
+#email:hover,
+#email:focus,
+#email:active {
+	background-color: #A4A4A4;
+}
+
+
 /* Explanation View */
 
 #explanation-descriptor {
