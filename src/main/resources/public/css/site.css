@@ -258,12 +258,13 @@ html, body{
 }
 
 #cc {
-    font-size: x-small;
+    font-size: small;
     color: #ee2222;
     margin-left: auto;
     margin-top: auto;
     margin-right: 5px;
     margin-bottom: 5px;
+	text-decoration: none;
 }
 
 .title-s {
