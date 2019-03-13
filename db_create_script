@@ -10,8 +10,8 @@ CREATE TABLE `JokeRatings` (
  	`secondarySetup` VARCHAR(64) NOT NULL,
  	`linguisticOriginal` VARCHAR(16) NOT NULL,
  	`linguisticReplacement` VARCHAR(16) NOT NULL,
- 	`primaryRelationship` VARCHAR(16) NOT NULL,
- 	`secondaryRelationship` VARCHAR(16) NOT NULL,
+ 	`primaryRelationship` VARCHAR(32) NOT NULL,
+ 	`secondaryRelationship` VARCHAR(32) NOT NULL,
  	PRIMARY KEY (`token`, `setup`, `punchline`)
  );
 
@@ -19,7 +19,7 @@ CREATE TABLE `JokeRatings` (
   	`token` VARCHAR(32) NOT NULL,
  	`original` VARCHAR(64) NOT NULL,
  	`substitution` VARCHAR(64) NOT NULL,
- 	`relationship` VARCHAR(16) NOT NULL,
+ 	`relationship` VARCHAR(32) NOT NULL,
  	`position` VARCHAR(16) NOT NULL,
  	`wrong` BOOLEAN NOT NULL,
  	PRIMARY KEY (`token`, `original`, `substitution`, `relationship`, `position`)
@@ -35,13 +35,13 @@ CREATE TABLE `JokeRatings` (
   	`oldTemplate` VARCHAR(12) NOT NULL,
   	`oldPrimarySetup` VARCHAR(64) NOT NULL,
   	`oldSecondarySetup` VARCHAR(64) NOT NULL,
-  	`oldPrimaryRelationship` VARCHAR(16) NOT NULL,
-  	`oldSecondaryRelationship` VARCHAR(16) NOT NULL,
+  	`oldPrimaryRelationship` VARCHAR(32) NOT NULL,
+  	`oldSecondaryRelationship` VARCHAR(32) NOT NULL,
     `newSetup` VARCHAR(128) NOT NULL,
     `newPunchline` VARCHAR(32) NOT NULL,
     `newTemplate` VARCHAR(12) NOT NULL,
     `newPrimarySetup` VARCHAR(64) NOT NULL,
     `newSecondarySetup` VARCHAR(64) NOT NULL,
-    `newPrimaryRelationship` VARCHAR(16) NOT NULL,
-    `newSecondaryRelationship` VARCHAR(16) NOT NULL
+    `newPrimaryRelationship` VARCHAR(32) NOT NULL,
+    `newSecondaryRelationship` VARCHAR(32) NOT NULL
   );
