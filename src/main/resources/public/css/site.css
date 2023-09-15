@@ -438,16 +438,6 @@ html, body{
 	background-color: #869ECC;
 }
 
-#twitter {
-	background-color: #1DA1F2;
-}
-
-#twitter:hover,
-#twitter:focus,
-#twitter:active {
-	background-color: #73C4F4;
-}
-
 #reddit {
 	background-color: #FF4500;
 }

@@ -15,7 +15,7 @@ enum class Form {
     /* A word that isn't typically countable. This means it can't be described as 'a'. E.g. "management", "tennis" */
     UNCOUNT,
 
-    /* A proper noun for a thing or place. E.g. "London", "Twitter" */
+    /* A proper noun for a thing or place. E.g. "London", "Microsoft" */
     PROPER_NOUN,
 
     /* The name of a person. E.g. "Nikola Tesla", "Batman" */
