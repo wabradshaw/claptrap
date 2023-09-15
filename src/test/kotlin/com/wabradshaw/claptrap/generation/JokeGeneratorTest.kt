@@ -109,7 +109,7 @@ class JokeGeneratorTest {
         for(i in 1..100){
             val result = generator.generateJoke(spec)
             results.add(result.setup)
-            assertEquals(result.setupTemplate, result.setup.substring(0,1).toLowerCase())
+            assertEquals(result.setupTemplate, result.setup.substring(0,1).lowercase())
         }
         assertEquals(2, results.size)
         assertTrue(results.contains("A a center spew"))
@@ -130,7 +130,7 @@ class JokeGeneratorTest {
         for(i in 1..100){
             val result = generator.generateJoke(spec)
             results.add(result.punchline)
-            assertEquals(result.punchlineTemplate, result.punchline.substring(0,1).toLowerCase())
+            assertEquals(result.punchlineTemplate, result.punchline.substring(0,1).lowercase())
         }
         assertEquals(2, results.size)
         assertTrue(results.contains("Z a puke-leus"))
@@ -151,7 +151,7 @@ class JokeGeneratorTest {
         for(i in 1..100){
             val result = generator.generateJoke(spec)
             results.add(result.setup)
-            assertEquals(result.setupTemplate, result.setup.substring(0,1).toLowerCase())
+            assertEquals(result.setupTemplate, result.setup.substring(0,1).lowercase())
         }
         assertEquals(2, results.size)
         assertTrue(results.contains("A a center spew"))
@@ -172,7 +172,7 @@ class JokeGeneratorTest {
         for(i in 1..100){
             val result = generator.generateJoke(spec)
             results.add(result.punchline)
-            assertEquals(result.punchlineTemplate, result.punchline.substring(0,1).toLowerCase())
+            assertEquals(result.punchlineTemplate, result.punchline.substring(0,1).lowercase())
         }
         assertEquals(2, results.size)
         assertTrue(results.contains("Z a puke-leus"))

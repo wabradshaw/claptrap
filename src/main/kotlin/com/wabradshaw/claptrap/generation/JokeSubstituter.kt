@@ -63,7 +63,7 @@ class JokeSubstituter {
         val match = pattern.toRegex(RegexOption.IGNORE_CASE).find(base)
         return if(match != null){
             val casedSubstitute = when {
-                match.value.all { c -> c.isUpperCase() } -> substitute.toUpperCase()
+                match.value.all { c -> c.isUpperCase() } -> substitute.uppercase()
                 match.value.first().isUpperCase() -> substitute.capitalize()
                 else -> substitute
             }

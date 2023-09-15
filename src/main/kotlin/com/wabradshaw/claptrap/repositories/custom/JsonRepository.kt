@@ -43,22 +43,22 @@ class JsonRepository(jsonSource: InputStream = object{}.javaClass.getResourceAsS
     : DictionaryRepository, SemanticRepository, LinguisticRepository, NucleusRepository {
 
     private val allWords = jacksonObjectMapper().readValue<List<WordMappingDTO>>(jsonSource).filter{showAdult || !it.adult}
-    private val wordMap = allWords.associateBy {it.spelling.toLowerCase()}
+    private val wordMap = allWords.associateBy {it.spelling.lowercase()}
     private val groupMap = allWords.groupBy { word -> word.group }
     private val rng = Random()
 
     override fun getWord(string: String): Word? {
-        return wordMap[string.toLowerCase()]?.toWord()
+        return wordMap[string.lowercase()]?.toWord()
     }
 
     override fun getLinguisticSubs(word: Word): List<LinguisticSubstitution> {
-        val allSubs = groupMap.getOrDefault(wordMap[word.spelling.toLowerCase()]?.group, emptyList())
+        val allSubs = groupMap.getOrDefault(wordMap[word.spelling.lowercase()]?.group, emptyList())
         return allSubs.filterNot{it.spelling.equals(word.spelling, true)}
                       .map{ LinguisticSubstitution(it.toWord(), word, LinguisticSimilarity.RHYME) }
     }
 
     override fun getSemanticSubs(word: Word): List<SemanticSubstitution> {
-        val detailedWord = wordMap[word.spelling.toLowerCase()]
+        val detailedWord = wordMap[word.spelling.lowercase()]
         return when(detailedWord == null){
             true -> emptyList()
             false -> validRelationships.flatMap{relationship -> getRelationship(word, detailedWord, relationship)}
